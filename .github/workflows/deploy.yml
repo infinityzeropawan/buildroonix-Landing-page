@@ -31,7 +31,7 @@ jobs:
             npm install --production --silent
 
             echo "♻️  Reloading PM2 process..."
-            pm2 reload ecosystem.config.js --update-env || pm2 start ecosystem.config.js
+            pm2 reload ecosystem.config.js --update-env || pm2 start ecosystem.config.js --env production
 
             echo "✅ buildroonix.com deployed successfully!"
             pm2 status buildroonix-landing
