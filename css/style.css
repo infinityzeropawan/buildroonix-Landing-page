@@ -5,32 +5,32 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap');
 
-/* ── DESIGN TOKENS ──────────────────────────────────────────── */
+/* ── DESIGN TOKENS — 50/50 ROYAL CHAMPAGNE & PLATINUM MID-TONE ── */
 :root {
-  /* Palette — warm editorial */
-  --paper:       #f3f0e8;
-  --paper-dark:  #e5dfd2;
-  --ink:         #1c2120;
-  --ink-2:       #3a4240;
-  --muted:       #68706a;
-  --dim:         #9ba5a0;
-  --sage:        #4d6358;
-  --terracotta:  #c86d4b;
-  --soft-blue:   #3a7d91;
-  --green:       #3d8b40;
-  --orange:      #c86d4b;
-  --white:       #fffdf8;
-  --line:        #d3cec3;
+  /* Palette — 50/50 Royal Mid-Tone (Warm Champagne & Platinum) */
+  --paper:       #e2ded4;  /* Rich Royal Warm Champagne Mid-Tone */
+  --paper-dark:  #d4cebf;  /* Royal Platinum Warm Slate */
+  --ink:         #151b18;  /* Deep Royal Charcoal Ink (High Contrast) */
+  --ink-2:       #2d3632;  /* Rich Deep Charcoal */
+  --muted:       #54605b;  /* Sophisticated Warm Body Grey */
+  --dim:         #7a8781;  /* Subtle Meta Grey */
+  --sage:        #255d49;  /* Deep Royal Emerald */
+  --terracotta:  #b86a28;  /* Royal Metallic Gold-Amber */
+  --soft-blue:   #236b85;  /* Deep Royal Sapphire */
+  --green:       #2b7a2e;
+  --orange:      #c25816;
+  --white:       #f2ede4;  /* Luminous Royal Champagne Porcelain Card Surface */
+  --line:        rgba(21, 27, 24, 0.15);
 
-  /* Brand accent colors (from animation code - used for borders/highlights) */
-  --accent-green:  #68f36b;
-  --accent-blue:   #26a9ff;
-  --accent-orange: #ff7212;
+  /* Brand accent colors */
+  --accent-green:  #38c83c;
+  --accent-blue:   #1b8dd8;
+  --accent-orange: #e65a00;
 
-  /* Dark footer */
-  --footer-bg: #131a18;
-  --footer-text: #f2f0ec;
-  --footer-muted: rgba(242,240,236,0.55);
+  /* Premium Footer */
+  --footer-bg: #0f1412;
+  --footer-text: #f4f1ea;
+  --footer-muted: rgba(244, 241, 234, 0.65);
 
   /* Type */
   --f-head: 'Syne', sans-serif;
@@ -48,9 +48,9 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Surfaces */
-  --surface:    #fffdf8;
-  --border:     rgba(28,33,32,0.12);
-  --border-md:  rgba(28,33,32,0.18);
+  --surface:    #f2ede4;
+  --border:     rgba(184, 106, 40, 0.22);
+  --border-md:  rgba(21, 27, 24, 0.18);
 }
 
 /* ── RESET ──────────────────────────────────────────────────── */
@@ -108,9 +108,10 @@ img, video { display: block; max-width: 100%; }
 /* ── HEADER ─────────────────────────────────────────────────── */
 .site-header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(243,240,232,0.92);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--line);
+  background: rgba(226, 222, 212, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(21, 27, 24, 0.12);
   height: 68px;
 }
 
@@ -157,13 +158,15 @@ img, video { display: block; max-width: 100%; }
 
 .header-cta {
   padding: 10px 20px;
-  background: var(--ink); color: var(--white);
-  font-size: 13px; font-weight: 600; letter-spacing: 0.02em;
+  background: var(--ink);
+  color: #f2ede4;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
   border-radius: var(--r-pill);
-  transition: background 0.2s var(--ease), transform 0.2s;
+  transition: all 0.25s var(--ease);
+  box-shadow: 0 4px 14px rgba(21, 27, 24, 0.2);
   white-space: nowrap;
 }
-.header-cta:hover { background: var(--terracotta); transform: translateY(-1px); }
+.header-cta:hover { background: var(--terracotta); transform: translateY(-1.5px); color: #fff; }
 
 /* Hamburger */
 .hamburger-btn {
@@ -261,28 +264,29 @@ img, video { display: block; max-width: 100%; }
 .btn-primary {
   display: inline-flex; align-items: center;
   padding: 14px 26px;
-  background: var(--ink); color: var(--white);
-  font-family: var(--f-body); font-size: 15px; font-weight: 600;
+  background: var(--ink); color: #f2ede4;
+  font-family: var(--f-body); font-size: 15px; font-weight: 700;
   border-radius: var(--r-pill);
   transition: all 0.25s var(--ease);
-  box-shadow: 0 2px 12px rgba(28,33,32,0.15);
+  box-shadow: 0 4px 18px rgba(21, 27, 24, 0.2);
 }
 .btn-primary:hover {
-  background: var(--terracotta);
+  background: var(--terracotta); color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(200,109,75,0.3);
+  box-shadow: 0 8px 26px rgba(184, 106, 40, 0.35);
 }
 
 .btn-ghost {
   display: inline-flex; align-items: center;
   padding: 13px 24px; color: var(--ink-2);
-  font-size: 15px; font-weight: 500;
-  border: 1.5px solid var(--border-md);
+  font-size: 15px; font-weight: 600;
+  border: 1.5px solid rgba(21, 27, 24, 0.2);
   border-radius: var(--r-pill);
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
   transition: all 0.25s var(--ease);
 }
-.btn-ghost:hover { border-color: var(--terracotta); color: var(--terracotta); }
+.btn-ghost:hover { border-color: var(--terracotta); color: var(--terracotta); background: rgba(184, 106, 40, 0.08); }
 
 /* Audience chips */
 .hero-audience-chips {
@@ -296,12 +300,12 @@ img, video { display: block; max-width: 100%; }
   padding: 5px 12px;
   border-radius: var(--r-pill);
   font-size: 12px; font-weight: 500;
-  border: 1.5px solid var(--line);
-  color: var(--muted);
-  background: var(--surface);
+  border: 1px solid rgba(21, 27, 24, 0.15);
+  color: var(--ink-2);
+  background: rgba(255, 255, 255, 0.45);
   transition: all 0.2s var(--ease);
 }
-.aud-chip:hover { border-color: var(--terracotta); color: var(--terracotta); background: rgba(200,109,75,0.06); }
+.aud-chip:hover { border-color: var(--terracotta); color: var(--terracotta); background: rgba(184, 106, 40, 0.08); }
 
 /* Trust bar */
 .trust-bar {
