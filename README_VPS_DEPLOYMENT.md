@@ -92,9 +92,27 @@ sudo certbot --nginx -d buildroonix.com -d www.buildroonix.com
 
 ---
 
-## 🔄 Updating the Site (1-Click Deployment)
+## 🤖 Automatic CI/CD Deployment with GitHub Actions
 
-Whenever you push new changes to GitHub, update your VPS with one command:
+We have configured a GitHub Actions workflow (`.github/workflows/deploy.yml`) that automatically deploys to your VPS every time you push code to `main`.
+
+### To activate Automatic Deployment on GitHub:
+1. Go to your GitHub Repository: **Settings** -> **Secrets and variables** -> **Actions** -> **New repository secret**.
+2. Add the following 3 Secrets:
+
+| Secret Name | Value | Example |
+| :--- | :--- | :--- |
+| `VPS_HOST` | Your VPS Public IP Address | `185.220.101.4` |
+| `VPS_USERNAME` | SSH User | `root` |
+| `VPS_SSH_KEY` | SSH Private Key contents (`cat ~/.ssh/id_rsa`) | `-----BEGIN OPENSSH PRIVATE KEY-----...` |
+
+Once these 3 secrets are added, every `git push` to `main` will automatically build & restart your site on `buildroonix.com` within 10 seconds!
+
+---
+
+## 🔄 Updating the Site Manually (1-Click Deployment)
+
+Whenever you push new changes to GitHub, you can also update your VPS manually with one command:
 ```bash
 cd /var/www/buildroonix && ./deploy.sh
 ```
