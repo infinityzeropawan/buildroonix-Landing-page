@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buildroonix — Dedicated Admin Portal</title>
+  
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background: var(--bg-dark);
+    }
+    .admin-page-box {
+      max-width: 980px;
+      margin: 40px auto;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-card);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+      overflow: hidden;
+    }
+    .admin-page-header {
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--card-border);
+      background: var(--panel-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .admin-page-header h2 {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      color: var(--text-main);
+    }
+    .admin-page-body {
+      padding: 32px;
+    }
+    .admin-login-card {
+      max-width: 440px;
+      margin: 40px auto;
+      padding: 36px;
+      background: var(--panel-dark);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-card);
+      text-align: center;
+    }
+    .admin-login-card h3 {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .admin-login-card p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .field {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+    .field label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      background: var(--bg-dark);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 14px;
+    }
+    .field textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+    .file-dropzone {
+      border: 2px dashed var(--card-border);
+      border-radius: 8px;
+      padding: 18px;
+      text-align: center;
+      background: rgba(255,255,255,0.02);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--cyan);
+      margin-top: 8px;
+      transition: all 0.25s ease;
+    }
+    .file-dropzone:hover {
+      border-color: var(--cyan);
+      background: rgba(0,242,254,0.05);
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 15px;
+      background: var(--cyan);
+      color: #05070a;
+      font-weight: bold;
+      border: 0;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.25s ease;
+      box-shadow: 0 6px 20px rgba(0,242,254,0.3);
+    }
+    .btn-submit:hover {
+      background: #39f5ff;
+      transform: translateY(-2px);
+    }
+    .admin-tabs {
+      display: flex;
+      gap: 12px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+    }
+    .tab-btn {
+      padding: 10px 18px;
+      border-radius: var(--radius-pill);
+      background: var(--panel-dark);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background: var(--cyan);
+      color: #05070a;
+      border-color: var(--cyan);
+      font-weight: bold;
+    }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="admin-page-box">
+      <div class="admin-page-header">
+        <h2>Buildroonix Content & Media Admin</h2>
+        <a href="index.html" class="secondary-button" style="padding:8px 18px; font-size:13px;">← Return to Public Site</a>
+      </div>
+
+      <div class="admin-page-body">
+        <!-- LOGIN VIEW -->
+        <div class="admin-login-card" id="adminPageLogin">
+          <h3>Admin Security Login</h3>
+          <p>Sign in with admin credentials to manage site content, cards, images, videos, and portal links.</p>
+
+          <form onsubmit="handleAdminPageLogin(event)">
+            <div class="field">
+              <label>Admin Email</label>
+              <input type="email" id="adminEmail" value="admin@buildroonix.com" required />
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input type="password" id="adminPassword" value="admin123" required />
+            </div>
+            <div id="loginError" style="color:var(--orange); font-size:13px; margin-bottom:14px; display:none;"></div>
+            <button type="submit" class="btn-submit">Sign In to Dashboard</button>
+          </form>
+        </div>
+
+        <!-- MAIN DASHBOARD CONTENT VIEW -->
+        <div id="adminPageDashboard" style="display:none;">
+          <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchAdminTab('hero', this)">Hero & Media</button>
+            <button class="tab-btn" onclick="switchAdminTab('portals', this)">Glowing Cards Manager</button>
+            <button class="tab-btn" onclick="switchAdminTab('contact', this)">Contact & Socials</button>
+          </div>
+
+          <!-- TAB 1: HERO & MEDIA -->
+          <div class="tab-section" id="tab-hero">
+            <div class="field">
+              <label>Hero Eyebrow Tag</label>
+              <input type="text" id="adminHeroLabel" />
+            </div>
+            <div class="admin-grid">
+              <div class="field">
+                <label>Headline Line 1</label>
+                <input type="text" id="adminHeroHeadline1" />
+              </div>
+              <div class="field">
+                <label>Headline Highlight Line</label>
+                <input type="text" id="adminHeroHeadlineHighlight" />
+              </div>
+            </div>
+            <div class="field">
+              <label>Hero Description</label>
+              <textarea id="adminHeroCopy"></textarea>
+            </div>
+            
+            <!-- Hero Visual Media & File Upload -->
+            <div style="background:var(--panel-dark); padding:20px; border:1px solid var(--card-border); border-radius:12px; margin-bottom:20px;">
+              <h4 style="font-family:var(--font-heading); margin-bottom:12px; color:var(--cyan);">Hero Visual Showcase</h4>
+              <div class="admin-grid">
+                <div class="field">
+                  <label>Media Type</label>
+                  <select id="adminHeroMediaType">
+                    <option value="video">Video (MP4 / WebM)</option>
+                    <option value="image">Image (PNG / JPG / GIF)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Media File URL / Path</label>
+                  <input type="text" id="adminHeroMediaUrl" />
+                </div>
+              </div>
+              <div class="file-dropzone" onclick="document.getElementById('heroFileInput').click()">
+                📁 Upload Local Video, Image, or GIF File from Computer
+                <input type="file" id="heroFileInput" accept="image/*,video/*" style="display:none;" onchange="handleFileUpload(this, 'adminHeroMediaUrl', 'adminHeroMediaType')" />
+              </div>
+            </div>
+
+            <div class="admin-grid">
+              <div class="field">
+                <label>Primary Button Text</label>
+                <input type="text" id="adminHeroPrimaryCtaText" />
+              </div>
+              <div class="field">
+                <label>Primary Button Target URL</label>
+                <input type="text" id="adminHeroPrimaryCtaLink" />
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: GLOWING CARDS MANAGER (ADD / EDIT / DELETE CARDS) -->
+          <div class="tab-section" id="tab-portals" style="display:none;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+              <h3>Glowing Solution Cards (${content.cards ? content.cards.length : 0})</h3>
+              <button type="button" onclick="addNewCard()" class="primary-button" style="padding:10px 20px; font-size:13px;">+ Add New Card</button>
+            </div>
+            <div id="adminCardsBox"></div>
+          </div>
+
+          <!-- TAB 3: CONTACT & SOCIALS -->
+          <div class="tab-section" id="tab-contact" style="display:none;">
+            <div class="admin-grid">
+              <div class="field">
+                <label>Support Email</label>
+                <input type="text" id="adminContactEmail" />
+              </div>
+              <div class="field">
+                <label>Phone Number</label>
+                <input type="text" id="adminContactPhone" />
+              </div>
+            </div>
+            <div class="admin-grid">
+              <div class="field">
+                <label>UPI ID</label>
+                <input type="text" id="adminContactUpi" />
+              </div>
+              <div class="field">
+                <label>GSTIN</label>
+                <input type="text" id="adminContactGst" />
+              </div>
+            </div>
+            
+            <h4 style="margin:24px 0 12px; font-family:var(--font-heading); color:var(--cyan);">Social Media Handles</h4>
+            <div class="admin-grid">
+              <div class="field">
+                <label>Instagram URL</label>
+                <input type="text" id="adminSocialInsta" />
+              </div>
+              <div class="field">
+                <label>Twitter / X URL</label>
+                <input type="text" id="adminSocialTwitter" />
+              </div>
+            </div>
+            <div class="admin-grid">
+              <div class="field">
+                <label>GitHub Profile / Org URL</label>
+                <input type="text" id="adminSocialGithub" />
+              </div>
+              <div class="field">
+                <label>LinkedIn Page URL</label>
+                <input type="text" id="adminSocialLinkedin" />
+              </div>
+            </div>
+            <div class="admin-grid">
+              <div class="field">
+                <label>YouTube Channel URL</label>
+                <input type="text" id="adminSocialYoutube" />
+              </div>
+              <div class="field">
+                <label>Discord Server / Invite URL</label>
+                <input type="text" id="adminSocialDiscord" />
+              </div>
+            </div>
+          </div>
+
+          <!-- DASHBOARD ACTION BUTTONS -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:30px; padding-top:20px; border-top:1px solid var(--card-border);">
+            <div style="display:flex; gap:12px;">
+              <button class="secondary-button" onclick="exportConfigJSON()" style="padding:10px 20px; font-size:13px;">Export JSON</button>
+              <label class="secondary-button" style="padding:10px 20px; font-size:13px; cursor:pointer;">
+                Import JSON
+                <input type="file" accept=".json" style="display:none;" onchange="importConfigJSON(event)" />
+              </label>
+              <button class="secondary-button" onclick="resetToDefaultConfig()" style="padding:10px 20px; font-size:13px; color:var(--orange); border-color:var(--orange);">Reset Defaults</button>
+            </div>
+            <button class="btn-submit" onclick="saveAdminChanges()" style="width:auto; padding:14px 32px;">Save Changes & Update Site</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

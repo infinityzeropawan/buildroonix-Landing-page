@@ -1,0 +1,89 @@
+<svg width="520" height="260" viewBox="0 0 520 260"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <linearGradient id="borderGradient" x1="0" x2="1">
+      <stop offset="0%" stop-color="#68f36b"/>
+      <stop offset="50%" stop-color="#26a9ff"/>
+      <stop offset="100%" stop-color="#ff7212"/>
+    </linearGradient>
+
+    <clipPath id="logoClip">
+      <rect width="520" height="260" rx="16"/>
+    </clipPath>
+  </defs>
+
+  <rect
+    width="520"
+    height="260"
+    rx="16"
+    fill="#071014"
+  />
+
+  <rect
+    x="4"
+    y="4"
+    width="512"
+    height="252"
+    rx="14"
+    fill="none"
+    stroke="url(#borderGradient)"
+    stroke-width="3"
+    stroke-dasharray="900"
+    stroke-dashoffset="900"
+    filter="url(#glow)"
+  >
+    <animate
+      attributeName="stroke-dashoffset"
+      from="900"
+      to="0"
+      dur="2.2s"
+      fill="freeze"
+    />
+  </rect>
+
+  <g clip-path="url(#logoClip)">
+    <image
+      href="logo.png"
+      x="0"
+      y="0"
+      width="520"
+      height="260"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <animateTransform
+        attributeName="transform"
+        type="scale"
+        values="0.94;1;0.97;1"
+        dur="5s"
+        repeatCount="indefinite"
+      />
+    </image>
+  </g>
+
+  <circle cx="40" cy="35" r="4" fill="#68f36b">
+    <animate
+      attributeName="opacity"
+      values="1;.2;1"
+      dur="1.8s"
+      repeatCount="indefinite"
+    />
+  </circle>
+
+  <circle cx="480" cy="220" r="4" fill="#ff7212">
+    <animate
+      attributeName="opacity"
+      values=".2;1;.2"
+      dur="2.4s"
+      repeatCount="indefinite"
+    />
+  </circle>
+</svg>

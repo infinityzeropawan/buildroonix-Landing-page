@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buildroonix — Build Beyond Limits</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --bg: #071014;
+            --panel: #0d191d;
+            --panel-light: #132328;
+            --text: #f2f8f5;
+            --muted: #8ca09d;
+            --green: #68f36b;
+            --orange: #ff7212;
+            --blue: #26a9ff;
+            --border: rgba(255, 255, 255, .12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 80% 10%, rgba(0, 153, 255, .13), transparent 30rem),
+                radial-gradient(circle at 10% 30%, rgba(74, 255, 107, .07), transparent 28rem),
+                var(--bg);
+            color: var(--text);
+            font-family: Manrope, sans-serif;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .18;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px);
+            background-size: 55px 55px;
+            mask-image: linear-gradient(to bottom, black, transparent 75%);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .cursor-light {
+            width: 260px;
+            height: 260px;
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(79, 255, 145, .1), transparent 65%);
+            transform: translate(-50%, -50%);
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 40px));
+            margin: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            height: 86px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-weight: 800;
+            letter-spacing: .05em;
+        }
+
+        .brand img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            animation: logoFloat 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(58, 255, 127, .35));
+        }
+
+        @keyframes logoFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(-2deg);
+            }
+
+            50% {
+                transform: translateY(-6px) rotate(2deg);
+            }
+        }
+
+        .brand span {
+            font-size: 18px;
+        }
+
+        .brand b {
+            color: var(--orange);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: var(--green);
+        }
+
+        .admin-button {
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, .04);
+            color: white;
+            padding: 11px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .admin-button:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .hero {
+            min-height: 650px;
+            display: grid;
+            grid-template-columns: 1fr .85fr;
+            align-items: center;
+            gap: 80px;
+            padding: 80px 0;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--green);
+            font-family: "DM Mono", monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .16em;
+            margin-bottom: 22px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 1px;
+            background: var(--green);
+        }
+
+        h1 {
+            font-size: clamp(48px, 7vw, 96px);
+            line-height: .93;
+            letter-spacing: -.08em;
+            max-width: 720px;
+        }
+
+        h1 em {
+            color: var(--orange);
+            font-style: normal;
+        }
+
+        .hero-copy {
+            color: var(--muted);
+            max-width: 530px;
+            margin: 28px 0;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .primary-button,
+        .secondary-button {
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            border: 1px solid transparent;
+            display: inline-block;
+            transition: .25s ease;
+        }
+
+        .primary-button {
+            color: #08100c;
+            background: var(--green);
+        }
+
+        .primary-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(104, 243, 107, .2);
+        }
+
+        .secondary-button {
+            color: white;
+            border-color: var(--border);
+        }
+
+        .secondary-button:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 430px;
+            display: grid;
+            place-items: center;
+        }
+
+        .core {
+            width: 245px;
+            height: 245px;
+            border: 1px solid rgba(104, 243, 107, .5);
+            transform: rotate(45deg);
+            position: relative;
+            box-shadow:
+                0 0 0 20px rgba(104, 243, 107, .025),
+                0 0 70px rgba(104, 243, 107, .12);
+            animation: coreSpin 18s linear infinite;
+        }
+
+        .core::before,
+        .core::after {
+            content: "";
+            position: absolute;
+            inset: 26px;
+            border: 1px solid rgba(38, 169, 255, .55);
+        }
+
+        .core::after {
+            inset: 55px;
+            border-color: rgba(255, 114, 18, .65);
+        }
+
+        @keyframes coreSpin {
+            to {
+                transform: rotate(405deg);
+            }
+        }
+
+        .core-label {
+            position: absolute;
+            z-index: 2;
+            text-align: center;
+            font-family: "DM Mono", monospace;
+            color: white;
+            font-size: 12px;
+            letter-spacing: .15em;
+        }
+
+        .signal {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 22px var(--green);
+            animation: signalMove 5s infinite ease-in-out;
+        }
+
+        .signal:nth-child(2) {
+            background: var(--orange);
+            box-shadow: 0 0 22px var(--orange);
+            animation-delay: 1.5s;
+        }
+
+        .signal:nth-child(3) {
+            background: var(--blue);
+            box-shadow: 0 0 22px var(--blue);
+            animation-delay: 3s;
+        }
+
+        @keyframes signalMove {
+
+            0%,
+            100% {
+                transform: translate(-130px, -80px);
+            }
+
+            50% {
+                transform: translate(120px, 90px);
+            }
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 30px;
+            margin-bottom: 32px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(32px, 5vw, 58px);
+            letter-spacing: -.06em;
+            line-height: 1;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            max-width: 390px;
+            line-height: 1.7;
+        }
+
+        .solutions {
+            padding: 100px 0;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .solution-card {
+            min-height: 340px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            background:
+                linear-gradient(150deg, rgba(255, 255, 255, .08), transparent 35%),
+                var(--panel);
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: .3s ease;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-9px) rotate(.5deg);
+            border-color: var(--card-color);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, .28);
+        }
+
+        .solution-card::after {
+            content: "";
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--card-color);
+            filter: blur(80px);
+            opacity: .16;
+            position: absolute;
+            right: -70px;
+            top: -50px;
+        }
+
+        .card-number {
+            font-family: "DM Mono", monospace;
+            color: var(--card-color);
+            font-size: 13px;
+        }
+
+        .card-media {
+            height: 125px;
+            margin: 20px 0;
+            overflow: hidden;
+            border-radius: 9px;
+            background: #071014;
+            border: 1px solid var(--border);
+        }
+
+        .card-media img,
+        .card-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: .78;
+        }
+
+        .solution-card h3 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .solution-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .explore {
+            color: var(--card-color);
+            margin-top: 20px;
+            font-family: "DM Mono", monospace;
+            font-size: 12px;
+        }
+
+        .manifesto {
+            padding: 100px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .manifesto-content {
+            display: grid;
+            grid-template-columns: .7fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .manifesto h2 {
+            font-size: clamp(35px, 5vw, 65px);
+            letter-spacing: -.07em;
+            line-height: .98;
+        }
+
+        .manifesto h2 span {
+            color: var(--green);
+        }
+
+        .manifesto p {
+            color: var(--muted);
+            font-size: 19px;
+            line-height: 1.8;
+        }
+
+        footer {
+            padding: 35px 0;
+            color: var(--muted);
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* Admin Panel */
+
+        .admin-panel {
+            position: fixed;
+            inset: 0;
+            z-index: 20;
+            background: rgba(0, 0, 0, .72);
+            backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .admin-panel.active {
+            display: flex;
+        }
+
+        .admin-box {
+            background: #0d191d;
+            border: 1px solid var(--border);
+            width: min(900px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 15px;
+            padding: 26px;
+        }
+
+        .admin-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .admin-top h2 {
+            font-size: 24px;
+        }
+
+        .close-admin {
+            background: transparent;
+            border: 0;
+            color: white;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .admin-section {
+            border-top: 1px solid var(--border);
+            padding: 22px 0;
+        }
+
+        .admin-section h3 {
+            color: var(--green);
+            margin-bottom: 17px;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .field label {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .field input,
+        .field textarea,
+        .field select {
+            width: 100%;
+            background: #071014;
+            color: white;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            padding: 12px;
+            font-family: inherit;
+        }
+
+        .field textarea {
+            min-height: 85px;
+            resize: vertical;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .save-button {
+            width: 100%;
+            border: 0;
+            border-radius: 8px;
+            padding: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #08100c;
+            background: var(--green);
+        }
+
+        @media (max-width: 850px) {
+            nav {
+                display: none;
+            }
+
+            .hero,
+            .manifesto-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero {
+                padding: 60px 0;
+            }
+
+            .hero-visual {
+                height: 330px;
+            }
+
+            .solution-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section-heading {
+                display: block;
+            }
+
+            .section-heading p {
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .container {
+                width: min(100% - 28px, 1180px);
+            }
+
+            h1 {
+                font-size: 55px;
+            }
+
+            .solution-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                display: block;
+                line-height: 2;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-light" id="cursorLight"></div>
+
+    <main class="container">
+        <header>
+            <a class="brand" href="#">
+                <img src="logo.png" alt="Buildroonix Logo" />
+                <span>BUILD<span style="color:#68f36b">ROONIX</span></span>
+            </a>
+
+            <nav>
+                <a href="#solutions">Capabilities</a>
+                <a href="#manifesto">Vision</a>
+                <a href="#contact">Contact</a>
+                <button class="admin-button" onclick="openAdmin()">Manage site</button>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div>
+                <div class="eyebrow">Engineering the useful future</div>
+
+                <h1>
+                    Build ideas<br />
+                    into <em>reality.</em>
+                </h1>
+
+                <p class="hero-copy" id="heroDescription">
+                    Buildroonix creates physical products, intelligent software,
+                    practical education and experimental technology for people who
+                    refuse to build ordinary things.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="primary-button" href="#solutions">Explore Buildroonix</a>
+                    <a class="secondary-button" id="heroLink" href="#contact">Start a project →</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="core"></div>
+                <div class="core-label">BUILD<br />SYSTEMS</div>
+                <div class="signal"></div>
+                <div class="signal"></div>
+                <div class="signal"></div>
+            </div>
+        </section>
+
+        <section class="solutions" id="solutions">
+            <div class="section-heading">
+                <div>
+                    <div class="eyebrow">What we make</div>
+                    <h2>Four directions.<br />One restless mind.</h2>
+                </div>
+                <p>
+                    Explore the different ways Buildroonix turns technology,
+                    imagination and engineering into useful experiences.
+                </p>
+            </div>
+
+            <div class="solution-grid" id="solutionGrid"></div>
+        </section>
+
+        <section class="manifesto" id="manifesto">
+            <div class="manifesto-content">
+                <h2>
+                    Not just products.<br />
+                    <span>Progress with purpose.</span>
+                </h2>
+
+                <p id="manifestoText">
+                    We believe the best technology should feel understandable,
+                    useful and slightly ahead of its time. Buildroonix connects
+                    design, code, electronics and learning under one roof.
+                </p>
+            </div>
+        </section>
+
+        <footer id="contact">
+            <div>© 2026 Buildroonix. Built for the next version of useful.</div>
+            <div id="footerContact">hello@buildroonix.com</div>
+        </footer>
+    </main>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-box">
+            <div class="admin-top">
+                <h2>Buildroonix Content Manager</h2>
+                <button class="close-admin" onclick="closeAdmin()">×</button>
+            </div>
+
+            <div class="admin-section">
+                <h3>Hero Section</h3>
+
+                <div class="field">
+                    <label>Hero description</label>
+                    <textarea id="adminHeroDescription"></textarea>
+                </div>
+
+                <div class="field">
+                    <label>Hero button destination URL</label>
+                    <input id="adminHeroLink" />
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>Vision Section</h3>
+
+                <div class="field">
+                    <label>Vision text</label>
+                    <textarea id="adminManifesto"></textarea>
+                </div>
+
+                <div class="field">
+                    <label>Contact email or text</label>
+                    <input id="adminContact" />
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>Capability Cards</h3>
+                <div id="adminCards"></div>
+            </div>
+
+            <button class="save-button" onclick="saveAdminChanges()">
+                Save Changes
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const defaultContent = {
+            heroDescription:
+                "Buildroonix creates physical products, intelligent software, practical education and experimental technology for people who refuse to build ordinary things.",
+
+            heroLink: "#contact",
+
+            manifesto:
+                "We believe the best technology should feel understandable, useful and slightly ahead of its time. Buildroonix connects design, code, electronics and learning under one roof.",
+
+            contact: "hello@buildroonix.com",
+
+            cards: [
+                {
+                    number: "01 / FORM",
+                    title: "3D Products",
+                    description: "Design-led physical objects, prototypes and 3D experiences made for real-world use.",
+                    color: "#68f36b",
+                    mediaType: "image",
+                    mediaUrl: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80",
+                    link: "#contact"
+                },
+                {
+                    number: "02 / CODE",
+                    title: "Software Products",
+                    description: "Useful digital tools, platforms and interfaces that make complex work feel simple.",
+                    color: "#26a9ff",
+                    mediaType: "image",
+                    mediaUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+                    link: "#contact"
+                },
+                {
+                    number: "03 / LEARN",
+                    title: "Courses",
+                    description: "Practical learning experiences for builders, creators and future technologists.",
+                    color: "#ff7212",
+                    mediaType: "image",
+                    mediaUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
+                    link: "#contact"
+                },
+                {
+                    number: "04 / SIGNAL",
+                    title: "Smart Gadgets",
+                    description: "Experimental electronics and intelligent gadgets that connect the physical and digital world.",
+                    color: "#c56cff",
+                    mediaType: "image",
+                    mediaUrl: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80",
+                    link: "#contact"
+                }
+            ]
+        };
+
+        let content = JSON.parse(
+            localStorage.getItem("buildroonixContent")
+        ) || defaultContent;
+
+        function renderPage() {
+            document.getElementById("heroDescription").textContent =
+                content.heroDescription;
+
+            document.getElementById("heroLink").href = content.heroLink;
+            document.getElementById("manifestoText").textContent =
+                content.manifesto;
+
+            document.getElementById("footerContact").textContent =
+                content.contact;
+
+            const grid = document.getElementById("solutionGrid");
+
+            grid.innerHTML = content.cards.map((card) => {
+                const media = card.mediaType === "video"
+                    ? `<video src="${card.mediaUrl}" autoplay muted loop playsinline></video>`
+                    : `<img src="${card.mediaUrl}" alt="${card.title}" />`;
+
+                return `
+          <a
+            class="solution-card"
+            href="${card.link}"
+            style="--card-color:${card.color}"
+          >
+            <div>
+              <div class="card-number">${card.number}</div>
+              <div class="card-media">${media}</div>
+              <h3>${card.title}</h3>
+              <p>${card.description}</p>
+            </div>
+            <div class="explore">Explore capability ↗</div>
+          </a>
+        `;
+            }).join("");
+        }
+
+        function openAdmin() {
+            document.getElementById("adminPanel").classList.add("active");
+
+            document.getElementById("adminHeroDescription").value =
+                content.heroDescription;
+
+            document.getElementById("adminHeroLink").value =
+                content.heroLink;
+
+            document.getElementById("adminManifesto").value =
+                content.manifesto;
+
+            document.getElementById("adminContact").value =
+                content.contact;
+
+            document.getElementById("adminCards").innerHTML =
+                content.cards.map((card, index) => `
+          <div class="admin-section">
+            <h3>Card ${index + 1}</h3>
+
+            <div class="admin-grid">
+              <div class="field">
+                <label>Number label</label>
+                <input data-card="${index}" data-key="number" value="${card.number}">
+              </div>
+
+              <div class="field">
+                <label>Title</label>
+                <input data-card="${index}" data-key="title" value="${card.title}">
+              </div>
+
+              <div class="field">
+                <label>Accent color</label>
+                <input type="color" data-card="${index}" data-key="color" value="${card.color}">
+              </div>
+
+              <div class="field">
+                <label>Media type</label>
+                <select data-card="${index}" data-key="mediaType">
+                  <option value="image" ${card.mediaType === "image" ? "selected" : ""}>Image</option>
+                  <option value="video" ${card.mediaType === "video" ? "selected" : ""}>Video</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Description</label>
+              <textarea data-card="${index}" data-key="description">${card.description}</textarea>
+            </div>
+
+            <div class="field">
+              <label>Image or video URL</label>
+              <input data-card="${index}" data-key="mediaUrl" value="${card.mediaUrl}">
+            </div>
+
+            <div class="field">
+              <label>Destination link</label>
+              <input data-card="${index}" data-key="link" value="${card.link}">
+            </div>
+          </div>
+        `).join("");
+        }
+
+        function closeAdmin() {
+            document.getElementById("adminPanel").classList.remove("active");
+        }
+
+        function saveAdminChanges() {
+            content.heroDescription =
+                document.getElementById("adminHeroDescription").value;
+
+            content.heroLink =
+                document.getElementById("adminHeroLink").value;
+
+            content.manifesto =
+                document.getElementById("adminManifesto").value;
+
+            content.contact =
+                document.getElementById("adminContact").value;
+
+            document.querySelectorAll("[data-card]").forEach((element) => {
+                const index = element.dataset.card;
+                const key = element.dataset.key;
+                content.cards[index][key] = element.value;
+            });
+
+            localStorage.setItem(
+                "buildroonixContent",
+                JSON.stringify(content)
+            );
+
+            renderPage();
+            closeAdmin();
+            alert("Buildroonix content updated.");
+        }
+
+        document.addEventListener("mousemove", (event) => {
+            const light = document.getElementById("cursorLight");
+            light.style.left = event.clientX + "px";
+            light.style.top = event.clientY + "px";
+        });
+
+        renderPage();
+    </script>
+</body>
+
+</html>
