@@ -1,4 +1,4 @@
-name: Buildroonix VPS Auto-Deploy (CI/CD)
+name: Buildroonix Landing — Auto Deploy to VPS
 
 on:
   push:
@@ -7,23 +7,31 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to VPS
+    name: Deploy buildroonix.com to VPS
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Execute Remote SSH Commands & Deploy
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
+          username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ secrets.VPS_PORT || 22 }}
+          port: 22
           script: |
+            set -e
+            echo "📦 Pulling latest code..."
             cd /var/www/buildroonix
             git pull origin main
-            npm install --production
-            pm2 reload ecosystem.config.js || pm2 start ecosystem.config.js
-            echo "🚀 Auto-deployment to buildroonix.com completed!"
+
+            echo "📦 Installing dependencies..."
+            npm install --production --silent
+
+            echo "♻️  Reloading PM2 process..."
+            pm2 reload ecosystem.config.js --update-env || pm2 start ecosystem.config.js
+
+            echo "✅ buildroonix.com deployed successfully!"
+            pm2 status buildroonix-landing

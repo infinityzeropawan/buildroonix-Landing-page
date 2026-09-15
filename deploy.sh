@@ -1,16 +1,18 @@
 #!/bin/bash
-# BUILDROONIX VPS Deployment & Update Script
+# BUILDROONIX Landing Page — VPS Update Script
+# Usage: Run on VPS inside /var/www/buildroonix → ./deploy.sh
 set -e
 
-echo "🚀 Starting Buildroonix VPS Update..."
+echo "🚀 Starting Buildroonix Landing Page update..."
 
-# Pull latest code from GitHub main
+# Pull latest code from GitHub
 git pull origin main
 
-# Install npm dependencies
-npm install --production
+# Install/update npm dependencies (skip devDependencies)
+npm install --production --silent
 
-# Restart PM2 process seamlessly
-pm2 reload ecosystem.config.js || pm2 start ecosystem.config.js
+# Reload PM2 gracefully (zero-downtime) or start fresh if not running
+pm2 reload ecosystem.config.js --update-env || pm2 start ecosystem.config.js --env production
 
-echo "✅ Deployment completed successfully! Live on https://buildroonix.com"
+echo "✅ Deployment complete! Live at https://buildroonix.com"
+pm2 status buildroonix-landing

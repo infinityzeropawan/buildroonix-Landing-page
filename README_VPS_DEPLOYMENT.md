@@ -1,118 +1,180 @@
-# Buildroonix Production VPS Deployment Guide
+# Buildroonix Landing Page — VPS Deployment Guide
 
-This repository contains the complete **Full-Stack Landing Page, Admin Management System, and Production Express Backend API** for **[buildroonix.com](https://buildroonix.com)**.
+Live URL: **https://buildroonix.com**  
+Admin Panel: **https://buildroonix.com/admin**
 
----
-
-## 🚀 Architecture Highlights
-
-- **Frontend**: Pure Vanilla HTML5, CSS3 (Warm Editorial Design System), JS ES6+
-- **Backend**: Express Node.js Production Server (`server.js`)
-- **Database**: Zero-dependency Atomic Persistent JSON DB (`/data/content.json`)
-- **Admin Access**: Dedicated `/admin` route with backend authentication (`POST /api/login`) & token authorization (`POST /api/content`)
-- **Uptime Manager**: PM2 ecosystem config (`ecosystem.config.js`)
-- **Reverse Proxy**: NGINX with SSL (`nginx.conf`)
+> ⚠️ The VPS already runs `buildroonix2` (Next.js app at `3d.buildroonix.com` on port 3001 via PM2).  
+> This guide deploys the **Landing Page** to port **8080** as a completely separate PM2 process — it will **NOT** affect the running app.
 
 ---
 
-## 🛠️ Step-by-Step VPS Deployment (Ubuntu / Debian)
+## Architecture
 
-### 1. Point Domain DNS to VPS
-In your Domain Registrar (Hostinger / GoDaddy / Cloudflare):
-- **A Record**: `@` -> `YOUR_VPS_PUBLIC_IP`
-- **A Record**: `www` -> `YOUR_VPS_PUBLIC_IP`
-
----
-
-### 2. Prepare Server Dependencies
-Connect to your VPS via SSH:
-```bash
-ssh root@YOUR_VPS_PUBLIC_IP
 ```
-
-Install Node.js (v20+), Git, Nginx, PM2, and Certbot:
-```bash
-sudo apt update && sudo apt install -y curl git nginx certbot python3-certbot-nginx
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt install -y nodejs
-sudo npm install -g pm2
+VPS (109.122.56.200)
+├── NGINX
+│   ├── buildroonix.com       → port 8080  (this project, PM2: buildroonix-landing)
+│   └── 3d.buildroonix.com    → port 3001  (existing project, PM2: buildroonix2)
+└── PM2
+    ├── buildroonix-landing   (server.js, port 8080)
+    └── buildroonix2          (Next.js, port 3001)  ← existing, DO NOT TOUCH
 ```
 
 ---
 
-### 3. Clone Repository & Install Packages
+## Step 1 — SSH into VPS
+
+```bash
+ssh root@109.122.56.200
+# Password is in CREDENTIALS.TXT (never share publicly)
+```
+
+---
+
+## Step 2 — Clone the Landing Page Repo
+
 ```bash
 cd /var/www
-sudo git clone https://github.com/infinityzeropawan/buildroonix-Landing-page.git buildroonix
+git clone https://github.com/infinityzeropawan/buildroonix-Landing-page.git buildroonix
 cd buildroonix
-sudo npm install --production
+npm install --production
+chmod +x deploy.sh
 ```
 
 ---
 
-### 4. Start Server with PM2 (24/7 Uptime)
+## Step 3 — Start with PM2
+
 ```bash
-pm2 start ecosystem.config.js
-pm2 save
-pm2 startup
+pm2 start ecosystem.config.js --env production
+pm2 save         # Save process list so it survives reboot
+pm2 status       # Should show buildroonix-landing as "online"
 ```
 
-Verify status:
+Verify it's running:
+```bash
+curl http://localhost:8080/api/health
+# Expected: {"status":"ok","service":"Buildroonix Production API",...}
+```
+
+**DO NOT touch the `buildroonix2` PM2 process** — it is the other running app.
+
+---
+
+## Step 4 — Create PM2 Log Directory
+
+```bash
+mkdir -p /var/log/pm2
+```
+
+---
+
+## Step 5 — Configure NGINX (New Vhost — Does NOT Affect 3d.buildroonix.com)
+
+```bash
+# Copy new vhost config
+cp /var/www/buildroonix/nginx.conf /etc/nginx/sites-available/buildroonix.com
+
+# Enable it
+ln -s /etc/nginx/sites-available/buildroonix.com /etc/nginx/sites-enabled/buildroonix.com
+
+# Test NGINX config (should print "syntax is ok")
+nginx -t
+
+# Reload NGINX (zero-downtime, existing 3d.buildroonix.com continues working)
+systemctl reload nginx
+```
+
+---
+
+## Step 6 — Get SSL Certificate for buildroonix.com
+
+```bash
+certbot --nginx -d buildroonix.com -d www.buildroonix.com
+```
+
+Certbot will:
+- Auto-configure HTTPS in `/etc/nginx/sites-available/buildroonix.com`
+- Set up auto-renewal every 90 days
+- Your `3d.buildroonix.com` SSL cert is **completely separate** and unaffected
+
+---
+
+## Step 7 — Set Up GitHub Secrets for Auto CI/CD
+
+Go to: **GitHub → Repository Settings → Secrets and variables → Actions → New repository secret**
+
+Add these 3 secrets:
+
+| Secret Name  | Value                                        |
+|:-------------|:---------------------------------------------|
+| `VPS_HOST`   | `109.122.56.200`                             |
+| `VPS_USER`   | `root`                                       |
+| `VPS_SSH_KEY`| Contents of your SSH private key (see below) |
+
+### Generate an SSH Key for GitHub Actions (on VPS):
+
+```bash
+# On the VPS:
+ssh-keygen -t ed25519 -C "github-actions-buildroonix" -f ~/.ssh/github_deploy -N ""
+cat ~/.ssh/github_deploy.pub >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+
+# Copy private key content → paste into VPS_SSH_KEY GitHub secret:
+cat ~/.ssh/github_deploy
+```
+
+After adding secrets, every `git push` to `main` will automatically deploy to `buildroonix.com`!
+
+---
+
+## Verify Both Sites After Deployment
+
 ```bash
 pm2 status
-curl http://localhost:8080/api/health
+# Should show BOTH processes online:
+# ┌──────────────────────┬─────┬──────────┐
+# │ buildroonix-landing  │ ... │ online   │
+# │ buildroonix2         │ ... │ online   │
+
+# Test landing page
+curl -I https://buildroonix.com
+
+# Test existing site still works
+curl -I https://3d.buildroonix.com
 ```
 
 ---
 
-### 5. Configure NGINX Reverse Proxy
-Copy the provided Nginx configuration:
+## Manual Update (Without GitHub Actions)
+
 ```bash
-sudo cp nginx.conf /etc/nginx/sites-available/buildroonix.com
-sudo ln -s /etc/nginx/sites-available/buildroonix.com /etc/nginx/sites-enabled/
-sudo nginx -t
-sudo systemctl reload nginx
+cd /var/www/buildroonix
+./deploy.sh
 ```
 
 ---
 
-### 6. Enable Free SSL Certificate (HTTPS)
+## Admin Panel Access
+
+- **URL**: `https://buildroonix.com/admin`
+- **Password**: `buildroonix2026`  
+  *(Change in VPS by editing `/var/www/buildroonix/ecosystem.config.js` → `ADMIN_PASSWORD` env)*
+
+---
+
+## Troubleshooting
+
 ```bash
-sudo certbot --nginx -d buildroonix.com -d www.buildroonix.com
-```
-*(Certbot will automatically configure HTTPS redirects and renew SSL every 90 days)*
+# View live logs
+pm2 logs buildroonix-landing --lines 50
 
----
+# Restart if crashed
+pm2 restart buildroonix-landing
 
-## 🔐 Admin Portal & Access Links
+# Check NGINX logs
+tail -f /var/log/nginx/error.log
 
-- **Main Public Landing Page**: `https://buildroonix.com`
-- **Separate Admin Portal URL**: `https://buildroonix.com/admin` (or `https://buildroonix.com/admin.html`)
-- **Admin Password**: `buildroonix2026` *(Configurable in `.env` as `ADMIN_PASSWORD`)*
-
----
-
-## 🤖 Automatic CI/CD Deployment with GitHub Actions
-
-We have configured a GitHub Actions workflow (`.github/workflows/deploy.yml`) that automatically deploys to your VPS every time you push code to `main`.
-
-### To activate Automatic Deployment on GitHub:
-1. Go to your GitHub Repository: **Settings** -> **Secrets and variables** -> **Actions** -> **New repository secret**.
-2. Add the following 3 Secrets:
-
-| Secret Name | Value | Example |
-| :--- | :--- | :--- |
-| `VPS_HOST` | Your VPS Public IP Address | `185.220.101.4` |
-| `VPS_USERNAME` | SSH User | `root` |
-| `VPS_SSH_KEY` | SSH Private Key contents (`cat ~/.ssh/id_rsa`) | `-----BEGIN OPENSSH PRIVATE KEY-----...` |
-
-Once these 3 secrets are added, every `git push` to `main` will automatically build & restart your site on `buildroonix.com` within 10 seconds!
-
----
-
-## 🔄 Updating the Site Manually (1-Click Deployment)
-
-Whenever you push new changes to GitHub, you can also update your VPS manually with one command:
-```bash
-cd /var/www/buildroonix && ./deploy.sh
+# Check which ports are in use
+ss -tlnp | grep -E '8080|3001'
 ```
