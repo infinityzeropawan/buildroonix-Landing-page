@@ -10,6 +10,7 @@ const defaultSiteContent = {
   heroTitleLine1:     "We build",
   heroTitleHighlight: "useful things",
   heroDescription:    "From custom 3D printed decor to intelligent software and smart gadgets — Buildroonix handles the full lifecycle: design, code, electronics, and delivery.",
+  heroVideoUrl:       "assets/can_you_animate_this_png_logo.mp4",
   heroPrimaryText:    "Get a Free Quote",
   heroPrimaryLink:    "#contact",
   heroSecondaryText:  "See Our Work ↓",
@@ -251,6 +252,14 @@ function renderPage() {
   setEl("heroTitleLine1",     content.heroTitleLine1     || defaultSiteContent.heroTitleLine1);
   setEl("heroTitleHighlight", content.heroTitleHighlight || defaultSiteContent.heroTitleHighlight);
   setEl("heroDescription",    content.heroDescription    || defaultSiteContent.heroDescription);
+
+  const heroVideo = content.heroVideoUrl || "assets/can_you_animate_this_png_logo.mp4";
+  document.querySelectorAll(".hero-video-panel video, .hero-mobile-showcase video").forEach(v => {
+    if (heroVideo && !v.src.endsWith(heroVideo)) {
+      v.src = heroVideo;
+      v.load();
+    }
+  });
 
   const pb = document.getElementById("heroPrimaryBtn");
   if (pb) { pb.textContent = content.heroPrimaryText || "Get a Free Quote"; pb.href = content.heroPrimaryLink || "#contact"; }

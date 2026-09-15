@@ -259,6 +259,7 @@ function fillAllFields() {
   setVal("heroTitleLine1",     content.heroTitleLine1);
   setVal("heroTitleHighlight", content.heroTitleHighlight);
   setVal("heroDescription",    content.heroDescription);
+  setVal("heroVideoUrl",       content.heroVideoUrl || "assets/can_you_animate_this_png_logo.mp4");
   setVal("heroPrimaryText",    content.heroPrimaryText);
   setVal("heroPrimaryLink",    content.heroPrimaryLink);
   setVal("heroSecondaryText",  content.heroSecondaryText);
@@ -315,6 +316,7 @@ function gatherHero() {
   content.heroTitleLine1     = getVal("heroTitleLine1");
   content.heroTitleHighlight = getVal("heroTitleHighlight");
   content.heroDescription    = getVal("heroDescription");
+  content.heroVideoUrl       = getVal("heroVideoUrl");
   content.heroPrimaryText    = getVal("heroPrimaryText");
   content.heroPrimaryLink    = getVal("heroPrimaryLink");
   content.heroSecondaryText  = getVal("heroSecondaryText");
