@@ -3,324 +3,458 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Buildroonix — Dedicated Admin Portal</title>
-  
-  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
-  <link rel="stylesheet" href="css/style.css" />
+  <title>Buildroonix — Admin Portal</title>
+  <link rel="icon" href="assets/logo.png" type="image/png" />
   <style>
-    body {
-      background: var(--bg-dark);
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #0f1614;
+      --surface:   #182019;
+      --card:      #1e2921;
+      --border:    rgba(255,255,255,0.1);
+      --border2:   rgba(255,255,255,0.06);
+      --text:      #f2f0ec;
+      --muted:     rgba(242,240,236,0.5);
+      --accent:    #68f36b;
+      --orange:    #ff7212;
+      --blue:      #26a9ff;
+      --danger:    #ff5a5a;
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+      --r: 10px;
     }
-    .admin-page-box {
-      max-width: 980px;
-      margin: 40px auto;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-card);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.7);
-      overflow: hidden;
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap');
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    input, textarea, select {
+      width: 100%; background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: var(--r); padding: 11px 14px; color: var(--text);
+      font-family: var(--font-body); font-size: 14px;
+      transition: border-color 0.2s;
     }
-    .admin-page-header {
-      padding: 24px 32px;
-      border-bottom: 1px solid var(--card-border);
-      background: var(--panel-dark);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    input:focus, textarea:focus, select:focus {
+      outline: none; border-color: var(--accent);
     }
-    .admin-page-header h2 {
-      font-family: var(--font-heading);
-      font-size: 24px;
-      color: var(--text-main);
+    textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+    /* ── LAYOUT ── */
+    .admin-wrapper { display: flex; min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 240px; min-width: 240px;
+      background: var(--surface);
+      border-right: 1px solid var(--border2);
+      display: flex; flex-direction: column;
+      padding: 24px 0;
+      position: sticky; top: 0; height: 100vh; overflow-y: auto;
     }
-    .admin-page-body {
-      padding: 32px;
+    .sidebar-brand {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 20px 24px;
+      border-bottom: 1px solid var(--border2); margin-bottom: 16px;
     }
-    .admin-login-card {
-      max-width: 440px;
-      margin: 40px auto;
-      padding: 36px;
-      background: var(--panel-dark);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-card);
+    .sidebar-brand img { width: 36px; height: 36px; border-radius: 8px; }
+    .sidebar-brand span { font-family: var(--font-head); font-size: 13px; font-weight: 700; }
+
+    .sidebar-nav { display: flex; flex-direction: column; gap: 2px; padding: 0 12px; flex: 1; }
+    .sidebar-nav button {
+      width: 100%; text-align: left;
+      background: none; border: none; cursor: pointer;
+      padding: 10px 14px; border-radius: 8px;
+      font-size: 13px; font-weight: 500; color: var(--muted);
+      transition: background 0.2s, color 0.2s;
+      display: flex; align-items: center; gap: 9px;
+    }
+    .sidebar-nav button:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+    .sidebar-nav button.active { background: rgba(104,243,107,0.12); color: var(--accent); }
+    .sidebar-nav button .nav-icon { width: 16px; height: 16px; opacity: 0.7; flex-shrink: 0; }
+
+    .sidebar-section-label {
+      font-family: var(--font-mono); font-size: 10px; color: var(--muted);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 16px 24px 6px;
+    }
+
+    .sidebar-footer {
+      padding: 16px 20px; border-top: 1px solid var(--border2);
+      font-family: var(--font-mono); font-size: 10px; color: var(--muted);
+    }
+    .sidebar-footer a { color: var(--accent); }
+
+    /* ── MAIN CONTENT ── */
+    .admin-main { flex: 1; overflow-y: auto; padding: 0; }
+
+    /* ── HEADER BAR ── */
+    .admin-header {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border2);
+      padding: 16px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .admin-header h1 {
+      font-family: var(--font-head); font-size: 18px; font-weight: 700;
+    }
+    .admin-header-actions { display: flex; gap: 10px; align-items: center; }
+
+    /* ── BUTTONS ── */
+    .btn { padding: 10px 20px; border-radius: 100px; border: none; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s; }
+    .btn-primary { background: var(--accent); color: #0f1614; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-danger  { background: transparent; border: 1.5px solid var(--danger); color: var(--danger); padding: 7px 14px; border-radius: var(--r); }
+    .btn-danger:hover { background: rgba(255,90,90,0.1); }
+    .btn-sm { padding: 7px 14px; font-size: 12px; border-radius: var(--r); }
+    .btn-ghost { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
+
+    /* ── TAB CONTENT ── */
+    .tab-panel { display: none; padding: 32px; }
+    .tab-panel.active { display: block; }
+
+    /* ── LOGIN GATE ── */
+    .login-wrap {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .login-card {
+      width: 100%; max-width: 400px;
+      background: var(--card); border: 1.5px solid var(--border);
+      border-radius: 20px; padding: 36px;
       text-align: center;
     }
-    .admin-login-card h3 {
-      font-family: var(--font-heading);
-      font-size: 22px;
-      margin-bottom: 8px;
+    .login-card img { width: 56px; margin: 0 auto 16px; border-radius: 12px; }
+    .login-card h2 { font-family: var(--font-head); font-size: 22px; margin-bottom: 6px; }
+    .login-card p { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+    .login-error { margin-top: 12px; color: var(--danger); font-size: 13px; display: none; }
+
+    /* ── SECTION CARDS ── */
+    .section-card {
+      background: var(--card); border: 1.5px solid var(--border2);
+      border-radius: 16px; padding: 26px; margin-bottom: 20px;
     }
-    .admin-login-card p {
-      color: var(--text-muted);
-      font-size: 14px;
-      margin-bottom: 24px;
+    .section-card h3 {
+      font-family: var(--font-head); font-size: 15px; font-weight: 700;
+      margin-bottom: 18px; color: var(--text);
+      display: flex; align-items: center; gap: 10px;
     }
-    .field {
-      margin-bottom: 18px;
-      text-align: left;
+    .section-card h3 span.badge {
+      font-family: var(--font-mono); font-size: 10px;
+      background: rgba(104,243,107,0.15); color: var(--accent);
+      padding: 2px 8px; border-radius: 100px;
+      font-weight: 500; letter-spacing: 0.06em;
     }
+
+    /* ── FORM FIELDS ── */
+    .field { margin-bottom: 16px; }
     .field label {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 8px;
+      display: block; font-family: var(--font-mono); font-size: 11px;
+      color: var(--muted); letter-spacing: 0.06em; margin-bottom: 7px;
+      text-transform: uppercase;
     }
-    .field input,
-    .field textarea,
-    .field select {
-      width: 100%;
-      background: var(--bg-dark);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 12px 16px;
-      color: var(--text-main);
-      font-family: inherit;
-      font-size: 14px;
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    /* ── REPEATER ITEMS ── */
+    .repeater { display: flex; flex-direction: column; gap: 16px; }
+    .repeater-item {
+      background: var(--surface); border: 1.5px solid var(--border2);
+      border-radius: 12px; padding: 20px;
     }
-    .field textarea {
-      min-height: 90px;
-      resize: vertical;
+    .repeater-item-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px;
     }
-    .file-dropzone {
-      border: 2px dashed var(--card-border);
-      border-radius: 8px;
-      padding: 18px;
-      text-align: center;
-      background: rgba(255,255,255,0.02);
-      cursor: pointer;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--cyan);
-      margin-top: 8px;
-      transition: all 0.25s ease;
+    .repeater-item-header span {
+      font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+      letter-spacing: 0.08em;
     }
-    .file-dropzone:hover {
-      border-color: var(--cyan);
-      background: rgba(0,242,254,0.05);
+    .add-btn {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.05); border: 1.5px dashed var(--border);
+      border-radius: 12px; padding: 14px;
+      cursor: pointer; font-size: 13px; color: var(--muted);
+      transition: all 0.2s; width: 100%; justify-content: center;
     }
-    .btn-submit {
-      width: 100%;
-      padding: 15px;
-      background: var(--cyan);
-      color: #05070a;
-      font-weight: bold;
-      border: 0;
-      border-radius: var(--radius-pill);
-      cursor: pointer;
-      font-size: 15px;
-      transition: all 0.25s ease;
-      box-shadow: 0 6px 20px rgba(0,242,254,0.3);
+    .add-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(104,243,107,0.05); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+      background: var(--card); border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 14px 20px;
+      font-size: 13px; display: flex; align-items: center; gap: 10px;
+      transform: translateY(80px); opacity: 0;
+      transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
     }
-    .btn-submit:hover {
-      background: #39f5ff;
-      transform: translateY(-2px);
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast-icon { color: var(--accent); font-size: 16px; }
+
+    /* ── PREVIEW LINK ── */
+    .preview-bar {
+      background: rgba(104,243,107,0.06); border: 1.5px solid rgba(104,243,107,0.2);
+      border-radius: 12px; padding: 14px 20px; margin-bottom: 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px;
     }
-    .admin-tabs {
-      display: flex;
+    .preview-bar span { font-size: 13px; color: var(--accent); }
+    .preview-bar a { font-size: 13px; color: var(--text); border: 1.5px solid var(--border); padding: 7px 16px; border-radius: 100px; }
+    .preview-bar a:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── PAGE VISIBILITY TOGGLES ── */
+    .visibility-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 12px;
-      border-bottom: 1px solid var(--card-border);
-      margin-bottom: 24px;
-      padding-bottom: 12px;
     }
-    .tab-btn {
-      padding: 10px 18px;
-      border-radius: var(--radius-pill);
-      background: var(--panel-dark);
-      border: 1px solid var(--card-border);
-      color: var(--text-muted);
-      font-weight: 500;
-      font-size: 14px;
-      cursor: pointer;
+    .visibility-item {
+      background: var(--surface); border: 1.5px solid var(--border2);
+      border-radius: 10px; padding: 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px;
     }
-    .tab-btn.active {
-      background: var(--cyan);
-      color: #05070a;
-      border-color: var(--cyan);
-      font-weight: bold;
+    .toggle-switch { position: relative; display: inline-block; width: 40px; height: 22px; flex-shrink: 0; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-track {
+      position: absolute; inset: 0; border-radius: 100px;
+      background: rgba(255,255,255,0.12); cursor: pointer; transition: 0.3s;
     }
-    .admin-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
+    .toggle-track::after {
+      content: ''; position: absolute; left: 3px; top: 3px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #fff; transition: 0.3s;
+    }
+    .toggle-switch input:checked + .toggle-track { background: var(--accent); }
+    .toggle-switch input:checked + .toggle-track::after { transform: translateX(18px); }
+
+    @media (max-width: 700px) {
+      .admin-wrapper { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; position: relative; padding: 16px 0; }
+      .sidebar-nav { flex-direction: row; flex-wrap: wrap; }
+      .sidebar-nav button { flex: 1; min-width: 120px; }
+      .tab-panel { padding: 20px 16px; }
+      .field-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="admin-page-box">
-      <div class="admin-page-header">
-        <h2>Buildroonix Content & Media Admin</h2>
-        <a href="index.html" class="secondary-button" style="padding:8px 18px; font-size:13px;">← Return to Public Site</a>
+<!-- ── LOGIN GATE ── -->
+<div id="loginGate" class="login-wrap">
+  <div class="login-card">
+    <img src="assets/logo.png" alt="Buildroonix" />
+    <h2>Admin Portal</h2>
+    <p>Sign in to manage your Buildroonix landing page</p>
+    <div class="field"><label>Password</label>
+      <input type="password" id="adminPwd" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()" />
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-top:8px;" onclick="doLogin()">Sign In</button>
+    <p class="login-error" id="loginErr">❌ Incorrect password</p>
+  </div>
+</div>
+
+<!-- ── ADMIN PANEL ── -->
+<div id="adminPanel" class="admin-wrapper" style="display:none;">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <img src="assets/logo.png" alt="Logo" />
+      <span>BUILDROONIX</span>
+    </div>
+
+    <div class="sidebar-section-label">Content</div>
+    <nav class="sidebar-nav">
+      <button class="active" onclick="showTab('tab-hero', this)" id="nav-hero">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+        Hero Section
+      </button>
+      <button onclick="showTab('tab-featured', this)" id="nav-featured">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Featured Work
+      </button>
+      <button onclick="showTab('tab-audience', this)" id="nav-audience">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Who We Serve
+      </button>
+      <button onclick="showTab('tab-testimonials', this)" id="nav-testimonials">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Testimonials
+      </button>
+      <button onclick="showTab('tab-cards', this)" id="nav-cards">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        Capabilities
+      </button>
+
+      <div class="sidebar-section-label" style="margin-top:8px;">Settings</div>
+      <button onclick="showTab('tab-contact', this)" id="nav-contact">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Contact & Footer
+      </button>
+      <button onclick="showTab('tab-visibility', this)" id="nav-visibility">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Section Visibility
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div style="margin-bottom:6px;"><a href="index.html" target="_blank">↗ View Live Site</a></div>
+      <div>Buildroonix Admin v5</div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1 id="adminHeaderTitle">Hero Section</h1>
+      <div class="admin-header-actions">
+        <a href="index.html" target="_blank" style="font-size:13px;color:var(--muted);border:1.5px solid var(--border);padding:8px 16px;border-radius:100px;">↗ Preview</a>
+        <button class="btn btn-primary btn-sm" onclick="saveAll()">Save Changes</button>
+        <button class="btn btn-ghost btn-sm" onclick="resetDefaults()" style="color:var(--danger);border-color:rgba(255,90,90,0.3);">Reset</button>
+        <button class="btn btn-ghost btn-sm" onclick="doLogout()">Logout</button>
       </div>
+    </div>
 
-      <div class="admin-page-body">
-        <!-- LOGIN VIEW -->
-        <div class="admin-login-card" id="adminPageLogin">
-          <h3>Admin Security Login</h3>
-          <p>Sign in with admin credentials to manage site content, cards, images, videos, and portal links.</p>
+    <div style="padding:24px 32px 0;">
+      <div class="preview-bar">
+        <span>✓ All changes save to browser storage and reflect instantly on the site</span>
+        <a href="index.html" target="_blank">Open Landing Page ↗</a>
+      </div>
+    </div>
 
-          <form onsubmit="handleAdminPageLogin(event)">
-            <div class="field">
-              <label>Admin Email</label>
-              <input type="email" id="adminEmail" value="admin@buildroonix.com" required />
-            </div>
-            <div class="field">
-              <label>Password</label>
-              <input type="password" id="adminPassword" value="admin123" required />
-            </div>
-            <div id="loginError" style="color:var(--orange); font-size:13px; margin-bottom:14px; display:none;"></div>
-            <button type="submit" class="btn-submit">Sign In to Dashboard</button>
-          </form>
+    <!-- ════════ TAB: HERO ════════ -->
+    <div class="tab-panel active" id="tab-hero">
+      <div class="section-card">
+        <h3>Hero Headline <span class="badge">HERO</span></h3>
+        <div class="field"><label>Eyebrow Text</label><input id="heroEyebrow" /></div>
+        <div class="field-row">
+          <div class="field"><label>Title Line 1</label><input id="heroTitleLine1" /></div>
+          <div class="field"><label>Highlighted Word</label><input id="heroTitleHighlight" /></div>
         </div>
+        <div class="field"><label>Body Description</label><textarea id="heroDescription" rows="3"></textarea></div>
+      </div>
+      <div class="section-card">
+        <h3>Hero Buttons</h3>
+        <div class="field-row">
+          <div class="field"><label>Primary Button Text</label><input id="heroPrimaryText" /></div>
+          <div class="field"><label>Primary Button Link</label><input id="heroPrimaryLink" /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Secondary Button Text</label><input id="heroSecondaryText" /></div>
+          <div class="field"><label>Secondary Button Link</label><input id="heroSecondaryLink" /></div>
+        </div>
+      </div>
+      <div class="section-card">
+        <h3>Vision / Manifesto</h3>
+        <div class="field"><label>Manifesto Body Text</label><textarea id="manifestoText" rows="4"></textarea></div>
+      </div>
+    </div>
 
-        <!-- MAIN DASHBOARD CONTENT VIEW -->
-        <div id="adminPageDashboard" style="display:none;">
-          <div class="admin-tabs">
-            <button class="tab-btn active" onclick="switchAdminTab('hero', this)">Hero & Media</button>
-            <button class="tab-btn" onclick="switchAdminTab('portals', this)">Glowing Cards Manager</button>
-            <button class="tab-btn" onclick="switchAdminTab('contact', this)">Contact & Socials</button>
-          </div>
+    <!-- ════════ TAB: FEATURED WORK ════════ -->
+    <div class="tab-panel" id="tab-featured">
+      <div class="section-card">
+        <h3>Featured Work Section <span class="badge">CASE STUDIES</span></h3>
+        <div class="field-row">
+          <div class="field"><label>Section Kicker</label><input id="featuredKicker" /></div>
+          <div class="field"><label>Section Heading</label><input id="featuredHeading" /></div>
+        </div>
+        <div class="field"><label>Section Subhead</label><textarea id="featuredSubhead" rows="2"></textarea></div>
+      </div>
+      <div class="section-card">
+        <h3>Case Study Cards</h3>
+        <div class="repeater" id="featuredRepeater"></div>
+        <button class="add-btn" onclick="addFeaturedItem()">+ Add Case Study</button>
+      </div>
+    </div>
 
-          <!-- TAB 1: HERO & MEDIA -->
-          <div class="tab-section" id="tab-hero">
-            <div class="field">
-              <label>Hero Eyebrow Tag</label>
-              <input type="text" id="adminHeroLabel" />
-            </div>
-            <div class="admin-grid">
-              <div class="field">
-                <label>Headline Line 1</label>
-                <input type="text" id="adminHeroHeadline1" />
-              </div>
-              <div class="field">
-                <label>Headline Highlight Line</label>
-                <input type="text" id="adminHeroHeadlineHighlight" />
-              </div>
-            </div>
-            <div class="field">
-              <label>Hero Description</label>
-              <textarea id="adminHeroCopy"></textarea>
-            </div>
-            
-            <!-- Hero Visual Media & File Upload -->
-            <div style="background:var(--panel-dark); padding:20px; border:1px solid var(--card-border); border-radius:12px; margin-bottom:20px;">
-              <h4 style="font-family:var(--font-heading); margin-bottom:12px; color:var(--cyan);">Hero Visual Showcase</h4>
-              <div class="admin-grid">
-                <div class="field">
-                  <label>Media Type</label>
-                  <select id="adminHeroMediaType">
-                    <option value="video">Video (MP4 / WebM)</option>
-                    <option value="image">Image (PNG / JPG / GIF)</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label>Media File URL / Path</label>
-                  <input type="text" id="adminHeroMediaUrl" />
-                </div>
-              </div>
-              <div class="file-dropzone" onclick="document.getElementById('heroFileInput').click()">
-                📁 Upload Local Video, Image, or GIF File from Computer
-                <input type="file" id="heroFileInput" accept="image/*,video/*" style="display:none;" onchange="handleFileUpload(this, 'adminHeroMediaUrl', 'adminHeroMediaType')" />
-              </div>
-            </div>
+    <!-- ════════ TAB: AUDIENCE ════════ -->
+    <div class="tab-panel" id="tab-audience">
+      <div class="section-card">
+        <h3>Who We Serve Section <span class="badge">AUDIENCE</span></h3>
+        <div class="field-row">
+          <div class="field"><label>Section Kicker</label><input id="audienceKicker" /></div>
+          <div class="field"><label>Section Heading</label><input id="audienceHeading" /></div>
+        </div>
+      </div>
+      <div class="section-card">
+        <h3>Audience Blocks</h3>
+        <div class="repeater" id="audienceRepeater"></div>
+        <button class="add-btn" onclick="addAudienceItem()">+ Add Audience Block</button>
+      </div>
+    </div>
 
-            <div class="admin-grid">
-              <div class="field">
-                <label>Primary Button Text</label>
-                <input type="text" id="adminHeroPrimaryCtaText" />
-              </div>
-              <div class="field">
-                <label>Primary Button Target URL</label>
-                <input type="text" id="adminHeroPrimaryCtaLink" />
-              </div>
-            </div>
-          </div>
+    <!-- ════════ TAB: TESTIMONIALS ════════ -->
+    <div class="tab-panel" id="tab-testimonials">
+      <div class="section-card">
+        <h3>Testimonials Section <span class="badge">SOCIAL PROOF</span></h3>
+        <div class="field-row">
+          <div class="field"><label>Section Kicker</label><input id="testimonialsKicker" /></div>
+          <div class="field"><label>Section Heading</label><input id="testimonialsHeading" /></div>
+        </div>
+      </div>
+      <div class="section-card">
+        <h3>Customer Reviews</h3>
+        <div class="repeater" id="testimonialsRepeater"></div>
+        <button class="add-btn" onclick="addTestimonialItem()">+ Add Testimonial</button>
+      </div>
+    </div>
 
-          <!-- TAB 2: GLOWING CARDS MANAGER (ADD / EDIT / DELETE CARDS) -->
-          <div class="tab-section" id="tab-portals" style="display:none;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-              <h3>Glowing Solution Cards (${content.cards ? content.cards.length : 0})</h3>
-              <button type="button" onclick="addNewCard()" class="primary-button" style="padding:10px 20px; font-size:13px;">+ Add New Card</button>
-            </div>
-            <div id="adminCardsBox"></div>
-          </div>
+    <!-- ════════ TAB: CAPABILITIES CARDS ════════ -->
+    <div class="tab-panel" id="tab-cards">
+      <div class="section-card">
+        <h3>Capabilities / Solutions Cards <span class="badge">CARDS</span></h3>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:18px;">Edit the 4 capability cards shown on the main page.</p>
+        <div class="repeater" id="cardsRepeater"></div>
+        <button class="add-btn" onclick="addCardItem()">+ Add Capability Card</button>
+      </div>
+    </div>
 
-          <!-- TAB 3: CONTACT & SOCIALS -->
-          <div class="tab-section" id="tab-contact" style="display:none;">
-            <div class="admin-grid">
-              <div class="field">
-                <label>Support Email</label>
-                <input type="text" id="adminContactEmail" />
-              </div>
-              <div class="field">
-                <label>Phone Number</label>
-                <input type="text" id="adminContactPhone" />
-              </div>
-            </div>
-            <div class="admin-grid">
-              <div class="field">
-                <label>UPI ID</label>
-                <input type="text" id="adminContactUpi" />
-              </div>
-              <div class="field">
-                <label>GSTIN</label>
-                <input type="text" id="adminContactGst" />
-              </div>
-            </div>
-            
-            <h4 style="margin:24px 0 12px; font-family:var(--font-heading); color:var(--cyan);">Social Media Handles</h4>
-            <div class="admin-grid">
-              <div class="field">
-                <label>Instagram URL</label>
-                <input type="text" id="adminSocialInsta" />
-              </div>
-              <div class="field">
-                <label>Twitter / X URL</label>
-                <input type="text" id="adminSocialTwitter" />
-              </div>
-            </div>
-            <div class="admin-grid">
-              <div class="field">
-                <label>GitHub Profile / Org URL</label>
-                <input type="text" id="adminSocialGithub" />
-              </div>
-              <div class="field">
-                <label>LinkedIn Page URL</label>
-                <input type="text" id="adminSocialLinkedin" />
-              </div>
-            </div>
-            <div class="admin-grid">
-              <div class="field">
-                <label>YouTube Channel URL</label>
-                <input type="text" id="adminSocialYoutube" />
-              </div>
-              <div class="field">
-                <label>Discord Server / Invite URL</label>
-                <input type="text" id="adminSocialDiscord" />
-              </div>
-            </div>
-          </div>
-
-          <!-- DASHBOARD ACTION BUTTONS -->
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:30px; padding-top:20px; border-top:1px solid var(--card-border);">
-            <div style="display:flex; gap:12px;">
-              <button class="secondary-button" onclick="exportConfigJSON()" style="padding:10px 20px; font-size:13px;">Export JSON</button>
-              <label class="secondary-button" style="padding:10px 20px; font-size:13px; cursor:pointer;">
-                Import JSON
-                <input type="file" accept=".json" style="display:none;" onchange="importConfigJSON(event)" />
-              </label>
-              <button class="secondary-button" onclick="resetToDefaultConfig()" style="padding:10px 20px; font-size:13px; color:var(--orange); border-color:var(--orange);">Reset Defaults</button>
-            </div>
-            <button class="btn-submit" onclick="saveAdminChanges()" style="width:auto; padding:14px 32px;">Save Changes & Update Site</button>
-          </div>
+    <!-- ════════ TAB: CONTACT & FOOTER ════════ -->
+    <div class="tab-panel" id="tab-contact">
+      <div class="section-card">
+        <h3>Contact Information <span class="badge">FOOTER</span></h3>
+        <div class="field-row">
+          <div class="field"><label>Email</label><input id="contactEmail" type="email" /></div>
+          <div class="field"><label>Phone</label><input id="contactPhone" /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>UPI ID</label><input id="contactUpi" /></div>
+          <div class="field"><label>GSTIN</label><input id="contactGst" /></div>
+        </div>
+        <div class="field"><label>Address / Location Text</label><input id="footerAddress" /></div>
+        <div class="field"><label>Footer Tagline (use \n for line break)</label><textarea id="footerTagline" rows="2"></textarea></div>
+      </div>
+      <div class="section-card">
+        <h3>Social Links</h3>
+        <div class="field-row">
+          <div class="field"><label>Instagram URL</label><input id="socialInstagram" /></div>
+          <div class="field"><label>Twitter / X URL</label><input id="socialTwitter" /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>GitHub URL</label><input id="socialGithub" /></div>
+          <div class="field"><label>LinkedIn URL</label><input id="socialLinkedin" /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>YouTube URL</label><input id="socialYoutube" /></div>
+          <div class="field"><label>Discord URL</label><input id="socialDiscord" /></div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="js/app.js"></script>
-  <script src="js/admin.js"></script>
+    <!-- ════════ TAB: VISIBILITY ════════ -->
+    <div class="tab-panel" id="tab-visibility">
+      <div class="section-card">
+        <h3>Section Visibility <span class="badge">PAGE CONTROL</span></h3>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Toggle sections on or off without deleting content.</p>
+        <div class="visibility-grid" id="visibilityGrid"></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><span class="toast-icon">✓</span><span id="toastMsg">Changes saved!</span></div>
+
+<script src="js/admin.js"></script>
 </body>
 </html>

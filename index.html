@@ -3,34 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Buildroonix — Build Beyond Limits</title>
-  <meta name="description" content="Buildroonix — Physical 3D products, intelligent software, R&D hardware and technical education. Engineering the useful future." />
+  <title>Buildroonix — Full-Stack Creation Studio</title>
+  <meta name="description" content="Buildroonix — Custom 3D printed decor, intelligent software, student projects and smart gadgets. Your full-stack creation partner." />
   <link rel="icon" href="assets/logo.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-
-  <!-- Hidden SVG defs for the animationcode gradient on cards -->
-  <svg width="0" height="0" style="position:absolute;overflow:hidden;" aria-hidden="true">
-    <defs>
-      <!-- Green → Blue → Orange gradient (from animationcode) -->
-      <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%"   stop-color="#68f36b" />
-        <stop offset="50%"  stop-color="#26a9ff" />
-        <stop offset="100%" stop-color="#ff7212" />
-      </linearGradient>
-      <filter id="cardGlow" x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur stdDeviation="4" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-  </svg>
 </head>
 <body>
-
-  <!-- Cursor glow -->
-  <div class="cursor-spot" id="cursorSpot" aria-hidden="true"></div>
 
   <!-- ===================== HEADER ===================== -->
   <header class="site-header" id="siteHeader">
@@ -44,12 +25,12 @@
       </a>
 
       <nav class="desk-nav" aria-label="Main navigation">
-        <a href="#solutions">Capabilities</a>
-        <a href="#vision">Vision</a>
+        <a href="#work">Our Work</a>
+        <a href="#who-we-serve">Who We Serve</a>
         <a href="#contact">Contact</a>
       </nav>
 
-      <a href="#contact" class="header-cta" id="headerCta">Start a Project</a>
+      <a href="#contact" class="header-cta" id="headerCta">Get a Free Quote</a>
 
       <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleDrawer()" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -61,10 +42,10 @@
   <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
     <div class="drawer-inner">
       <button class="drawer-close" onclick="toggleDrawer()" aria-label="Close menu">✕</button>
-      <a href="#solutions" onclick="toggleDrawer()">Capabilities</a>
-      <a href="#vision" onclick="toggleDrawer()">Vision</a>
+      <a href="#work" onclick="toggleDrawer()">Our Work</a>
+      <a href="#who-we-serve" onclick="toggleDrawer()">Who We Serve</a>
       <a href="#contact" onclick="toggleDrawer()">Contact</a>
-      <a href="#contact" class="drawer-cta" onclick="toggleDrawer()">Start a Project →</a>
+      <a href="#contact" class="drawer-cta" onclick="toggleDrawer()">Get a Free Quote →</a>
     </div>
   </div>
 
@@ -74,33 +55,35 @@
 
       <!-- LEFT: Editorial text -->
       <div class="hero-left">
-        <div class="kicker-line">
-          <span class="kicker-dot"></span>
-          <span id="heroEyebrow">Engineering the Useful Future</span>
+        <div class="hero-eyebrow" id="heroEyebrow">
+          <span class="eyebrow-dot"></span>
+          <span>Full-Stack Creation Studio · India</span>
         </div>
 
         <h1 class="hero-h1">
-          <span class="h1-line" id="heroTitleLine1">Build ideas</span>
-          <span class="h1-line h1-line--accent" id="heroTitleHighlight">into reality.</span>
+          <span class="h1-line" id="heroTitleLine1">We build</span>
+          <span class="h1-line h1-accent" id="heroTitleHighlight">useful things</span>
+          <span class="h1-line h1-sub">for the next everyday.</span>
         </h1>
 
         <p class="hero-body" id="heroDescription">
-          Buildroonix creates physical 3D products, intelligent software, practical technical education, and experimental hardware for people who refuse to build ordinary things.
+          From custom 3D printed decor to intelligent software and smart gadgets — Buildroonix handles the full lifecycle: design, code, electronics, and delivery.
         </p>
 
         <div class="hero-btns">
-          <a href="#solutions" class="btn-primary" id="heroPrimaryBtn">Explore Portals</a>
-          <a href="#contact" class="btn-ghost" id="heroSecondaryBtn">Start a project →</a>
+          <a href="#contact" class="btn-primary" id="heroPrimaryBtn">Get a Free Quote</a>
+          <a href="#work" class="btn-ghost" id="heroSecondaryBtn">See Our Work ↓</a>
         </div>
 
-        <div class="portal-chips">
-          <span class="chip-label">Portals:</span>
-          <a href="https://3d.buildroonix.com" target="_blank" rel="noopener" class="chip chip--green">3d ↗</a>
-          <a href="https://software.buildroonix.com" target="_blank" rel="noopener" class="chip chip--blue">software ↗</a>
-          <a href="https://projects.buildroonix.com" target="_blank" rel="noopener" class="chip chip--orange">projects ↗</a>
+        <!-- Audience quick-links -->
+        <div class="hero-audience-chips">
+          <span class="aud-label">I'm looking for:</span>
+          <a href="#decor" class="aud-chip">Custom 3D Decor</a>
+          <a href="#students" class="aud-chip">Student Projects</a>
+          <a href="#business" class="aud-chip">Software for Business</a>
         </div>
 
-        <!-- Mobile animated logo (below text on small screens) -->
+        <!-- Mobile video -->
         <div class="hero-mobile-showcase">
           <video src="assets/can_you_animate_this_png_logo.mp4" autoplay muted loop playsinline></video>
         </div>
@@ -109,20 +92,14 @@
       <!-- RIGHT: Motion video showcase -->
       <div class="hero-right">
         <div class="hero-showcase">
-          <!-- LED corner dots from animationcode -->
           <span class="led-dot green" aria-hidden="true"></span>
           <span class="led-dot blue"  aria-hidden="true"></span>
           <span class="led-dot orange" aria-hidden="true"></span>
-
-          <!-- Badge -->
-          <div class="showcase-badge" id="showcaseBadgeText">Buildroonix · Motion Video</div>
-
-          <!-- Video panel -->
-          <div class="hero-video-panel active" id="heroVideoPanel">
+          <div class="showcase-badge">Buildroonix · Motion Reel</div>
+          <div class="hero-video-panel active">
             <video src="assets/can_you_animate_this_png_logo.mp4" autoplay muted loop playsinline></video>
           </div>
-
-          <!-- Animated gradient border drawn via SVG (like animationcode stroke-dashoffset) -->
+          <!-- Animated gradient border -->
           <svg class="hero-border-svg" viewBox="0 0 520 400" fill="none" xmlns="http://www.w3.org/2000/svg"
                style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;overflow:visible;">
             <defs>
@@ -139,23 +116,33 @@
             <rect x="3" y="3" width="514" height="394" rx="26"
               fill="none" stroke="url(#hbg)" stroke-width="3"
               stroke-dasharray="1800" stroke-dashoffset="1800"
-              filter="url(#hglow)"
-            >
+              filter="url(#hglow)">
               <animate attributeName="stroke-dashoffset" from="1800" to="0" dur="2.4s" fill="freeze" />
             </rect>
           </svg>
         </div>
 
         <!-- Floating stat chips -->
-        <div class="floating-stat stat-a reveal-fade">
+        <div class="floating-stat stat-a">
           <span class="stat-num">3D</span>
           <span class="stat-txt">Design Studio</span>
         </div>
-        <div class="floating-stat stat-b reveal-fade" style="animation-delay:0.4s">
+        <div class="floating-stat stat-b">
           <span class="stat-num">IoT</span>
           <span class="stat-txt">Hardware Lab</span>
         </div>
       </div>
+    </div>
+
+    <!-- Trust bar -->
+    <div class="trust-bar">
+      <span>✓ MSME Registered</span>
+      <span class="trust-sep">·</span>
+      <span>✓ GSTIN Verified</span>
+      <span class="trust-sep">·</span>
+      <span>✓ 60%+ Margins on 3D Decor</span>
+      <span class="trust-sep">·</span>
+      <span>✓ Delivery across India</span>
     </div>
   </section>
 
@@ -163,32 +150,78 @@
   <div class="marquee-strip" aria-hidden="true">
     <div class="marquee-track">
       <span>3D Design</span><span class="gdot">·</span>
-      <span>Smart Hardware</span><span class="gdot">·</span>
-      <span>Software Suite</span><span class="gdot">·</span>
+      <span>Lithophane Lamps</span><span class="gdot">·</span>
+      <span>Custom Decor</span><span class="gdot">·</span>
+      <span>Software Products</span><span class="gdot">·</span>
       <span>IoT Systems</span><span class="gdot">·</span>
+      <span>Student Projects</span><span class="gdot">·</span>
       <span>Gym Management</span><span class="gdot">·</span>
       <span>PG &amp; Hostel Tech</span><span class="gdot">·</span>
+      <span>Smart Gadgets</span><span class="gdot">·</span>
       <span>R&amp;D Prototyping</span><span class="gdot">·</span>
+      <span>E-commerce Integration</span><span class="gdot">·</span>
+      <!-- duplicate for seamless loop -->
       <span>3D Design</span><span class="gdot">·</span>
-      <span>Smart Hardware</span><span class="gdot">·</span>
-      <span>Software Suite</span><span class="gdot">·</span>
+      <span>Lithophane Lamps</span><span class="gdot">·</span>
+      <span>Custom Decor</span><span class="gdot">·</span>
+      <span>Software Products</span><span class="gdot">·</span>
       <span>IoT Systems</span><span class="gdot">·</span>
+      <span>Student Projects</span><span class="gdot">·</span>
       <span>Gym Management</span><span class="gdot">·</span>
       <span>PG &amp; Hostel Tech</span><span class="gdot">·</span>
+      <span>Smart Gadgets</span><span class="gdot">·</span>
       <span>R&amp;D Prototyping</span><span class="gdot">·</span>
+      <span>E-commerce Integration</span><span class="gdot">·</span>
     </div>
   </div>
 
-  <!-- ===================== SOLUTIONS / CARDS ===================== -->
+  <!-- ===================== FEATURED WORK (Case Studies) ===================== -->
+  <section class="featured-section" id="work">
+    <div class="section-wrap">
+      <div class="section-header reveal-up">
+        <span class="section-kicker" id="featuredKicker">Our Work</span>
+        <h2 class="section-h2" id="featuredHeading">From idea to hands.</h2>
+        <p class="section-sub" id="featuredSubhead">Every project follows the same logic: understand the need, build the right solution, deliver a real outcome.</p>
+      </div>
+
+      <!-- Featured case study cards rendered by JS -->
+      <div class="featured-grid" id="featuredGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===================== CAPABILITIES / SOLUTIONS ===================== -->
   <section class="solutions-section" id="solutions">
     <div class="section-wrap">
       <div class="section-header reveal-up">
         <span class="section-kicker">What We Build</span>
-        <h2 class="section-h2">Five directions.<br/>One restless mind.</h2>
+        <h2 class="section-h2">Four directions.<br/>One restless studio.</h2>
         <p class="section-sub">Explore how Buildroonix merges engineering, design, and technology into real, useful products.</p>
       </div>
-      <!-- Cards rendered by JS -->
       <div class="cards-grid" id="solutionGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===================== WHO WE SERVE ===================== -->
+  <section class="audience-section" id="who-we-serve">
+    <div class="section-wrap">
+      <div class="section-header reveal-up">
+        <span class="section-kicker" id="audienceKicker">Who We Serve</span>
+        <h2 class="section-h2" id="audienceHeading">Three audiences.<br/>One creation firm.</h2>
+      </div>
+      <!-- Audience blocks rendered by JS -->
+      <div class="audience-grid" id="audienceGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIALS ===================== -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="section-wrap">
+      <div class="section-header reveal-up">
+        <span class="section-kicker" id="testimonialsKicker">What People Say</span>
+        <h2 class="section-h2" id="testimonialsHeading">Real results.<br/>Real people.</h2>
+      </div>
+      <!-- Testimonial cards rendered by JS -->
+      <div class="testimonials-grid" id="testimonialsGrid"></div>
     </div>
   </section>
 
@@ -201,7 +234,7 @@
       </div>
       <div class="vision-right reveal-fade">
         <p class="vision-body" id="manifestoText">
-          We believe the best technology should feel understandable, useful and slightly ahead of its time. Buildroonix connects design, code, electronics and learning under one roof.
+          We believe the best technology should feel understandable, useful and slightly ahead of its time. Buildroonix connects design, code, electronics and learning under one roof — from the code that runs it to the physical 3D structure that houses it.
         </p>
         <div class="vision-pillars">
           <div class="pillar">
@@ -227,7 +260,8 @@
       <div class="footer-top">
         <div class="footer-brand">
           <img src="assets/logo.png" alt="Buildroonix" class="footer-logo" />
-          <p class="footer-tagline">© 2026 Buildroonix.<br/>Built for the next version of useful.</p>
+          <p class="footer-tagline" id="footerTagline">© 2026 Buildroonix Engineering Studio.<br/>Built for the next version of useful.</p>
+          <p class="footer-address" id="footerAddress">📍 India · Delivering Nationwide</p>
           <div class="footer-socials">
             <a href="https://instagram.com/buildroonix" target="_blank" rel="noopener" id="socialInsta" class="soc-btn" title="Instagram">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
@@ -273,11 +307,15 @@
           <div class="reg-badge">
             <div class="reg-row">
               <span class="reg-check">✓</span>
-              <span>MSME Verified</span>
+              <span>MSME Registered · India</span>
             </div>
             <div class="reg-row">
               <span class="reg-check">✓</span>
               <span>GSTIN: <strong id="footerGst">09HQHPD9487C1ZE</strong></span>
+            </div>
+            <div class="reg-row">
+              <span class="reg-check">✓</span>
+              <span>Privacy Policy · Shipping Policy</span>
             </div>
           </div>
         </div>

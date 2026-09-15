@@ -1,291 +1,527 @@
 /**
- * BUILDROONIX — DEDICATED ADMIN DASHBOARD LOGIC
- * Manages security login, local media file uploads (images, GIFs, videos to Data URLs),
- * dynamic card creation/editing/deletion, and JSON config sync.
+ * BUILDROONIX — ADMIN PANEL JS v5
+ * Handles: login, tab routing, repeater CRUD for all sections,
+ *          save/load to localStorage, reset, visibility toggles
  */
 
-let isAdminLoggedIn = false;
+const ADMIN_PASSWORD = "buildroonix2026";
+const DATA_VERSION   = "v5-editorial";
+const STORAGE_KEY    = "buildroonixContent";
+const VERSION_KEY    = "buildroonixVersion";
 
-// Handle Admin Page Login
-function handleAdminPageLogin(event) {
-  if (event) event.preventDefault();
+/* ─── DEFAULT (mirrored from app.js) ────────────────────────── */
+const defaultSiteContent = {
+  heroEyebrow:        "Full-Stack Creation Studio · India",
+  heroTitleLine1:     "We build",
+  heroTitleHighlight: "useful things",
+  heroDescription:    "From custom 3D printed decor to intelligent software and smart gadgets — Buildroonix handles the full lifecycle: design, code, electronics, and delivery.",
+  heroPrimaryText:    "Get a Free Quote",
+  heroPrimaryLink:    "#contact",
+  heroSecondaryText:  "See Our Work ↓",
+  heroSecondaryLink:  "#work",
+  manifestoText: "We believe the best technology should feel understandable, useful and slightly ahead of its time. Buildroonix connects design, code, electronics and learning under one roof.",
+  contactEmail: "support@buildroonix.com",
+  contactPhone: "+91 9580181697",
+  contactUpi:   "9580181697@ibl",
+  contactGst:   "09HQHPD9487C1ZE",
+  footerAddress: "📍 India · Delivering Nationwide",
+  footerTagline: "© 2026 Buildroonix Engineering Studio.\nBuilt for the next version of useful.",
+  socials: {
+    instagram: "https://instagram.com/buildroonix",
+    twitter:   "https://x.com/buildroonix",
+    github:    "https://github.com/buildroonix",
+    linkedin:  "https://linkedin.com/company/buildroonix",
+    youtube:   "https://youtube.com/@buildroonix",
+    discord:   "https://discord.gg/buildroonix"
+  },
+  featuredKicker:  "Our Work",
+  featuredHeading: "From idea to hands.",
+  featuredSubhead: "Every project follows the same logic: understand the need, build the right solution, deliver a real outcome.",
+  featuredWork: [
+    {
+      tag:      "3D Decor · Client Project",
+      title:    "Custom Lithophane Lamp",
+      story:    "A customer needed a unique, personal gift for their parents' anniversary. Standard gifts felt impersonal and mass-produced.",
+      outcome:  "We 3D printed a backlit lithophane cylinder from their family photo. Delivered in 5 days.",
+      ctaText:  "Order Your Custom Lamp",
+      ctaLink:  "https://3d.buildroonix.com",
+      imageUrl: "assets/lamp_product.png",
+      mediaType: "image"
+    },
+    {
+      tag:      "Hardware · IoT Project",
+      title:    "3D Printing Studio Build",
+      story:    "Buildroonix needed a professional workspace that could handle multiple simultaneous print jobs for client orders.",
+      outcome:  "Built a multi-printer studio. Throughput increased 4×. Fully remote-monitored.",
+      ctaText:  "Explore 3D Studio",
+      ctaLink:  "https://3d.buildroonix.com",
+      imageUrl: "assets/studio_workspace.png",
+      mediaType: "image"
+    },
+    {
+      tag:      "Student Projects · Education",
+      title:    "Student Project Support",
+      story:    "Engineering students needed practical hardware projects with complete documentation and working code.",
+      outcome:  "We provided end-to-end support — from circuit design to 3D printed enclosures. 50+ projects completed.",
+      ctaText:  "Start Your Project",
+      ctaLink:  "https://projects.buildroonix.com",
+      imageUrl: "assets/student_project.png",
+      mediaType: "image"
+    }
+  ],
+  audienceKicker:  "Who We Serve",
+  audienceHeading: "Three audiences.\nOne creation firm.",
+  audienceBlocks: [
+    { tag: "Home Decor", title: "Turn memories into light.", desc: "Custom 3D printed lithophane lamps, organic decor, and bespoke gifts.", ctaText: "Shop Custom 3D Decor →", ctaLink: "https://3d.buildroonix.com", imageUrl: "assets/lamp_product.png", id: "decor" },
+    { tag: "Students", title: "From breadboard to working project.", desc: "We help students complete engineering projects with full documentation and working code.", ctaText: "Start Your Project →", ctaLink: "https://projects.buildroonix.com", imageUrl: "assets/student_project.png", id: "students" },
+    { tag: "Business Owners", title: "Automate your business operations.", desc: "Custom software for gym management, PG/hostel platforms, e-commerce integrations.", ctaText: "Request a Consultation →", ctaLink: "https://software.buildroonix.com", imageUrl: "assets/studio_workspace.png", id: "business" }
+  ],
+  testimonialsKicker:  "What People Say",
+  testimonialsHeading: "Real results.\nReal people.",
+  testimonials: [
+    { quote: "The lithophane lamp arrived exactly as I imagined. It's the most thoughtful gift I've ever given.", name: "Priya Sharma", role: "Home Decor Customer", avatar: "", stars: 5 },
+    { quote: "Buildroonix delivered my final year project on time with complete documentation.", name: "Rahul Verma", role: "Engineering Student, NIT", avatar: "", stars: 5 },
+    { quote: "The gym management software reduced our manual work by 80%. Everything just works.", name: "Anil Kapoor", role: "Gym Owner, Delhi", avatar: "", stars: 5 }
+  ],
+  sectionVisibility: {
+    featured:     true,
+    capabilities: true,
+    audience:     true,
+    testimonials: true,
+    vision:       true
+  },
+  cards: [
+    { category: "3D DESIGN", subdomain: "3d.buildroonix.com", title: "3D CAD & Custom Decor", description: "Parametric 3D design, lithophane lamps, custom gifts and 3D printing.", c1: "#68f36b", c2: "#26a9ff", c3: "#ff7212", mediaType: "image", mediaUrl: "assets/lamp_product.png", link: "https://3d.buildroonix.com", iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>` },
+    { category: "SOFTWARE", subdomain: "software.buildroonix.com", title: "Software & App Suite", description: "Gym management, PG/hostel platforms, and automated web platforms.", c1: "#26a9ff", c2: "#68f36b", c3: "#ff7212", mediaType: "image", mediaUrl: "assets/software_preview.png", link: "https://software.buildroonix.com", iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>` },
+    { category: "HARDWARE", subdomain: "projects.buildroonix.com", title: "R&D & Smart Gadgets", description: "IoT microcontrollers, student project support, and smart gadgets.", c1: "#ff7212", c2: "#68f36b", c3: "#26a9ff", mediaType: "image", mediaUrl: "assets/student_project.png", link: "https://projects.buildroonix.com", iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/></svg>` },
+    { category: "SOFTWARE", subdomain: "software.buildroonix.com", title: "Gym Management", description: "Member tracking, class scheduling, billing and analytics for fitness centers.", c1: "#ff7212", c2: "#26a9ff", c3: "#68f36b", mediaType: "image", mediaUrl: "", link: "https://software.buildroonix.com", iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6.5 6.5h11M6.5 17.5h11"/></svg>` }
+  ]
+};
 
-  const email = document.getElementById("adminEmail").value.trim();
-  const password = document.getElementById("adminPassword").value.trim();
-  const errBox = document.getElementById("loginError");
-
-  // Credentials from CREDENTIALS.TXT
-  if (email === "admin@buildroonix.com" && password === "admin123") {
-    isAdminLoggedIn = true;
-    errBox.style.display = "none";
-    document.getElementById("adminPageLogin").style.display = "none";
-    document.getElementById("adminPageDashboard").style.display = "block";
-    populateAdminDashboard();
+/* ─── AUTH ────────────────────────────────────────────────────── */
+function doLogin() {
+  const pwd = document.getElementById("adminPwd").value;
+  if (pwd === ADMIN_PASSWORD) {
+    sessionStorage.setItem("adminAuth", "1");
+    document.getElementById("loginGate").style.display  = "none";
+    document.getElementById("adminPanel").style.display = "flex";
+    initAdmin();
   } else {
-    errBox.style.display = "block";
-    errBox.textContent = "Invalid credentials. Check CREDENTIALS.TXT (admin@buildroonix.com / admin123)";
+    const err = document.getElementById("loginErr");
+    if (err) { err.style.display = "block"; err.textContent = "❌ Incorrect password. Try again."; }
+    setTimeout(() => { if(err) err.style.display = "none"; }, 3000);
   }
 }
 
-// Tab Switching
-function switchAdminTab(tabName, clickedBtn) {
-  const tabs = document.querySelectorAll(".tab-section");
-  const btns = document.querySelectorAll(".tab-btn");
-
-  tabs.forEach(t => t.style.display = "none");
-  btns.forEach(b => b.classList.remove("active"));
-
-  const targetTab = document.getElementById(`tab-${tabName}`);
-  if (targetTab) targetTab.style.display = "block";
-  if (clickedBtn) clickedBtn.classList.add("active");
+function doLogout() {
+  sessionStorage.removeItem("adminAuth");
+  location.reload();
 }
 
-// Populate Dashboard Fields from content state
-function populateAdminDashboard() {
-  const cfg = content;
-
-  // Hero
-  setVal("adminHeroEyebrow", cfg.heroEyebrow || "ENGINEERING THE USEFUL FUTURE");
-  setVal("adminHeroHeadline1", cfg.heroTitleLine1 || "Build ideas");
-  setVal("adminHeroHeadlineHighlight", cfg.heroTitleHighlight || "into reality.");
-  setVal("adminHeroCopy", cfg.heroDescription || "");
-  setVal("adminHeroPrimaryCtaText", cfg.heroPrimaryText || "Explore Portals ↗");
-  setVal("adminHeroPrimaryCtaLink", cfg.heroPrimaryLink || "#solutions");
-  setVal("adminHeroMediaType", cfg.heroMediaType || "video");
-  setVal("adminHeroMediaUrl", cfg.heroMediaUrl || "");
-
-  // Contact & Socials
-  setVal("adminContactEmail", cfg.contactEmail || "support@buildroonix.com");
-  setVal("adminContactPhone", cfg.contactPhone || "+91 9580181697");
-  setVal("adminContactUpi", cfg.contactUpi || "9580181697@ibl");
-  setVal("adminContactGst", cfg.contactGst || "09HQHPD9487C1ZE");
-
-  const socials = cfg.socials || defaultSiteContent.socials;
-  setVal("adminSocialInsta", socials.instagram);
-  setVal("adminSocialTwitter", socials.twitter);
-  setVal("adminSocialGithub", socials.github);
-  setVal("adminSocialLinkedin", socials.linkedin);
-  setVal("adminSocialYoutube", socials.youtube);
-  setVal("adminSocialDiscord", socials.discord);
-
-  renderAdminCardsList();
-}
-
-// Render Editable List of Cards in Admin Panel
-function renderAdminCardsList() {
-  const cardsBox = document.getElementById("adminCardsBox");
-  if (!cardsBox) return;
-
-  if (!content.cards || !content.cards.length) {
-    content.cards = defaultSiteContent.cards;
-  }
-
-  cardsBox.innerHTML = content.cards.map((card, idx) => `
-    <div style="background:var(--paper); padding:20px; border:1px solid var(--line); border-radius:var(--radius-sm); margin-bottom:20px; position:relative;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <h4 style="color:${card.color || '#00f2fe'}; font-family:var(--font-heading);">Card ${idx + 1}: ${card.title}</h4>
-        <button type="button" onclick="deleteCard(${idx})" style="background:#ff6b35; color:white; border:0; padding:6px 12px; border-radius:6px; font-size:12px; cursor:pointer;">Delete Card</button>
-      </div>
-
-      <div class="admin-grid">
-        <div class="field">
-          <label>Category Tag (Uppercase)</label>
-          <input data-card="${idx}" data-key="category" value="${card.category || 'SOFTWARE'}">
-        </div>
-        <div class="field">
-          <label>Subdomain / Purpose Tag</label>
-          <input data-card="${idx}" data-key="subdomain" value="${card.subdomain || ''}">
-        </div>
-      </div>
-
-      <div class="admin-grid">
-        <div class="field">
-          <label>Card Main Title</label>
-          <input data-card="${idx}" data-key="title" value="${card.title || ''}">
-        </div>
-        <div class="field">
-          <label>Accent Glow Color</label>
-          <input type="color" data-card="${idx}" data-key="color" value="${card.color || '#00f2fe'}" style="height:44px; padding:4px;">
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Purpose Description</label>
-        <textarea data-card="${idx}" data-key="description">${card.description || ''}</textarea>
-      </div>
-
-      <div class="admin-grid">
-        <div class="field">
-          <label>Media Type</label>
-          <select data-card="${idx}" data-key="mediaType" id="cardMediaType_${idx}">
-            <option value="image" ${card.mediaType === "image" ? "selected" : ""}>Image / GIF</option>
-            <option value="video" ${card.mediaType === "video" ? "selected" : ""}>Video (MP4)</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Media URL / Data Path</label>
-          <input data-card="${idx}" data-key="mediaUrl" id="cardMediaUrl_${idx}" value="${card.mediaUrl || ''}">
-        </div>
-      </div>
-
-      <div class="file-dropzone" onclick="document.getElementById('cardFile_${idx}').click()">
-        📁 Upload Image, GIF, or Video File from Computer for Card ${idx + 1}
-        <input type="file" id="cardFile_${idx}" accept="image/*,video/*" style="display:none;" onchange="handleFileUpload(this, 'cardMediaUrl_${idx}', 'cardMediaType_${idx}')" />
-      </div>
-
-      <div class="field" style="margin-top:14px;">
-        <label>Destination Redirect Link</label>
-        <input data-card="${idx}" data-key="link" value="${card.link || ''}">
-      </div>
-    </div>
-  `).join("");
-}
-
-// Add New Card
-function addNewCard() {
-  if (!content.cards) content.cards = [];
-  content.cards.push({
-    category: "SOFTWARE",
-    subdomain: "software.buildroonix.com",
-    title: "New Custom System",
-    description: "System purpose, features, member management & analytics.",
-    color: "#00f2fe",
-    mediaType: "image",
-    mediaUrl: "assets/software_preview.png",
-    link: "https://software.buildroonix.com"
-  });
-  renderAdminCardsList();
-}
-
-// Delete Card
-function deleteCard(idx) {
-  if (confirm(`Are you sure you want to delete Card ${idx + 1}?`)) {
-    content.cards.splice(idx, 1);
-    renderAdminCardsList();
+/* ─── LOAD CONTENT ────────────────────────────────────────────── */
+let content = Object.assign({}, defaultSiteContent);
+function loadContent() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const saved = JSON.parse(raw);
+      content = Object.assign({}, defaultSiteContent, saved);
+      // Deep merge arrays if saved
+      if (!Array.isArray(content.featuredWork)) content.featuredWork = defaultSiteContent.featuredWork;
+      if (!Array.isArray(content.audienceBlocks)) content.audienceBlocks = defaultSiteContent.audienceBlocks;
+      if (!Array.isArray(content.testimonials)) content.testimonials = defaultSiteContent.testimonials;
+      if (!Array.isArray(content.cards)) content.cards = defaultSiteContent.cards;
+      if (!content.sectionVisibility) content.sectionVisibility = defaultSiteContent.sectionVisibility;
+    }
+  } catch(e) {
+    content = Object.assign({}, defaultSiteContent);
   }
 }
 
+/* ─── SAVE ────────────────────────────────────────────────────── */
+function saveAll() {
+  gatherHero();
+  gatherFeatured();
+  gatherAudience();
+  gatherTestimonials();
+  gatherCards();
+  gatherContact();
+  gatherVisibility();
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
+  localStorage.setItem(VERSION_KEY, DATA_VERSION);
+  showToast("✓ Changes saved and live on site!");
+}
+
+function resetDefaults() {
+  if (!confirm("Reset all content to defaults? This cannot be undone.")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(VERSION_KEY);
+  content = Object.assign({}, defaultSiteContent);
+  fillAllFields();
+  showToast("Reset to defaults");
+}
+
+/* ─── TAB ROUTING ─────────────────────────────────────────────── */
+function showTab(tabId, btn) {
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".sidebar-nav button").forEach(b => b.classList.remove("active"));
+  const panel = document.getElementById(tabId);
+  if (panel) panel.classList.add("active");
+  if (btn) btn.classList.add("active");
+
+  const titles = {
+    "tab-hero":         "Hero Section",
+    "tab-featured":     "Featured Work",
+    "tab-audience":     "Who We Serve",
+    "tab-testimonials": "Testimonials",
+    "tab-cards":        "Capabilities",
+    "tab-contact":      "Contact & Footer",
+    "tab-visibility":   "Section Visibility"
+  };
+  const h = document.getElementById("adminHeaderTitle");
+  if (h && titles[tabId]) h.textContent = titles[tabId];
+}
+
+/* ─── FILL FIELDS ─────────────────────────────────────────────── */
 function setVal(id, val) {
   const el = document.getElementById(id);
-  if (el) el.value = val || '';
+  if (el) el.value = val || "";
+}
+
+function fillAllFields() {
+  // Hero
+  setVal("heroEyebrow",        content.heroEyebrow);
+  setVal("heroTitleLine1",     content.heroTitleLine1);
+  setVal("heroTitleHighlight", content.heroTitleHighlight);
+  setVal("heroDescription",    content.heroDescription);
+  setVal("heroPrimaryText",    content.heroPrimaryText);
+  setVal("heroPrimaryLink",    content.heroPrimaryLink);
+  setVal("heroSecondaryText",  content.heroSecondaryText);
+  setVal("heroSecondaryLink",  content.heroSecondaryLink);
+  setVal("manifestoText",      content.manifestoText);
+
+  // Featured
+  setVal("featuredKicker",  content.featuredKicker);
+  setVal("featuredHeading", content.featuredHeading);
+  setVal("featuredSubhead", content.featuredSubhead);
+  renderFeaturedRepeater();
+
+  // Audience
+  setVal("audienceKicker",  content.audienceKicker);
+  setVal("audienceHeading", content.audienceHeading);
+  renderAudienceRepeater();
+
+  // Testimonials
+  setVal("testimonialsKicker",  content.testimonialsKicker);
+  setVal("testimonialsHeading", content.testimonialsHeading);
+  renderTestimonialsRepeater();
+
+  // Cards
+  renderCardsRepeater();
+
+  // Contact
+  setVal("contactEmail",   content.contactEmail);
+  setVal("contactPhone",   content.contactPhone);
+  setVal("contactUpi",     content.contactUpi);
+  setVal("contactGst",     content.contactGst);
+  setVal("footerAddress",  content.footerAddress);
+  setVal("footerTagline",  content.footerTagline);
+  const s = content.socials || {};
+  setVal("socialInstagram", s.instagram);
+  setVal("socialTwitter",   s.twitter);
+  setVal("socialGithub",    s.github);
+  setVal("socialLinkedin",  s.linkedin);
+  setVal("socialYoutube",   s.youtube);
+  setVal("socialDiscord",   s.discord);
+
+  // Visibility
+  renderVisibilityToggles();
+}
+
+/* ─── GATHER ──────────────────────────────────────────────────── */
+function gatherHero() {
+  content.heroEyebrow        = getVal("heroEyebrow");
+  content.heroTitleLine1     = getVal("heroTitleLine1");
+  content.heroTitleHighlight = getVal("heroTitleHighlight");
+  content.heroDescription    = getVal("heroDescription");
+  content.heroPrimaryText    = getVal("heroPrimaryText");
+  content.heroPrimaryLink    = getVal("heroPrimaryLink");
+  content.heroSecondaryText  = getVal("heroSecondaryText");
+  content.heroSecondaryLink  = getVal("heroSecondaryLink");
+  content.manifestoText      = getVal("manifestoText");
+}
+
+function gatherFeatured() {
+  content.featuredKicker  = getVal("featuredKicker");
+  content.featuredHeading = getVal("featuredHeading");
+  content.featuredSubhead = getVal("featuredSubhead");
+  content.featuredWork = gatherRepeaterData("featuredRepeater", ["tag","title","story","outcome","ctaText","ctaLink","imageUrl"]);
+}
+
+function gatherAudience() {
+  content.audienceKicker  = getVal("audienceKicker");
+  content.audienceHeading = getVal("audienceHeading");
+  content.audienceBlocks  = gatherRepeaterData("audienceRepeater", ["tag","title","desc","ctaText","ctaLink","imageUrl","id"]);
+}
+
+function gatherTestimonials() {
+  content.testimonialsKicker  = getVal("testimonialsKicker");
+  content.testimonialsHeading = getVal("testimonialsHeading");
+  content.testimonials = gatherRepeaterData("testimonialsRepeater", ["quote","name","role","avatar","stars"]);
+  // Parse stars as number
+  content.testimonials.forEach(t => { t.stars = parseInt(t.stars) || 5; });
+}
+
+function gatherCards() {
+  content.cards = gatherRepeaterData("cardsRepeater", ["category","subdomain","title","description","mediaUrl","link","c1","c2","c3"]);
+}
+
+function gatherContact() {
+  content.contactEmail  = getVal("contactEmail");
+  content.contactPhone  = getVal("contactPhone");
+  content.contactUpi    = getVal("contactUpi");
+  content.contactGst    = getVal("contactGst");
+  content.footerAddress = getVal("footerAddress");
+  content.footerTagline = getVal("footerTagline");
+  content.socials = {
+    instagram: getVal("socialInstagram"),
+    twitter:   getVal("socialTwitter"),
+    github:    getVal("socialGithub"),
+    linkedin:  getVal("socialLinkedin"),
+    youtube:   getVal("socialYoutube"),
+    discord:   getVal("socialDiscord")
+  };
+}
+
+function gatherVisibility() {
+  const sections = ["featured","capabilities","audience","testimonials","vision"];
+  const vis = content.sectionVisibility || {};
+  sections.forEach(s => {
+    const el = document.getElementById(`vis-${s}`);
+    if (el) vis[s] = el.checked;
+  });
+  content.sectionVisibility = vis;
 }
 
 function getVal(id) {
   const el = document.getElementById(id);
-  return el ? el.value.trim() : '';
+  return el ? el.value.trim() : "";
 }
 
-// File Upload Handler -> Converts local file to Data URL
-function handleFileUpload(fileInput, targetInputId, mediaTypeInputId) {
-  const file = fileInput.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const dataUrl = e.target.result;
-    const targetInput = document.getElementById(targetInputId);
-    if (targetInput) {
-      targetInput.value = dataUrl;
-    }
-
-    if (mediaTypeInputId) {
-      const selectEl = document.getElementById(mediaTypeInputId);
-      if (selectEl) {
-        selectEl.value = file.type.startsWith("video/") ? "video" : "image";
-      }
-    }
-
-    alert(`Successfully uploaded "${file.name}"!`);
-  };
-  reader.readAsDataURL(file);
-}
-
-// Save Changes to LocalStorage
-function saveAdminChanges() {
-  content.heroEyebrow = getVal("adminHeroEyebrow");
-  content.heroTitleLine1 = getVal("adminHeroHeadline1");
-  content.heroTitleHighlight = getVal("adminHeroHeadlineHighlight");
-  content.heroDescription = getVal("adminHeroCopy");
-  content.heroPrimaryText = getVal("adminHeroPrimaryCtaText");
-  content.heroPrimaryLink = getVal("adminHeroPrimaryCtaLink");
-  content.heroMediaType = getVal("adminHeroMediaType");
-  content.heroMediaUrl = getVal("adminHeroMediaUrl");
-
-  // Contact
-  content.contactEmail = getVal("adminContactEmail");
-  content.contactPhone = getVal("adminContactPhone");
-  content.contactUpi = getVal("adminContactUpi");
-  content.contactGst = getVal("adminContactGst");
-
-  // Socials
-  content.socials = {
-    instagram: getVal("adminSocialInsta"),
-    twitter: getVal("adminSocialTwitter"),
-    github: getVal("adminSocialGithub"),
-    linkedin: getVal("adminSocialLinkedin"),
-    youtube: getVal("adminSocialYoutube"),
-    discord: getVal("adminSocialDiscord")
-  };
-
-  // Cards
-  document.querySelectorAll("[data-card]").forEach((el) => {
-    const idx = el.dataset.card;
-    const key = el.dataset.key;
-    if (content.cards && content.cards[idx]) {
-      content.cards[idx][key] = el.value;
-    }
+/* ─── REPEATER HELPERS ────────────────────────────────────────── */
+function gatherRepeaterData(repeaterId, fields) {
+  const container = document.getElementById(repeaterId);
+  if (!container) return [];
+  const items = container.querySelectorAll(".repeater-item");
+  return Array.from(items).map(item => {
+    const obj = {};
+    fields.forEach(f => {
+      const el = item.querySelector(`[data-field="${f}"]`);
+      obj[f] = el ? el.value.trim() : "";
+    });
+    return obj;
   });
+}
 
-  try {
-    localStorage.setItem("buildroonixContent", JSON.stringify(content));
-  } catch (err) {
-    alert("Media file is large, but changes have been applied live!");
+/* ─── RENDER REPEATERS ────────────────────────────────────────── */
+function renderFeaturedRepeater() {
+  const container = document.getElementById("featuredRepeater");
+  if (!container) return;
+  const works = content.featuredWork || [];
+  container.innerHTML = works.map((w, i) => `
+    <div class="repeater-item">
+      <div class="repeater-item-header">
+        <span>CASE STUDY #${i+1}</span>
+        <button class="btn btn-danger" onclick="removeFeaturedItem(${i})">Remove</button>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Tag Label</label><input data-field="tag" value="${esc(w.tag)}" /></div>
+        <div class="field"><label>Title</label><input data-field="title" value="${esc(w.title)}" /></div>
+      </div>
+      <div class="field"><label>Story (Client Needed X)</label><textarea data-field="story" rows="2">${esc(w.story)}</textarea></div>
+      <div class="field"><label>Outcome (We Delivered Y)</label><textarea data-field="outcome" rows="2">${esc(w.outcome)}</textarea></div>
+      <div class="field-row">
+        <div class="field"><label>CTA Button Text</label><input data-field="ctaText" value="${esc(w.ctaText)}" /></div>
+        <div class="field"><label>CTA Link</label><input data-field="ctaLink" value="${esc(w.ctaLink)}" /></div>
+      </div>
+      <div class="field"><label>Image URL / Path (e.g. assets/lamp_product.png)</label><input data-field="imageUrl" value="${esc(w.imageUrl)}" /></div>
+    </div>
+  `).join('');
+}
+
+function addFeaturedItem() {
+  content.featuredWork = content.featuredWork || [];
+  content.featuredWork.push({ tag: "New Category", title: "New Case Study", story: "Client needed...", outcome: "We delivered...", ctaText: "Learn More", ctaLink: "#", imageUrl: "assets/lamp_product.png", mediaType: "image" });
+  renderFeaturedRepeater();
+}
+function removeFeaturedItem(i) {
+  content.featuredWork.splice(i, 1);
+  renderFeaturedRepeater();
+}
+
+function renderAudienceRepeater() {
+  const container = document.getElementById("audienceRepeater");
+  if (!container) return;
+  const blocks = content.audienceBlocks || [];
+  container.innerHTML = blocks.map((b, i) => `
+    <div class="repeater-item">
+      <div class="repeater-item-header">
+        <span>AUDIENCE BLOCK #${i+1}</span>
+        <button class="btn btn-danger" onclick="removeAudienceItem(${i})">Remove</button>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Tag Label</label><input data-field="tag" value="${esc(b.tag)}" /></div>
+        <div class="field"><label>Title</label><input data-field="title" value="${esc(b.title)}" /></div>
+      </div>
+      <div class="field"><label>Description</label><textarea data-field="desc" rows="2">${esc(b.desc)}</textarea></div>
+      <div class="field-row">
+        <div class="field"><label>CTA Button Text</label><input data-field="ctaText" value="${esc(b.ctaText)}" /></div>
+        <div class="field"><label>CTA Link</label><input data-field="ctaLink" value="${esc(b.ctaLink)}" /></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Image URL / Path</label><input data-field="imageUrl" value="${esc(b.imageUrl)}" /></div>
+        <div class="field"><label>Section ID (for anchor links)</label><input data-field="id" value="${esc(b.id)}" /></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addAudienceItem() {
+  content.audienceBlocks = content.audienceBlocks || [];
+  content.audienceBlocks.push({ tag: "New Audience", title: "New Block Title", desc: "Description here.", ctaText: "Learn More →", ctaLink: "#", imageUrl: "assets/lamp_product.png", id: "new-block" });
+  renderAudienceRepeater();
+}
+function removeAudienceItem(i) {
+  content.audienceBlocks.splice(i, 1);
+  renderAudienceRepeater();
+}
+
+function renderTestimonialsRepeater() {
+  const container = document.getElementById("testimonialsRepeater");
+  if (!container) return;
+  const testimonials = content.testimonials || [];
+  container.innerHTML = testimonials.map((t, i) => `
+    <div class="repeater-item">
+      <div class="repeater-item-header">
+        <span>TESTIMONIAL #${i+1}</span>
+        <button class="btn btn-danger" onclick="removeTestimonialItem(${i})">Remove</button>
+      </div>
+      <div class="field"><label>Quote</label><textarea data-field="quote" rows="2">${esc(t.quote)}</textarea></div>
+      <div class="field-row">
+        <div class="field"><label>Name</label><input data-field="name" value="${esc(t.name)}" /></div>
+        <div class="field"><label>Role / Location</label><input data-field="role" value="${esc(t.role)}" /></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Avatar Image URL (optional)</label><input data-field="avatar" value="${esc(t.avatar)}" /></div>
+        <div class="field"><label>Stars (1-5)</label><input data-field="stars" type="number" min="1" max="5" value="${t.stars || 5}" /></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addTestimonialItem() {
+  content.testimonials = content.testimonials || [];
+  content.testimonials.push({ quote: "Excellent service and delivery!", name: "Customer Name", role: "Customer Role", avatar: "", stars: 5 });
+  renderTestimonialsRepeater();
+}
+function removeTestimonialItem(i) {
+  content.testimonials.splice(i, 1);
+  renderTestimonialsRepeater();
+}
+
+function renderCardsRepeater() {
+  const container = document.getElementById("cardsRepeater");
+  if (!container) return;
+  const cards = content.cards || [];
+  container.innerHTML = cards.map((c, i) => `
+    <div class="repeater-item">
+      <div class="repeater-item-header">
+        <span>CARD #${i+1}</span>
+        <button class="btn btn-danger" onclick="removeCardItem(${i})">Remove</button>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Category Label</label><input data-field="category" value="${esc(c.category)}" /></div>
+        <div class="field"><label>Subdomain</label><input data-field="subdomain" value="${esc(c.subdomain)}" /></div>
+      </div>
+      <div class="field"><label>Card Title</label><input data-field="title" value="${esc(c.title)}" /></div>
+      <div class="field"><label>Description</label><textarea data-field="description" rows="2">${esc(c.description)}</textarea></div>
+      <div class="field-row">
+        <div class="field"><label>Image URL / Path</label><input data-field="mediaUrl" value="${esc(c.mediaUrl)}" /></div>
+        <div class="field"><label>Card Link URL</label><input data-field="link" value="${esc(c.link)}" /></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Color 1 (hex)</label><input data-field="c1" value="${esc(c.c1 || '#68f36b')}" /></div>
+        <div class="field"><label>Color 2 (hex)</label><input data-field="c2" value="${esc(c.c2 || '#26a9ff')}" /></div>
+        <div class="field"><label>Color 3 (hex)</label><input data-field="c3" value="${esc(c.c3 || '#ff7212')}" /></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addCardItem() {
+  content.cards = content.cards || [];
+  content.cards.push({ category: "NEW", subdomain: "buildroonix.com", title: "New Card", description: "Description here.", c1: "#68f36b", c2: "#26a9ff", c3: "#ff7212", mediaType: "image", mediaUrl: "", link: "#" });
+  renderCardsRepeater();
+}
+function removeCardItem(i) {
+  content.cards.splice(i, 1);
+  renderCardsRepeater();
+}
+
+/* ─── VISIBILITY TOGGLES ──────────────────────────────────────── */
+function renderVisibilityToggles() {
+  const grid = document.getElementById("visibilityGrid");
+  if (!grid) return;
+  const sections = [
+    { key: "featured",     label: "Featured Work" },
+    { key: "capabilities", label: "Capabilities" },
+    { key: "audience",     label: "Who We Serve" },
+    { key: "testimonials", label: "Testimonials" },
+    { key: "vision",       label: "Vision / Philosophy" }
+  ];
+  const vis = content.sectionVisibility || {};
+  grid.innerHTML = sections.map(s => `
+    <div class="visibility-item">
+      <span>${s.label}</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="vis-${s.key}" ${vis[s.key] !== false ? 'checked' : ''} />
+        <span class="toggle-track"></span>
+      </label>
+    </div>
+  `).join('');
+}
+
+/* ─── UTILITIES ───────────────────────────────────────────────── */
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  const toastMsg = document.getElementById("toastMsg");
+  if (!toast) return;
+  if (toastMsg) toastMsg.textContent = msg;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 3200);
+}
+
+/* ─── INIT ────────────────────────────────────────────────────── */
+function initAdmin() {
+  loadContent();
+  fillAllFields();
+}
+
+/* ─── BOOT ────────────────────────────────────────────────────── */
+document.addEventListener("DOMContentLoaded", () => {
+  if (sessionStorage.getItem("adminAuth") === "1") {
+    document.getElementById("loginGate").style.display  = "none";
+    document.getElementById("adminPanel").style.display = "flex";
+    initAdmin();
   }
 
-  alert("Buildroonix content updated successfully! Return to index.html to view live changes.");
-}
-
-// JSON Export
-function exportConfigJSON() {
-  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(content, null, 2));
-  const downloadAnchor = document.createElement('a');
-  downloadAnchor.setAttribute("href", dataStr);
-  downloadAnchor.setAttribute("download", "buildroonix_config.json");
-  document.body.appendChild(downloadAnchor);
-  downloadAnchor.click();
-  downloadAnchor.remove();
-}
-
-// JSON Import
-function importConfigJSON(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    try {
-      const imported = JSON.parse(e.target.result);
-      if (imported && imported.cards) {
-        content = imported;
-        localStorage.setItem("buildroonixContent", JSON.stringify(content));
-        populateAdminDashboard();
-        alert("Configuration imported successfully!");
-      } else {
-        alert("Invalid JSON configuration structure.");
-      }
-    } catch (err) {
-      alert("Error parsing JSON: " + err.message);
-    }
-  };
-  reader.readAsText(file);
-}
-
-// Reset Defaults
-function resetToDefaultConfig() {
-  if (confirm("Reset all Buildroonix settings to default configuration?")) {
-    content = JSON.parse(JSON.stringify(defaultSiteContent));
-    localStorage.removeItem("buildroonixContent");
-    populateAdminDashboard();
-    alert("Reset to default configuration.");
-  }
-}
+  // Allow Enter key on password field
+  const pwd = document.getElementById("adminPwd");
+  if (pwd) pwd.addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
+});
