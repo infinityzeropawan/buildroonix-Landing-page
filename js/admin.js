@@ -110,40 +110,69 @@ const defaultSiteContent = {
 };
 
 /* ─── AUTH ────────────────────────────────────────────────────── */
-function doLogin() {
+async function doLogin() {
   const pwd = document.getElementById("adminPwd").value;
-  if (pwd === ADMIN_PASSWORD) {
-    sessionStorage.setItem("adminAuth", "1");
-    document.getElementById("loginGate").style.display  = "none";
-    document.getElementById("adminPanel").style.display = "flex";
-    initAdmin();
-  } else {
-    const err = document.getElementById("loginErr");
-    if (err) { err.style.display = "block"; err.textContent = "❌ Incorrect password. Try again."; }
-    setTimeout(() => { if(err) err.style.display = "none"; }, 3000);
+  
+  try {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: pwd })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      sessionStorage.setItem("adminAuth", "1");
+      sessionStorage.setItem("adminToken", data.token || "bx_admin_token_2026_secured");
+      document.getElementById("loginGate").style.display  = "none";
+      document.getElementById("adminPanel").style.display = "flex";
+      initAdmin();
+      return;
+    }
+  } catch(e) {
+    // Fallback if running on static host
+    if (pwd === ADMIN_PASSWORD) {
+      sessionStorage.setItem("adminAuth", "1");
+      sessionStorage.setItem("adminToken", "bx_admin_token_2026_secured");
+      document.getElementById("loginGate").style.display  = "none";
+      document.getElementById("adminPanel").style.display = "flex";
+      initAdmin();
+      return;
+    }
   }
+
+  const err = document.getElementById("loginErr");
+  if (err) { err.style.display = "block"; err.textContent = "❌ Incorrect password. Try again."; }
+  setTimeout(() => { if(err) err.style.display = "none"; }, 3000);
 }
 
 function doLogout() {
   sessionStorage.removeItem("adminAuth");
+  sessionStorage.removeItem("adminToken");
   location.reload();
 }
 
 /* ─── LOAD CONTENT ────────────────────────────────────────────── */
 let content = Object.assign({}, defaultSiteContent);
-function loadContent() {
+async function loadContent() {
+  try {
+    const res = await fetch("/api/content");
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.success && data.content && typeof data.content === 'object') {
+        content = Object.assign({}, defaultSiteContent, data.content);
+        fillAllFields();
+        return;
+      }
+    }
+  } catch(e) {
+    // Fallback to localStorage
+  }
+
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const saved = JSON.parse(raw);
       content = Object.assign({}, defaultSiteContent, saved);
-      // Deep merge arrays if saved
-      if (!Array.isArray(content.featuredWork) || content.featuredWork.length === 0) content.featuredWork = defaultSiteContent.featuredWork;
-      if (!Array.isArray(content.audienceBlocks) || content.audienceBlocks.length === 0) content.audienceBlocks = defaultSiteContent.audienceBlocks;
-      if (!Array.isArray(content.testimonials) || content.testimonials.length === 0) content.testimonials = defaultSiteContent.testimonials;
-      if (!Array.isArray(content.faqs) || content.faqs.length === 0) content.faqs = defaultSiteContent.faqs;
-      if (!Array.isArray(content.cards)) content.cards = defaultSiteContent.cards;
-      if (!content.sectionVisibility) content.sectionVisibility = defaultSiteContent.sectionVisibility;
     }
   } catch(e) {
     content = Object.assign({}, defaultSiteContent);
@@ -151,7 +180,7 @@ function loadContent() {
 }
 
 /* ─── SAVE ────────────────────────────────────────────────────── */
-function saveAll() {
+async function saveAll() {
   gatherHero();
   gatherFeatured();
   gatherAudience();
@@ -161,9 +190,30 @@ function saveAll() {
   gatherContact();
   gatherVisibility();
 
+  // Save to LocalStorage
   localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
   localStorage.setItem(VERSION_KEY, DATA_VERSION);
-  showToast("✓ Changes saved and live on site!");
+
+  // Save to Production Express Server DB
+  const token = sessionStorage.getItem("adminToken") || "bx_admin_token_2026_secured";
+  try {
+    const res = await fetch("/api/content", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Admin-Token": token
+      },
+      body: JSON.stringify({ token, content })
+    });
+    if (res.ok) {
+      showToast("✓ Saved to production database & live on site!");
+      return;
+    }
+  } catch(e) {
+    // Static fallback
+  }
+
+  showToast("✓ Saved to browser storage!");
 }
 
 function resetDefaults() {

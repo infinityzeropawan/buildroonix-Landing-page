@@ -539,9 +539,26 @@ function initStickyHeader() {
   obs.observe(sentinel);
 }
 
+/* ─── SERVER CONTENT DB SYNC ──────────────────────────────────── */
+async function fetchServerContent() {
+  try {
+    const res = await fetch('/api/content');
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.success && data.content && typeof data.content === 'object') {
+        content = Object.assign({}, defaultSiteContent, data.content);
+        renderPage();
+      }
+    }
+  } catch (e) {
+    // Offline or static host fallback — initial render already completed cleanly
+  }
+}
+
 /* ─── INIT ────────────────────────────────────────────────────── */
 document.addEventListener("DOMContentLoaded", () => {
   renderPage();
+  fetchServerContent();
   initRevealAll();
   initStickyHeader();
 });

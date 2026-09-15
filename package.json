@@ -1,0 +1,23 @@
+{
+  "name": "buildroonix-landing-page",
+  "version": "1.0.0",
+  "description": "Buildroonix Engineering Studio — Full-Stack Landing Page & Production Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "3d-printing",
+    "engineering",
+    "software",
+    "buildroonix"
+  ],
+  "author": "Buildroonix",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
