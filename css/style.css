@@ -8,13 +8,13 @@
 /* ── DESIGN TOKENS — 50/50 ROYAL CHAMPAGNE & PLATINUM MID-TONE ── */
 :root {
   /* Palette — 50/50 Royal Mid-Tone (Warm Champagne & Platinum) */
-  --paper: #927325;
+  --paper: #e2ded4;
   /* Rich Royal Warm Champagne Mid-Tone */
   --paper-dark: #d4cebf;
   /* Royal Platinum Warm Slate */
   --ink: #151b18;
   /* Deep Royal Charcoal Ink (High Contrast) */
-  --ink-2: #bfc7c3;
+  --ink-2: #2d3632;
   /* Rich Deep Charcoal */
   --muted: #54605b;
   /* Sophisticated Warm Body Grey */
