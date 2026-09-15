@@ -280,6 +280,10 @@
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         Testimonials
       </button>
+      <button onclick="showTab('tab-faqs', this)" id="nav-faqs">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        FAQ Section
+      </button>
       <button onclick="showTab('tab-cards', this)" id="nav-cards">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
         Capabilities
@@ -395,6 +399,23 @@
         <h3>Customer Reviews</h3>
         <div class="repeater" id="testimonialsRepeater"></div>
         <button class="add-btn" onclick="addTestimonialItem()">+ Add Testimonial</button>
+      </div>
+    </div>
+
+    <!-- ════════ TAB: FAQ ════════ -->
+    <div class="tab-panel" id="tab-faqs">
+      <div class="section-card">
+        <h3>FAQ Section <span class="badge">QUESTIONS</span></h3>
+        <div class="field-row">
+          <div class="field"><label>Section Kicker</label><input id="faqKicker" /></div>
+          <div class="field"><label>Section Heading</label><input id="faqHeading" /></div>
+        </div>
+        <div class="field"><label>Section Subhead</label><textarea id="faqSubhead" rows="2"></textarea></div>
+      </div>
+      <div class="section-card">
+        <h3>Frequently Asked Questions</h3>
+        <div class="repeater" id="faqRepeater"></div>
+        <button class="add-btn" onclick="addFaqItem()">+ Add FAQ Item</button>
       </div>
     </div>
 

@@ -5,13 +5,13 @@
  */
 
 const ADMIN_PASSWORD = "buildroonix2026";
-const DATA_VERSION   = "v5-editorial";
+const DATA_VERSION   = "v6-content-complete";
 const STORAGE_KEY    = "buildroonixContent";
 const VERSION_KEY    = "buildroonixVersion";
 
 /* ─── DEFAULT (mirrored from app.js) ────────────────────────── */
 const defaultSiteContent = {
-  heroEyebrow:        "Full-Stack Creation Studio · India",
+  heroEyebrow:        "Full-Stack Creation Studio · Varanasi, India",
   heroTitleLine1:     "We build",
   heroTitleHighlight: "useful things",
   heroDescription:    "From custom 3D printed decor to intelligent software and smart gadgets — Buildroonix handles the full lifecycle: design, code, electronics, and delivery.",
@@ -24,77 +24,88 @@ const defaultSiteContent = {
   contactPhone: "+91 9580181697",
   contactUpi:   "9580181697@ibl",
   contactGst:   "09HQHPD9487C1ZE",
-  footerAddress: "📍 India · Delivering Nationwide",
+  footerAddress: "📍 Varanasi, Uttar Pradesh, India · GSTIN Verified · Delivering Nationwide",
   footerTagline: "© 2026 Buildroonix Engineering Studio.\nBuilt for the next version of useful.",
   socials: {
     instagram: "https://instagram.com/buildroonix",
+    whatsapp:  "https://wa.me/919580181697?text=Hi%20Buildroonix%2C%20I%20want%20a%20free%20quote",
     twitter:   "https://x.com/buildroonix",
     github:    "https://github.com/buildroonix",
     linkedin:  "https://linkedin.com/company/buildroonix",
-    youtube:   "https://youtube.com/@buildroonix",
-    discord:   "https://discord.gg/buildroonix"
+    youtube:   "https://youtube.com/@buildroonix"
   },
   featuredKicker:  "Our Work",
   featuredHeading: "From idea to hands.",
-  featuredSubhead: "Every project follows the same logic: understand the need, build the right solution, deliver a real outcome.",
+  featuredSubhead: "Real projects with real impact. Here is how we solve challenges for students, decorators, and businesses.",
   featuredWork: [
     {
-      tag:      "3D Decor · Client Project",
-      title:    "Custom Lithophane Lamp",
-      story:    "A customer needed a unique, personal gift for their parents' anniversary. Standard gifts felt impersonal and mass-produced.",
-      outcome:  "We 3D printed a backlit lithophane cylinder from their family photo. Delivered in 5 days.",
-      ctaText:  "Order Your Custom Lamp",
+      tag:      "Student Projects · IIT BHU",
+      title:    "Smart Attendance System using IoT",
+      story:    "Client: A student from IIT BHU needed a biometrics-enabled IoT attendance prototype with cloud database sync and physical enclosure for their final thesis.",
+      outcome:  "Built: Designed custom PCB circuit, programmed ESP32 firmware, and 3D printed a compact desktop unit. Result: Project approved with distinction.",
+      ctaText:  "Start Student Project →",
+      ctaLink:  "https://projects.buildroonix.com",
+      imageUrl: "assets/student_project.png",
+      mediaType: "image"
+    },
+    {
+      tag:      "3D Decor · Varanasi Client",
+      title:    "Custom Lithophane Wall Art & Lamp",
+      story:    "Client: A Varanasi home decorator wanted a high-contrast, personalized backlit lithophane lamp to feature ambient photo art in modern living rooms.",
+      outcome:  "Built: 3D printed high-resolution cylindrical lithophane lamp from customer photos paired with warm LED wooden base. Result: Featured on Instagram by local influencer.",
+      ctaText:  "Order Custom Lithophane →",
       ctaLink:  "https://3d.buildroonix.com",
       imageUrl: "assets/lamp_product.png",
       mediaType: "image"
     },
     {
-      tag:      "Hardware · IoT Project",
-      title:    "3D Printing Studio Build",
-      story:    "Buildroonix needed a professional workspace that could handle multiple simultaneous print jobs for client orders.",
-      outcome:  "Built a multi-printer studio. Throughput increased 4×. Fully remote-monitored.",
-      ctaText:  "Explore 3D Studio",
-      ctaLink:  "https://3d.buildroonix.com",
+      tag:      "Software · E-Commerce Business",
+      title:    "Automated Order-to-Print Workflow",
+      story:    "Client: A small e-commerce store struggled with manual order processing, artwork sizing, and inventory dispatch bottlenecks.",
+      outcome:  "Built: Developed custom automation scripts, API integration, and web dashboard. Result: Reduced manual errors by 90% and sped up fulfillment.",
+      ctaText:  "Automate Your Business →",
+      ctaLink:  "https://software.buildroonix.com",
       imageUrl: "assets/studio_workspace.png",
-      mediaType: "image"
-    },
-    {
-      tag:      "Student Projects · Education",
-      title:    "Student Project Support",
-      story:    "Engineering students needed practical hardware projects with complete documentation and working code.",
-      outcome:  "We provided end-to-end support — from circuit design to 3D printed enclosures. 50+ projects completed.",
-      ctaText:  "Start Your Project",
-      ctaLink:  "https://projects.buildroonix.com",
-      imageUrl: "assets/student_project.png",
       mediaType: "image"
     }
   ],
   audienceKicker:  "Who We Serve",
   audienceHeading: "Three audiences.\nOne creation firm.",
   audienceBlocks: [
-    { tag: "Home Decor", title: "Turn memories into light.", desc: "Custom 3D printed lithophane lamps, organic decor, and bespoke gifts.", ctaText: "Shop Custom 3D Decor →", ctaLink: "https://3d.buildroonix.com", imageUrl: "assets/lamp_product.png", id: "decor" },
-    { tag: "Students", title: "From breadboard to working project.", desc: "We help students complete engineering projects with full documentation and working code.", ctaText: "Start Your Project →", ctaLink: "https://projects.buildroonix.com", imageUrl: "assets/student_project.png", id: "students" },
-    { tag: "Business Owners", title: "Automate your business operations.", desc: "Custom software for gym management, PG/hostel platforms, e-commerce integrations.", ctaText: "Request a Consultation →", ctaLink: "https://software.buildroonix.com", imageUrl: "assets/studio_workspace.png", id: "business" }
+    { tag: "Custom 3D Decor", title: "Turn memories into light.", desc: "Custom photo lithophanes, lamps, and home decor — printed in premium materials, shipped across India.", ctaText: "Shop Custom 3D Decor →", ctaLink: "https://3d.buildroonix.com", imageUrl: "assets/lamp_product.png", id: "decor" },
+    { tag: "Student Projects", title: "From breadboard to working project.", desc: "Final-year projects, mini-projects, documentation, and viva prep — built with real-world skills.", ctaText: "Start Your Project →", ctaLink: "https://projects.buildroonix.com", imageUrl: "assets/student_project.png", id: "students" },
+    { tag: "Business Owners", title: "Automate your business operations.", desc: "APIs, automation tools, IoT systems, and custom web apps that scale with your team.", ctaText: "Request Consultation →", ctaLink: "https://software.buildroonix.com", imageUrl: "assets/studio_workspace.png", id: "business" }
   ],
   testimonialsKicker:  "What People Say",
   testimonialsHeading: "Real results.\nReal people.",
   testimonials: [
-    { quote: "The lithophane lamp arrived exactly as I imagined. It's the most thoughtful gift I've ever given.", name: "Priya Sharma", role: "Home Decor Customer", avatar: "", stars: 5 },
-    { quote: "Buildroonix delivered my final year project on time with complete documentation.", name: "Rahul Verma", role: "Engineering Student, NIT", avatar: "", stars: 5 },
-    { quote: "The gym management software reduced our manual work by 80%. Everything just works.", name: "Anil Kapoor", role: "Gym Owner, Delhi", avatar: "", stars: 5 }
+    { quote: "The lithophane lamp arrived exactly as I imagined. The detail in the photo lithophane when lit up is stunning. Delivered safely to Varanasi.", name: "Priya Sharma", role: "Home Decor Client, Varanasi", avatar: "", stars: 5 },
+    { quote: "Buildroonix delivered my final year IoT project on time with full circuit diagrams, working code, and complete documentation. Cleared viva smoothly!", name: "Rahul Verma", role: "Engineering Student, IIT BHU", avatar: "", stars: 5 },
+    { quote: "The gym & business management software reduced our administrative work by 80%. Automated member billing and attendance tracking just work flawlessly.", name: "Anil Kapoor", role: "Business Owner, UP", avatar: "", stars: 5 }
+  ],
+  faqKicker:  "Got Questions?",
+  faqHeading: "Frequently Asked Questions",
+  faqSubhead: "Everything you need to know about our custom 3D decor, student projects, and business software.",
+  faqs: [
+    { q: "How long does delivery take for custom 3D decor?", a: "We manufacture and assemble custom lithophane lamps within 2–3 business days, and ship via express courier across India (typically delivered in 3–5 days total)." },
+    { q: "What materials do you use for 3D printing?", a: "We use eco-friendly, high-precision PLA+ thermoplastic and heat-resistant enclosures paired with long-life warm LED illumination bases." },
+    { q: "Can I send my own photo for a 3D lithophane lamp?", a: "Yes! Simply send us any high-resolution portrait or family photo via WhatsApp (+91 9580181697) or our portal. We generate a 3D digital preview before printing." },
+    { q: "Do you offer revisions and viva guidance for student projects?", a: "Definitely. Every student project includes complete circuit diagrams, commented source code, printed hardware enclosures, detailed documentation, and 1-on-1 viva prep support." },
+    { q: "How do I request a custom price quote?", a: "Click 'Get a Free Quote' anywhere on the page or contact us on WhatsApp (+91 9580181697) directly. We respond with a tailored proposal within 2 hours." }
   ],
   sectionVisibility: {
     featured:     true,
     capabilities: true,
     audience:     true,
     testimonials: true,
+    faqs:         true,
     vision:       true
   },
   cards: [
-    { category: "3D DESIGN", subdomain: "3d.buildroonix.com", title: "3D CAD & Custom Decor", description: "Parametric 3D design, lithophane lamps, custom gifts and 3D printing.", c1: "#68f36b", c2: "#26a9ff", c3: "#ff7212", mediaType: "image", mediaUrl: "assets/lamp_product.png", link: "https://3d.buildroonix.com", iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>` },
-    { category: "SOFTWARE", subdomain: "software.buildroonix.com", title: "Software & App Suite", description: "Gym management, PG/hostel platforms, and automated web platforms.", c1: "#26a9ff", c2: "#68f36b", c3: "#ff7212", mediaType: "image", mediaUrl: "assets/software_preview.png", link: "https://software.buildroonix.com", iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>` },
-    { category: "HARDWARE", subdomain: "projects.buildroonix.com", title: "R&D & Smart Gadgets", description: "IoT microcontrollers, student project support, and smart gadgets.", c1: "#ff7212", c2: "#68f36b", c3: "#26a9ff", mediaType: "image", mediaUrl: "assets/student_project.png", link: "https://projects.buildroonix.com", iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/></svg>` },
-    { category: "SOFTWARE", subdomain: "software.buildroonix.com", title: "Gym Management", description: "Member tracking, class scheduling, billing and analytics for fitness centers.", c1: "#ff7212", c2: "#26a9ff", c3: "#68f36b", mediaType: "image", mediaUrl: "", link: "https://software.buildroonix.com", iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6.5 6.5h11M6.5 17.5h11"/></svg>` }
+    { category: "3D DECOR", subdomain: "3d.buildroonix.com", title: "Custom Lithophanes & 3D Decor", description: "Custom photo lithophanes, lamps, and home decor — printed in premium materials, shipped across India.", c1: "#68f36b", c2: "#26a9ff", c3: "#ff7212", mediaType: "image", mediaUrl: "assets/lamp_product.png", link: "https://3d.buildroonix.com", iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>` },
+    { category: "STUDENTS", subdomain: "projects.buildroonix.com", title: "Engineering & Student Projects", description: "Final-year projects, mini-projects, documentation, and viva prep — built with real-world skills.", c1: "#ff7212", c2: "#68f36b", c3: "#26a9ff", mediaType: "image", mediaUrl: "assets/student_project.png", link: "https://projects.buildroonix.com", iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/></svg>` },
+    { category: "BUSINESS SOFTWARE", subdomain: "software.buildroonix.com", title: "Business Automation & Custom Apps", description: "APIs, automation tools, IoT systems, and custom web apps that scale with your team.", c1: "#26a9ff", c2: "#68f36b", c3: "#ff7212", mediaType: "image", mediaUrl: "assets/studio_workspace.png", link: "https://software.buildroonix.com", iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>` },
+    { category: "GYM & PG TECH", subdomain: "software.buildroonix.com", title: "Gym & PG Management Platforms", description: "Automated member billing, attendance tracking, and hostel tenant management software built for growth.", c1: "#ff7212", c2: "#26a9ff", c3: "#68f36b", mediaType: "image", mediaUrl: "assets/software_preview.png", link: "https://software.buildroonix.com", iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6.5 6.5h11M6.5 17.5h11"/></svg>` }
   ]
 };
 
@@ -127,9 +138,10 @@ function loadContent() {
       const saved = JSON.parse(raw);
       content = Object.assign({}, defaultSiteContent, saved);
       // Deep merge arrays if saved
-      if (!Array.isArray(content.featuredWork)) content.featuredWork = defaultSiteContent.featuredWork;
-      if (!Array.isArray(content.audienceBlocks)) content.audienceBlocks = defaultSiteContent.audienceBlocks;
-      if (!Array.isArray(content.testimonials)) content.testimonials = defaultSiteContent.testimonials;
+      if (!Array.isArray(content.featuredWork) || content.featuredWork.length === 0) content.featuredWork = defaultSiteContent.featuredWork;
+      if (!Array.isArray(content.audienceBlocks) || content.audienceBlocks.length === 0) content.audienceBlocks = defaultSiteContent.audienceBlocks;
+      if (!Array.isArray(content.testimonials) || content.testimonials.length === 0) content.testimonials = defaultSiteContent.testimonials;
+      if (!Array.isArray(content.faqs) || content.faqs.length === 0) content.faqs = defaultSiteContent.faqs;
       if (!Array.isArray(content.cards)) content.cards = defaultSiteContent.cards;
       if (!content.sectionVisibility) content.sectionVisibility = defaultSiteContent.sectionVisibility;
     }
@@ -144,6 +156,7 @@ function saveAll() {
   gatherFeatured();
   gatherAudience();
   gatherTestimonials();
+  gatherFaqs();
   gatherCards();
   gatherContact();
   gatherVisibility();
@@ -175,6 +188,7 @@ function showTab(tabId, btn) {
     "tab-featured":     "Featured Work",
     "tab-audience":     "Who We Serve",
     "tab-testimonials": "Testimonials",
+    "tab-faqs":         "FAQ Section",
     "tab-cards":        "Capabilities",
     "tab-contact":      "Contact & Footer",
     "tab-visibility":   "Section Visibility"
@@ -217,6 +231,12 @@ function fillAllFields() {
   setVal("testimonialsHeading", content.testimonialsHeading);
   renderTestimonialsRepeater();
 
+  // FAQs
+  setVal("faqKicker",  content.faqKicker);
+  setVal("faqHeading", content.faqHeading);
+  setVal("faqSubhead", content.faqSubhead);
+  renderFaqRepeater();
+
   // Cards
   renderCardsRepeater();
 
@@ -229,11 +249,11 @@ function fillAllFields() {
   setVal("footerTagline",  content.footerTagline);
   const s = content.socials || {};
   setVal("socialInstagram", s.instagram);
+  setVal("socialWhatsapp",  s.whatsapp);
   setVal("socialTwitter",   s.twitter);
   setVal("socialGithub",    s.github);
   setVal("socialLinkedin",  s.linkedin);
   setVal("socialYoutube",   s.youtube);
-  setVal("socialDiscord",   s.discord);
 
   // Visibility
   renderVisibilityToggles();
@@ -273,6 +293,13 @@ function gatherTestimonials() {
   content.testimonials.forEach(t => { t.stars = parseInt(t.stars) || 5; });
 }
 
+function gatherFaqs() {
+  content.faqKicker  = getVal("faqKicker");
+  content.faqHeading = getVal("faqHeading");
+  content.faqSubhead = getVal("faqSubhead");
+  content.faqs       = gatherRepeaterData("faqRepeater", ["q","a"]);
+}
+
 function gatherCards() {
   content.cards = gatherRepeaterData("cardsRepeater", ["category","subdomain","title","description","mediaUrl","link","c1","c2","c3"]);
 }
@@ -286,11 +313,11 @@ function gatherContact() {
   content.footerTagline = getVal("footerTagline");
   content.socials = {
     instagram: getVal("socialInstagram"),
+    whatsapp:  getVal("socialWhatsapp"),
     twitter:   getVal("socialTwitter"),
     github:    getVal("socialGithub"),
     linkedin:  getVal("socialLinkedin"),
-    youtube:   getVal("socialYoutube"),
-    discord:   getVal("socialDiscord")
+    youtube:   getVal("socialYoutube")
   };
 }
 
@@ -430,6 +457,32 @@ function removeTestimonialItem(i) {
   renderTestimonialsRepeater();
 }
 
+function renderFaqRepeater() {
+  const container = document.getElementById("faqRepeater");
+  if (!container) return;
+  const faqs = content.faqs || [];
+  container.innerHTML = faqs.map((f, i) => `
+    <div class="repeater-item">
+      <div class="repeater-item-header">
+        <span>FAQ ITEM #${i+1}</span>
+        <button class="btn btn-danger" onclick="removeFaqItem(${i})">Remove</button>
+      </div>
+      <div class="field"><label>Question</label><input data-field="q" value="${esc(f.q)}" /></div>
+      <div class="field"><label>Answer</label><textarea data-field="a" rows="3">${esc(f.a)}</textarea></div>
+    </div>
+  `).join('');
+}
+
+function addFaqItem() {
+  content.faqs = content.faqs || [];
+  content.faqs.push({ q: "New Question?", a: "Answer details here." });
+  renderFaqRepeater();
+}
+function removeFaqItem(i) {
+  content.faqs.splice(i, 1);
+  renderFaqRepeater();
+}
+
 function renderCardsRepeater() {
   const container = document.getElementById("cardsRepeater");
   if (!container) return;
@@ -478,6 +531,7 @@ function renderVisibilityToggles() {
     { key: "capabilities", label: "Capabilities" },
     { key: "audience",     label: "Who We Serve" },
     { key: "testimonials", label: "Testimonials" },
+    { key: "faqs",         label: "FAQ Section" },
     { key: "vision",       label: "Vision / Philosophy" }
   ];
   const vis = content.sectionVisibility || {};
