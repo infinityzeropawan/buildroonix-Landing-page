@@ -189,20 +189,44 @@ export function SiteHeader({ activeSection = "home" }) {
                               <ul className={`mega-list ${group.columns === 2 ? "mega-list-2col" : ""}`}>
                                 {group.items.map((item) => (
                                   <li key={item.href}>
-                                    <Link href={item.href} onClick={() => setMegaOpen(false)}>
-                                      <span>{item.label}</span>
-                                      {item.tag && <span className="mega-pill">{item.tag}</span>}
-                                    </Link>
+                                    {item.href.startsWith("http") ? (
+                                      <a
+                                        href={item.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={() => setMegaOpen(false)}
+                                      >
+                                        <span>{item.label}</span>
+                                        {item.tag && <span className="mega-pill">{item.tag}</span>}
+                                      </a>
+                                    ) : (
+                                      <Link href={item.href} onClick={() => setMegaOpen(false)}>
+                                        <span>{item.label}</span>
+                                        {item.tag && <span className="mega-pill">{item.tag}</span>}
+                                      </Link>
+                                    )}
                                   </li>
                                 ))}
                               </ul>
-                              <Link
-                                href={group.overviewLink}
-                                className="mega-overview-link"
-                                onClick={() => setMegaOpen(false)}
-                              >
-                                {group.overviewLabel}
-                              </Link>
+                              {group.overviewLink.startsWith("http") ? (
+                                <a
+                                  href={group.overviewLink}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="mega-overview-link"
+                                  onClick={() => setMegaOpen(false)}
+                                >
+                                  {group.overviewLabel}
+                                </a>
+                              ) : (
+                                <Link
+                                  href={group.overviewLink}
+                                  className="mega-overview-link"
+                                  onClick={() => setMegaOpen(false)}
+                                >
+                                  {group.overviewLabel}
+                                </Link>
+                              )}
                             </div>
                           ))}
                         </div>
@@ -337,17 +361,41 @@ export function SiteHeader({ activeSection = "home" }) {
                       <span className="mob-acc-caret">+</span>
                     </summary>
                     <div className="mob-acc-body">
-                      <Link
-                        href={group.overviewLink}
-                        className="mob-acc-overview"
-                        onClick={() => setDrawerOpen(false)}
-                      >
-                        {group.overviewLabel}
-                      </Link>
-                      {group.items.map((item) => (
-                        <Link key={item.href} href={item.href} onClick={() => setDrawerOpen(false)}>
-                          {item.label}
+                      {group.overviewLink.startsWith("http") ? (
+                        <a
+                          href={group.overviewLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mob-acc-overview"
+                          onClick={() => setDrawerOpen(false)}
+                        >
+                          {group.overviewLabel}
+                        </a>
+                      ) : (
+                        <Link
+                          href={group.overviewLink}
+                          className="mob-acc-overview"
+                          onClick={() => setDrawerOpen(false)}
+                        >
+                          {group.overviewLabel}
                         </Link>
+                      )}
+                      {group.items.map((item) => (
+                        item.href.startsWith("http") ? (
+                          <a
+                            key={item.href}
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setDrawerOpen(false)}
+                          >
+                            {item.label}
+                          </a>
+                        ) : (
+                          <Link key={item.href} href={item.href} onClick={() => setDrawerOpen(false)}>
+                            {item.label}
+                          </Link>
+                        )
                       ))}
                     </div>
                   </details>

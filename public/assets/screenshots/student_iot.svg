@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0f1d" />
+      <stop offset="100%" stop-color="#05070d" />
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(30, 41, 59, 0.7)" />
+      <stop offset="100%" stop-color="rgba(15, 23, 42, 0.85)" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="750" fill="url(#bg)" />
+  <rect x="2" y="2" width="1196" height="746" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2" rx="16" />
+
+  <!-- Window Header -->
+  <rect x="2" y="2" width="1196" height="60" fill="rgba(13, 20, 36, 0.95)" rx="16" />
+  <circle cx="36" cy="32" r="7" fill="#ef4444" opacity="0.8" />
+  <circle cx="58" cy="32" r="7" fill="#eab308" opacity="0.8" />
+  <circle cx="80" cy="32" r="7" fill="#10b981" opacity="0.8" />
+
+  <!-- Top Title / URL Bar -->
+  <rect x="350" y="16" width="500" height="32" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+  <text x="600" y="37" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">
+    https://software.buildroonix.com/student---embedded-electronics/preview
+  </text>
+
+  <!-- Notice Badge -->
+  <rect x="940" y="16" width="220" height="32" rx="8" fill="rgba(38, 169, 255, 0.15)" stroke="rgba(38, 169, 255, 0.4)" stroke-width="1" />
+  <text x="1050" y="37" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="12" fill="#38bdf8" font-weight="600" text-anchor="middle">
+    ● Interactive Live Blueprint
+  </text>
+
+  <!-- Hero Banner Inside Window -->
+  <g transform="translate(60, 100)">
+    <!-- Title Area -->
+    <text x="0" y="40" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="34" font-weight="800" fill="#f8fafc">
+      Student & Embedded Electronics
+    </text>
+    <text x="0" y="75" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="18" fill="#94a3b8">
+      B.Tech / Polytechnic Final-Year Projects · Custom Firmware & PCBs
+    </text>
+
+    <!-- Role Pills -->
+    <g transform="translate(0, 100)">
+      <text x="0" y="24" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="13" font-weight="700" fill="#64748b" letter-spacing="1">
+        CONFIGURED ROLES:
+      </text>
+      
+        <g transform="translate(160, 5)">
+          <rect width="130" height="32" rx="8" fill="rgba(38,169,255,0.12)" stroke="#8b5cf6" stroke-width="1" />
+          <text x="65" y="21" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="13" font-weight="600" fill="#f1f5f9" text-anchor="middle">
+            Student
+          </text>
+        </g>
+      
+        <g transform="translate(300, 5)">
+          <rect width="130" height="32" rx="8" fill="rgba(38,169,255,0.12)" stroke="#8b5cf6" stroke-width="1" />
+          <text x="65" y="21" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="13" font-weight="600" fill="#f1f5f9" text-anchor="middle">
+            Research Lab
+          </text>
+        </g>
+      
+        <g transform="translate(440, 5)">
+          <rect width="130" height="32" rx="8" fill="rgba(38,169,255,0.12)" stroke="#8b5cf6" stroke-width="1" />
+          <text x="65" y="21" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="13" font-weight="600" fill="#f1f5f9" text-anchor="middle">
+            Commercial Client
+          </text>
+        </g>
+      
+    </g>
+
+    <!-- 3 Key Feature Cards -->
+    <g transform="translate(0, 175)">
+      
+        <g transform="translate(0, 0)">
+          <rect width="345" height="260" rx="12" fill="url(#cardBg)" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+          <rect x="24" y="24" width="40" height="40" rx="10" fill="rgba(38,169,255,0.15)" />
+          <circle cx="44" cy="44" r="8" fill="#8b5cf6" />
+          <text x="24" y="100" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="18" font-weight="700" fill="#f8fafc">
+            Microcontroller Firmware
+          </text>
+          <text x="24" y="130" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="14" fill="#94a3b8">
+            ESP32, STM32, Arduino C++
+          </text>
+          <text x="24" y="155" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="14" fill="#94a3b8">
+            Sensor interfacing & logic
+          </text>
+          <line x1="24" y1="190" x2="320" y2="190" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+          <text x="24" y="225" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="600" fill="#8b5cf6">
+            ✓ 100% Tested Working Code
+          </text>
+        </g>
+      
+        <g transform="translate(370, 0)">
+          <rect width="345" height="260" rx="12" fill="url(#cardBg)" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+          <rect x="24" y="24" width="40" height="40" rx="10" fill="rgba(38,169,255,0.15)" />
+          <circle cx="44" cy="44" r="8" fill="#8b5cf6" />
+          <text x="24" y="100" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="18" font-weight="700" fill="#f8fafc">
+            Hardware Bring-up
+          </text>
+          <text x="24" y="130" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="14" fill="#94a3b8">
+            Custom breadboard/PCB circuits
+          </text>
+          <text x="24" y="155" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="14" fill="#94a3b8">
+            Sensors, actuators & relays
+          </text>
+          <line x1="24" y1="190" x2="320" y2="190" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+          <text x="24" y="225" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="600" fill="#8b5cf6">
+            ✓ Physical Tested Hardware
+          </text>
+        </g>
+      
+        <g transform="translate(740, 0)">
+          <rect width="345" height="260" rx="12" fill="url(#cardBg)" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+          <rect x="24" y="24" width="40" height="40" rx="10" fill="rgba(38,169,255,0.15)" />
+          <circle cx="44" cy="44" r="8" fill="#8b5cf6" />
+          <text x="24" y="100" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="18" font-weight="700" fill="#f8fafc">
+            Documentation & Viva
+          </text>
+          <text x="24" y="130" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="14" fill="#94a3b8">
+            Full project synopsis & report
+          </text>
+          <text x="24" y="155" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="14" fill="#94a3b8">
+            Circuit diagrams & PPT slide deck
+          </text>
+          <line x1="24" y1="190" x2="320" y2="190" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+          <text x="24" y="225" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="600" fill="#8b5cf6">
+            ✓ High Academic Distinction
+          </text>
+        </g>
+      
+    </g>
+
+    <!-- Screenshot Placeholder Notice -->
+    <g transform="translate(0, 470)">
+      <rect width="1085" height="90" rx="12" fill="rgba(38,169,255,0.05)" stroke="rgba(38,169,255,0.25)" stroke-dasharray="6 4" stroke-width="1.5" />
+      <text x="542" y="38" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="15" font-weight="600" fill="#e2e8f0" text-anchor="middle">
+        📷 High-Resolution Dashboard Screenshot Spot
+      </text>
+      <text x="542" y="65" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="13" fill="#64748b" text-anchor="middle">
+        Drop your real dashboard screenshot into: public/assets/screenshots/student___embedded_electronics.png to show your actual app UI here.
+      </text>
+    </g>
+  </g>
+</svg>

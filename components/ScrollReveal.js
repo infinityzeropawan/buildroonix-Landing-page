@@ -242,6 +242,13 @@ export function SpotlightCard({
   );
 
   if (href) {
+    if (href.startsWith("http")) {
+      return (
+        <a href={href} target="_blank" rel="noopener noreferrer" className="spotlight-link-wrap">
+          {inner}
+        </a>
+      );
+    }
     return (
       <Link href={href} className="spotlight-link-wrap">
         {inner}

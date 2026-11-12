@@ -146,25 +146,24 @@ export function SiteFooter({ content }) {
           </div>
 
           <div className="footer-col">
-            <div className="footer-col-head">Software &amp; Services</div>
+            <div className="footer-col-head">Software Products</div>
             <ul className="footer-list">
-              <li><Link href="/services/software-development">Software Development</Link></li>
-              <li><Link href="/services/custom-software-development">Custom Software</Link></li>
-              <li><Link href="/services/enterprise-software-development">Enterprise &amp; ERP/CRM</Link></li>
-              <li><Link href="/services/mobile-app-development">Mobile &amp; SaaS Apps</Link></li>
-              <li><Link href="/services/ai-development">AI &amp; Automation</Link></li>
-              <li><Link href="/services/iot-embedded">IoT, PCB &amp; Prototyping</Link></li>
+              <li><Link href="/portfolio/library-management-system">Library Management (Library OS)</Link></li>
+              <li><Link href="/portfolio/gym-management-software">Gym Management (Gym OS)</Link></li>
+              <li><Link href="/portfolio/upcoming-saas-roadmap">PG &amp; School SaaS Roadmap</Link></li>
+              <li><Link href="/services/software-development">Custom Software &amp; APIs</Link></li>
+              <li><Link href="/services/mobile-app-development">Mobile App Development</Link></li>
             </ul>
           </div>
 
           <div className="footer-col">
-            <div className="footer-col-head">Studio &amp; Showcase</div>
+            <div className="footer-col-head">3D Store &amp; Electronics</div>
             <ul className="footer-list">
+              <li><a href="https://3d.buildroonix.com" target="_blank" rel="noopener noreferrer">3D Storefront (3d.buildroonix.com) ↗</a></li>
+              <li><a href="https://3d.buildroonix.com/lithophane" target="_blank" rel="noopener noreferrer">Personalized Lithophane Lamps ↗</a></li>
+              <li><a href="https://3d.buildroonix.com/figurines" target="_blank" rel="noopener noreferrer">Custom 3D Figurines &amp; Models ↗</a></li>
+              <li><Link href="/portfolio/student-iot-embedded-projects">Student Electronics &amp; IoT Kits</Link></li>
               <li><Link href="/about">About &amp; Founder&apos;s Desk</Link></li>
-              <li><Link href="/portfolio">Engineering Portfolio</Link></li>
-              <li><a href="https://software.buildroonix.com" target="_blank" rel="noopener noreferrer">software.buildroonix.com</a></li>
-              <li><a href="https://projects.buildroonix.com" target="_blank" rel="noopener noreferrer">projects.buildroonix.com</a></li>
-              <li><a href="https://3d.buildroonix.com" target="_blank" rel="noopener noreferrer">3d.buildroonix.com (3D Store)</a></li>
             </ul>
           </div>
 

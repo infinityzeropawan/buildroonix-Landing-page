@@ -61,7 +61,7 @@ export function PortfolioSection({ showTypeFilter = false, limit = 0 }) {
             Filter by Classification
           </div>
           <div className="portfolio-filters" role="tablist">
-            {["All", "Client Project", "System Demonstration", "Internal Prototype"].map((t) => {
+            {["All", ...Array.from(new Set(PORTFOLIO_PROJECTS.map((p) => p.projectType)))].map((t) => {
               const isActive = t === activeType;
               return (
                 <motion.button

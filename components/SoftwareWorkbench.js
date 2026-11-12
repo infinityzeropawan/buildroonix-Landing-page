@@ -143,7 +143,7 @@ export function SoftwareWorkbench() {
                     onClick={() => setPreviewMode("studio")}
                   >
                     <Layers size={11} />
-                    <span>Connected Studio</span>
+                    <span>Dashboard Screenshot</span>
                   </button>
                 </div>
               </div>
@@ -169,7 +169,7 @@ export function SoftwareWorkbench() {
                       <img
                         src={current.studioImage || "/assets/showcase_software_dev.jpg"}
                         alt={`${current.title} · Buildroonix Production Environment`}
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        style={{ width: "100%", height: "100%", objectFit: "contain", background: "#060911" }}
                       />
                       <div className="video-hud-badge">
                         <span className="hud-pulse" />

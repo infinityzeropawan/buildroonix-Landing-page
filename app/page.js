@@ -65,12 +65,23 @@ export default function HomePage() {
                 className="btn-primary"
                 showSparkle
               />
-              <Link
-                href={content.heroSecondaryLink || "/services/software-development"}
-                className="btn-outline-light"
-              >
-                {content.heroSecondaryText || "Explore Software Division →"}
-              </Link>
+              {content.heroSecondaryLink?.startsWith("http") ? (
+                <a
+                  href={content.heroSecondaryLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline-light"
+                >
+                  {content.heroSecondaryText || "Shop 3D Prints & Lamps ↗"}
+                </a>
+              ) : (
+                <Link
+                  href={content.heroSecondaryLink || "/portfolio"}
+                  className="btn-outline-light"
+                >
+                  {content.heroSecondaryText || "Explore Software Products →"}
+                </Link>
+              )}
               <a
                 href={content.socials.whatsapp || BUILDROONIX_BRAND.whatsappUrl}
                 target="_blank"
@@ -82,20 +93,26 @@ export default function HomePage() {
             </Reveal>
 
             <Reveal preset="fade-up" immediate delay={0.38} className="hero-division-pills">
-              <Link href="/services/custom-software-development" className="hero-pill-link">
-                Custom Software
+              <Link href="/portfolio/library-management-system" className="hero-pill-link">
+                Library OS (Manager · Admin · Superadmin)
               </Link>
-              <Link href="/services/enterprise-software-development" className="hero-pill-link">
-                Enterprise &amp; ERP/CRM
+              <Link href="/portfolio/gym-management-software" className="hero-pill-link">
+                Gym OS (Trainer · Manager · Admin)
               </Link>
-              <Link href="/services/mobile-app-development" className="hero-pill-link">
-                Mobile &amp; SaaS
+              <a
+                href="https://3d.buildroonix.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-pill-link hero-pill-3d"
+                style={{ borderColor: "rgba(16, 185, 129, 0.4)", color: "#10b981" }}
+              >
+                3D Lithophane Lamps &amp; Figurines ↗
+              </a>
+              <Link href="/portfolio/student-iot-embedded-projects" className="hero-pill-link">
+                Student IoT &amp; Electronics Projects
               </Link>
-              <Link href="/services/ai-development" className="hero-pill-link">
-                AI &amp; Automation
-              </Link>
-              <Link href="/services/iot-embedded" className="hero-pill-link">
-                IoT &amp; Hardware
+              <Link href="/portfolio/upcoming-saas-roadmap" className="hero-pill-link">
+                PG &amp; School SaaS Roadmap
               </Link>
             </Reveal>
           </div>
@@ -107,20 +124,20 @@ export default function HomePage() {
 
         <StaggerContainer className="hero-authority-strip" staggerDelay={0.07}>
           <StaggerItem className="auth-stat">
-            <strong>10 Divisions</strong>
-            <span>Software, Cloud, AI, IoT, PCB &amp; Prototyping</span>
+            <strong>Library &amp; Gym OS</strong>
+            <span>Role-Based Multi-Tier Platforms</span>
           </StaggerItem>
           <StaggerItem className="auth-stat">
-            <strong>16+ Services</strong>
-            <span>Web, Mobile, Desktop, SaaS, ERP, CRM &amp; QA</span>
+            <strong>3d.buildroonix.com</strong>
+            <span>Lithophanes, Figurines &amp; Custom 3D Prints</span>
           </StaggerItem>
           <StaggerItem className="auth-stat">
-            <strong>9-Phase SDLC</strong>
-            <span>Discovery, Architecture, Build, QA &amp; Support</span>
+            <strong>Student Electronics</strong>
+            <span>B.Tech / Diploma Final-Year Hardware &amp; Viva</span>
           </StaggerItem>
           <StaggerItem className="auth-stat">
-            <strong>100% Ownership</strong>
-            <span>Clean Code, Docs, GST Billing &amp; IP Handover</span>
+            <strong>GSTIN &amp; MSME</strong>
+            <span>09HQHPD9487C1ZE · Pan-India Dispatch</span>
           </StaggerItem>
         </StaggerContainer>
       </section>
@@ -128,16 +145,16 @@ export default function HomePage() {
       {/* ── OBSIDIAN TECH CAPABILITIES MARQUEE ───────────────────────────── */}
       <TechMarquee
         items={[
-          "Custom Software",
-          "Web & SaaS Platforms",
-          "Mobile & Desktop Apps",
-          "ERP · CRM · HRMS",
-          "AI Workflow Solutions",
-          "REST & GraphQL APIs",
-          "Cloud & DevOps",
-          "IoT & Embedded Firmware",
-          "PCB & Circuit Design",
-          "CAD & Rapid Prototyping",
+          "Library Management System (Library OS)",
+          "Gym Management Software (Gym OS)",
+          "3D Lithophane Photo Night Lamps",
+          "Custom Collectible Anime Figurines",
+          "Student Final-Year Hardware Projects",
+          "ESP32 & STM32 Firmware Engineering",
+          "Upcoming PG & School Management Suites",
+          "Barcode, RFID & Biometric Gate Integration",
+          "WhatsApp Automated Billing Alerts",
+          "Official 3D Storefront: 3d.buildroonix.com",
         ]}
       />
 
@@ -147,11 +164,10 @@ export default function HomePage() {
           <div className="section-wrap">
             <Reveal preset="fade-up" className="section-header-split">
               <div className="section-header">
-                <span className="section-kicker kicker-light">Company Positioning · 10 Integrated Divisions</span>
-                <h2 className="section-h2">Beyond websites. Complete technology &amp; engineering execution.</h2>
+                <span className="section-kicker kicker-light">Buildroonix Divisions · Core Operations</span>
+                <h2 className="section-h2">Proprietary Software. Custom 3D Printing. Embedded Electronics.</h2>
                 <p className="section-sub">
-                  BUILDROONIX partners with businesses, institutions, and innovators across ten tightly integrated
-                  software, cloud, hardware, and prototyping divisions.
+                  Buildroonix delivers production role-based management software, manufactures personalized 3D lithophane lamps and figurines at 3d.buildroonix.com, and engineers student final-year electronics projects with complete academic viva documentation.
                 </p>
               </div>
               <QuoteTriggerButton
