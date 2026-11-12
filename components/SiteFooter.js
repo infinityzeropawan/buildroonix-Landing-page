@@ -163,7 +163,7 @@ export function SiteFooter({ content }) {
               <li><a href="https://3d.buildroonix.com/lithophane" target="_blank" rel="noopener noreferrer">Personalized Lithophane Lamps ↗</a></li>
               <li><a href="https://3d.buildroonix.com/figurines" target="_blank" rel="noopener noreferrer">Custom 3D Figurines &amp; Models ↗</a></li>
               <li><Link href="/portfolio/student-iot-embedded-projects">Student Electronics &amp; IoT Kits</Link></li>
-              <li><Link href="/about">About &amp; Founder&apos;s Desk</Link></li>
+              <li><Link href="/about">About Buildroonix</Link></li>
             </ul>
           </div>
 

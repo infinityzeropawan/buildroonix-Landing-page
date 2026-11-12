@@ -13,7 +13,7 @@ import { PortfolioSection } from "@/components/PortfolioSection";
 import { LifecycleTimeline } from "@/components/LifecycleTimeline";
 import { HeroConsole } from "@/components/HeroConsole";
 import { FaqAccordion } from "@/components/FaqAccordion";
-import { FounderSection } from "@/components/FounderSection";
+
 import {
   BlurHeadline,
   Reveal,
@@ -449,8 +449,7 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ── FOUNDER'S DESK & ARCHITECTURAL LEADERSHIP ─────────────────────── */}
-      {vis.founder !== false && <FounderSection />}
+
 
       {/* ── TESTIMONIALS ─────────────────────────────────────────────────── */}
       {vis.testimonials !== false && (

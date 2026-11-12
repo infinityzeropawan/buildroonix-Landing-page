@@ -8,9 +8,11 @@ import {
   Code2,
   Cpu,
   FileText,
+  Layers,
   Mail,
   MapPin,
   MessageSquare,
+  Package,
   Phone,
   ShieldCheck,
   Sparkles,
@@ -24,14 +26,12 @@ import { Reveal, StaggerContainer, StaggerItem } from "@/components/ScrollReveal
 import { BUILDROONIX_BRAND } from "@/lib/brand";
 
 export const metadata = {
-  title: "About Buildroonix — Founder, Leadership & Engineering Studio Heritage",
+  title: "About Buildroonix — Technology Products, 3D Fabrication & Embedded Electronics",
   description:
-    "Discover the engineering philosophy, founder leadership, and institutional standards of Buildroonix Engineering Studio. Founded by Rohit in Varanasi, UP.",
+    "Discover Buildroonix: an integrated technology studio delivering role-based management software, custom 3D lithophane manufacturing, and embedded student electronics in India.",
 };
 
 export default function AboutPage() {
-  const f = BUILDROONIX_BRAND.founder || {};
-
   return (
     <>
       <SiteHeader activeSection="about" />
@@ -42,31 +42,31 @@ export default function AboutPage() {
           <div className="breadcrumb">
             <Link href="/">Home</Link>
             <span>/</span>
-            <span style={{ color: "#26a9ff" }}>About &amp; Leadership</span>
+            <span style={{ color: "#26a9ff" }}>About Buildroonix</span>
           </div>
           <Reveal preset="blur-in" immediate delay={0.04}>
             <span className="section-kicker kicker-light">
               <span className="live-dot" style={{ background: "#26a9ff" }} />
-              STUDIO HERITAGE · FOUNDER &amp; LEADERSHIP
+              INTEGRATED ENGINEERING STUDIO · INDIA
             </span>
-            <h1>Architectural Rigor. Multi-Disciplinary Execution. Zero Middlemen.</h1>
+            <h1>Purpose-Built Software. Precision 3D Fabrication. Embedded Electronics.</h1>
           </Reveal>
           <Reveal preset="fade-up" immediate delay={0.14}>
             <p>
-              Buildroonix was founded in Varanasi, Uttar Pradesh by Rohit with an uncompromising mission: to bridge
-              the gap between modern software engineering and physical hardware prototyping under one unified,
-              accountable studio.
+              Buildroonix is an integrated engineering studio based in Varanasi, Uttar Pradesh. We engineer
+              role-based management software (Library OS, Gym OS), manufacture personalized 3D lithophane lamps and
+              figurines on 3d.buildroonix.com, and deliver working embedded electronics projects for engineering students and businesses.
             </p>
             <div className="hero-btns">
-              <QuoteTriggerButton label="Discuss a Project with the Founder" className="btn-primary" showSparkle />
+              <QuoteTriggerButton label="Discuss a Project With Our Team" className="btn-primary" showSparkle />
               <a
-                href={f.whatsappUrl || BUILDROONIX_BRAND.whatsappUrl}
+                href={BUILDROONIX_BRAND.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-wa-light"
               >
                 <MessageSquare size={15} />
-                <span>Direct WhatsApp with Founder</span>
+                <span>Chat on WhatsApp</span>
                 <ArrowUpRight size={13} />
               </a>
             </div>
@@ -74,117 +74,88 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── FOUNDER'S DESK DEEP DIVE ─────────────────────────────────────── */}
+      {/* ── STUDIO PILLARS DEEP DIVE ─────────────────────────────────────── */}
       <section className="section-dark">
         <div className="section-wrap">
-          <div className="about-founder-grid">
-            {/* Left: Founder Visual & Executive Card */}
-            <Reveal preset="fade-up" className="about-founder-card">
-              <div className="afc-img-frame">
-                <img
-                  src={f.image || "/assets/founder_portrait.jpg"}
-                  alt="Rohit - Founder of Buildroonix"
-                  className="afc-img"
-                />
-                <div className="afc-overlay">
-                  <span className="afc-badge">
-                    <span className="status-ping" />
-                    Direct Architectural Access
-                  </span>
-                </div>
-              </div>
-
-              <div className="afc-details">
-                <div className="afc-role-pill">
-                  <Terminal size={12} />
-                  <span>Founder &amp; Principal Systems Architect</span>
-                </div>
-                <h2>{f.name}</h2>
-                <p className="afc-subtitle">Managing Director &amp; Chief Engineer · Buildroonix</p>
-                <p className="afc-location">
-                  <MapPin size={13} />
-                  <span>Varanasi, Uttar Pradesh, India · Serving Pan-India &amp; Global Clients</span>
-                </p>
-
-                <div className="afc-quote-box">
-                  <span className="quote-mark">&ldquo;</span>
-                  <p>{f.quote}</p>
-                </div>
-
-                <div className="afc-contacts">
-                  <a href={`mailto:${f.email || BUILDROONIX_BRAND.email}`} className="afc-contact-item">
-                    <Mail size={13} />
-                    <span>{f.email || BUILDROONIX_BRAND.email}</span>
-                  </a>
-                  <a href={`tel:${(f.phone || BUILDROONIX_BRAND.phone).replace(/\s+/g, "")}`} className="afc-contact-item">
-                    <Phone size={13} />
-                    <span>{f.phone || BUILDROONIX_BRAND.phone}</span>
-                  </a>
-                </div>
-
-                <div className="afc-actions">
-                  <QuoteTriggerButton
-                    label="Schedule Founder Call"
-                    className="btn-primary"
-                    showArrow
-                  />
-                  <a
-                    href={f.whatsappUrl || BUILDROONIX_BRAND.whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-outline-light"
-                  >
-                    <MessageSquare size={14} />
-                    <span>WhatsApp</span>
-                  </a>
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Right: The Studio Story & Core Principles */}
-            <div className="about-story-col">
-              <Reveal preset="fade-up" delay={0.1}>
-                <span className="section-kicker kicker-light">The Studio Story</span>
-                <h3 className="about-story-h3">Why Buildroonix Was Built Differently.</h3>
-                <div className="about-story-body">
-                  <p>
-                    Throughout the tech industry, a persistent operational breakdown occurs whenever a business needs
-                    a complete connected solution: software developers don&apos;t understand hardware timing or sensor
-                    telemetry, hardware prototyping shops don&apos;t write scalable cloud APIs, and traditional IT agencies
-                    outsource complex work to layers of junior freelancers.
-                  </p>
-                  <p>
-                    Rohit founded <strong>Buildroonix Engineering Studio</strong> to eliminate this friction entirely.
-                    By uniting full-stack software architecture, cloud database engineering, embedded microcontroller
-                    firmware (ESP32/STM32), multi-layer PCB design, and precision 3D-printed digital manufacturing under
-                    one roof, Buildroonix delivers coherent, end-to-end technology solutions with zero handoff loss.
-                  </p>
-                  <p>
-                    Every engagement is backed by direct architectural leadership: we do not employ non-technical sales
-                    middlemen. When you describe your requirements, you discuss them directly with systems architects
-                    who design the database models, review the source code, and ensure performance benchmarks are met.
-                  </p>
-                </div>
-              </Reveal>
-
-              <StaggerContainer className="about-principles-grid" staggerDelay={0.08}>
-                {(f.principles || []).map((p, idx) => (
-                  <StaggerItem key={idx} className="about-principle-card">
-                    <div className="apc-head">
-                      <div className="apc-icon">
-                        {idx === 0 && <Code2 size={16} />}
-                        {idx === 1 && <ShieldCheck size={16} />}
-                        {idx === 2 && <Cpu size={16} />}
-                        {idx === 3 && <CheckCircle2 size={16} />}
-                      </div>
-                      <strong>{p.title}</strong>
-                    </div>
-                    <p>{p.desc}</p>
-                  </StaggerItem>
-                ))}
-              </StaggerContainer>
-            </div>
+          <div className="section-header">
+            <span className="section-kicker kicker-light">Our Operational Philosophy</span>
+            <h2 className="section-h2">Why Buildroonix Operates Differently.</h2>
+            <p className="section-sub">
+              Throughout the technology sector, a persistent divide exists between software developers, digital
+              manufacturing shops, and electronics labs. Buildroonix eliminates this fragmentation under one roof.
+            </p>
           </div>
+
+          <StaggerContainer className="divisions-grid" staggerDelay={0.08} style={{ marginTop: "32px" }}>
+            <StaggerItem>
+              <div className="spotlight-card" style={{ "--spot-accent": "#26a9ff", height: "100%" }}>
+                <div className="spotlight-glow" />
+                <div className="spotlight-content">
+                  <div className="div-num">
+                    <span className="div-dot" style={{ background: "#26a9ff", boxShadow: "0 0 10px #26a9ff" }} />
+                    PILLAR 01
+                  </div>
+                  <h3>Proprietary Software Systems</h3>
+                  <p>
+                    We engineer role-based operating platforms built around real human hierarchies. From Library OS
+                    (Manager, Admin, Superadmin) to Gym OS (Trainer, Manager, Admin), our software automates cataloging,
+                    attendance, and WhatsApp payment notifications with zero vendor lock-in.
+                  </p>
+                  <div style={{ marginTop: "16px" }}>
+                    <Link href="/portfolio/library-management-system" className="btn-link-cyan" style={{ fontSize: "12px", color: "#38bdf8" }}>
+                      Explore Library OS →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </StaggerItem>
+
+            <StaggerItem>
+              <div className="spotlight-card" style={{ "--spot-accent": "#10b981", height: "100%" }}>
+                <div className="spotlight-glow" />
+                <div className="spotlight-content">
+                  <div className="div-num">
+                    <span className="div-dot" style={{ background: "#10b981", boxShadow: "0 0 10px #10b981" }} />
+                    PILLAR 02
+                  </div>
+                  <h3>Custom 3D Printing &amp; Fabrication</h3>
+                  <p>
+                    Through our dedicated storefront at <strong>3d.buildroonix.com</strong>, we design and manufacture
+                    personalized 3D photo lithophane lamps, high-detail anime figurines, and functional rapid prototypes
+                    with calibrated 0.12mm precision FDM and resin additive manufacturing.
+                  </p>
+                  <div style={{ marginTop: "16px" }}>
+                    <a href="https://3d.buildroonix.com" target="_blank" rel="noopener noreferrer" style={{ fontSize: "12px", color: "#10b981" }}>
+                      Visit 3d.buildroonix.com ↗
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </StaggerItem>
+
+            <StaggerItem>
+              <div className="spotlight-card" style={{ "--spot-accent": "#8b5cf6", height: "100%" }}>
+                <div className="spotlight-glow" />
+                <div className="spotlight-content">
+                  <div className="div-num">
+                    <span className="div-dot" style={{ background: "#8b5cf6", boxShadow: "0 0 10px #8b5cf6" }} />
+                    PILLAR 03
+                  </div>
+                  <h3>Embedded Electronics &amp; Student Projects</h3>
+                  <p>
+                    We build tested hardware systems for B.Tech, Diploma, and Polytechnic engineering students. Every
+                    project kit comes with fully assembled microcontroller circuits (ESP32/STM32), working code, custom
+                    3D-printed enclosure, and complete academic viva defense documentation.
+                  </p>
+                  <div style={{ marginTop: "16px" }}>
+                    <Link href="/portfolio/student-iot-embedded-projects" style={{ fontSize: "12px", color: "#a855f7" }}>
+                      Explore Student Projects →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -195,8 +166,8 @@ export default function AboutPage() {
             <span className="section-kicker kicker-light">The Buildroonix Advantage</span>
             <h2 className="section-h2">Studio Model vs. Traditional Outsourcing.</h2>
             <p className="section-sub">
-              See why growing businesses, institutions, and product creators choose an integrated engineering studio
-              over traditional software agencies or disconnected freelancers.
+              See why businesses, institutions, and product creators choose an integrated engineering studio over
+              traditional software agencies or disconnected freelancers.
             </p>
           </Reveal>
 
@@ -219,7 +190,7 @@ export default function AboutPage() {
                 <tbody>
                   <tr>
                     <td>
-                      <strong>Direct Founder &amp; Senior Lead Access</strong>
+                      <strong>Direct Engineering Access</strong>
                       <span>Talk directly to engineers who write and review code</span>
                     </td>
                     <td className="highlight-col"><Check size={16} className="text-green" /> 100% Direct Access</td>
@@ -231,7 +202,7 @@ export default function AboutPage() {
                       <strong>Hardware + Software Under One Roof</strong>
                       <span>Web apps, cloud APIs, microcontrollers, PCBs &amp; 3D prototypes</span>
                     </td>
-                    <td className="highlight-col"><Check size={16} className="text-green" /> 10 Integrated Divisions</td>
+                    <td className="highlight-col"><Check size={16} className="text-green" /> Complete Integration</td>
                     <td className="dim-col"><X size={16} className="text-red" /> Software Only (No Hardware)</td>
                     <td className="dim-col"><X size={16} className="text-red" /> Single Domain Only</td>
                   </tr>
@@ -252,15 +223,6 @@ export default function AboutPage() {
                     <td className="highlight-col"><Check size={16} className="text-green" /> MSME + GST Verified</td>
                     <td className="dim-col"><Check size={16} className="text-green" /> Yes (High Overhead)</td>
                     <td className="dim-col"><X size={16} className="text-red" /> Unregistered / Cash Only</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Language-Agnostic System Architecture</strong>
-                      <span>Next.js, Python, Go, C++, Flutter, Java, PostgreSQL tailored to you</span>
-                    </td>
-                    <td className="highlight-col"><Check size={16} className="text-green" /> Client Requirements First</td>
-                    <td className="dim-col"><span className="text-dim">Biased to Staff Bench</span></td>
-                    <td className="dim-col"><span className="text-dim">Limited to Single Tech</span></td>
                   </tr>
                   <tr>
                     <td>
@@ -329,30 +291,30 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── DIRECT FOUNDER CONSULTATION CTA ─────────────────────────────── */}
+      {/* ── CONSULTATION CTA ─────────────────────────────────────────────── */}
       <section className="section-obsidian-alt">
         <div className="section-wrap">
           <Reveal preset="fade-up" className="about-final-cta-card">
             <div className="afc-cta-copy">
               <span className="section-kicker kicker-light" style={{ color: "#26a9ff" }}>
-                <Sparkles size={13} /> Direct Lead Engagement
+                <Sparkles size={13} /> Project Discussion &amp; Inquiries
               </span>
-              <h2>Ready to engineer your next software system or connected product?</h2>
+              <h2>Ready to discuss your software system or custom 3D project?</h2>
               <p>
-                Schedule an architectural discovery session directly with Rohit. We will review your technical
-                specifications, recommend optimal system architecture, and provide a transparent, milestone-based quote.
+                Get in touch with the Buildroonix engineering team. We will review your requirements, recommend the
+                right system architecture, and provide a clear, milestone-based quote.
               </p>
             </div>
             <div className="afc-cta-btns">
               <QuoteTriggerButton label="Request Technical Proposal" className="btn-primary" showSparkle />
               <a
-                href={f.whatsappUrl || BUILDROONIX_BRAND.whatsappUrl}
+                href={BUILDROONIX_BRAND.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-wa-light"
               >
                 <MessageSquare size={15} />
-                <span>Message Rohit on WhatsApp</span>
+                <span>Chat on WhatsApp</span>
                 <ArrowUpRight size={13} />
               </a>
               <Link href="/portfolio" className="btn-outline-light">
@@ -368,4 +330,3 @@ export default function AboutPage() {
     </>
   );
 }
-

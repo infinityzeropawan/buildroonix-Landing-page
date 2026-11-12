@@ -11,7 +11,7 @@ import { useQuoteModal } from "./QuoteContext";
 const NAV_ITEMS = [
   { id: "software", label: "Software Division", href: "/services/software-development" },
   { id: "portfolio", label: "Portfolio", href: "/portfolio" },
-  { id: "about", label: "About & Founder", href: "/about" },
+  { id: "about", label: "About Us", href: "/about" },
   { id: "process", label: "Process", href: "/#process" },
   { id: "contact", label: "Contact", href: "/#contact" },
 ];
@@ -404,7 +404,7 @@ export function SiteHeader({ activeSection = "home" }) {
                   Software &amp; Tech Portfolio
                 </Link>
                 <Link href="/about" onClick={() => setDrawerOpen(false)}>
-                  About &amp; Leadership (Founder&apos;s Desk)
+                  About Buildroonix
                 </Link>
                 <Link href="/#process" onClick={() => setDrawerOpen(false)}>
                   Development Process
