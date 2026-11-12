@@ -8,8 +8,11 @@ echo "🚀 Starting Buildroonix Landing Page update..."
 # Pull latest code from GitHub
 git pull origin main
 
-# Install/update npm dependencies (skip devDependencies)
-npm install --production --silent
+# Install/update npm dependencies
+npm install --silent
+
+# Build Next.js production bundle
+npm run build
 
 # Reload PM2 gracefully (zero-downtime) or start fresh if not running
 pm2 reload ecosystem.config.js --update-env || pm2 start ecosystem.config.js --env production

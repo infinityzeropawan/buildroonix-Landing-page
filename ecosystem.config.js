@@ -2,7 +2,8 @@ module.exports = {
   apps: [
     {
       name: 'buildroonix-landing',          // PM2 process name (different from buildroonix2)
-      script: 'server.js',
+      script: 'node_modules/next/dist/bin/next',
+      args: 'start -p 8080',
       instances: 1,
       exec_mode: 'fork',
       autorestart: true,
@@ -13,9 +14,7 @@ module.exports = {
       time: true,
       env_production: {
         NODE_ENV: 'production',
-        PORT: 8080,
-        ADMIN_PASSWORD: 'buildroonix2026',
-        AUTH_TOKEN: 'bx_admin_token_2026_secured'
+        PORT: 8080
       }
     }
   ]

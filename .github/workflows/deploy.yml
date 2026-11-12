@@ -28,7 +28,10 @@ jobs:
             git pull origin main
 
             echo "📦 Installing dependencies..."
-            npm install --production --silent
+            npm install --silent
+
+            echo "🏗️  Building Next.js production bundle..."
+            npm run build
 
             echo "♻️  Reloading PM2 process..."
             pm2 reload ecosystem.config.js --update-env || pm2 start ecosystem.config.js --env production

@@ -1,11 +1,11 @@
 {
   "name": "buildroonix-landing-page",
   "version": "1.0.0",
-  "description": "Buildroonix Engineering Studio — Full-Stack Landing Page & Production Backend",
-  "main": "server.js",
+  "description": "Buildroonix Engineering Studio — Next.js Full-Stack Platform & Software Engineering Showcase",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "next dev -p 8080",
+    "build": "next build",
+    "start": "next start -p 8080"
   },
   "keywords": [
     "3d-printing",
@@ -16,8 +16,10 @@
   "author": "Buildroonix",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "framer-motion": "^14.13.0",
+    "lucide-react": "^1.72.0",
+    "next": "^15.5.29",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   }
 }

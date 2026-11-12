@@ -1,8 +1,16 @@
 .DS_Store
 *.log
 node_modules/
+.next/
+out/
 .tempmediaStorage/
 data/*.tmp
+*.zip
+buildroonix-backup*
+# Old static project backup (local only)
+.old-static-backup/
+# Sub-repo copy (source of truth was merged into root)
+buildroonix/
 # ⚠️ NEVER commit credentials
 CREDENTIALS.TXT
 .env
