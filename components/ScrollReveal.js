@@ -34,12 +34,6 @@ export const MOTION_PRESETS = {
 export function MotionProvider({ children }) {
   return (
     <MotionConfig reducedMotion="user">
-      <div className="obsidian-ambient-canvas" aria-hidden="true">
-        <div className="obsidian-grid-overlay" />
-        <div className="aurora-orb aurora-orb-green" />
-        <div className="aurora-orb aurora-orb-cyan" />
-        <div className="aurora-orb aurora-orb-orange" />
-      </div>
       <div className="obsidian-app-shell">{children}</div>
     </MotionConfig>
   );
