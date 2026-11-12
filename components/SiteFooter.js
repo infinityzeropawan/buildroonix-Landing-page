@@ -182,7 +182,8 @@ export function SiteFooter({ content }) {
                   {phone}
                 </a>
               </li>
-              <li>UPI: <strong>{upi}</strong></li>
+              <li>Payments: <strong>UPI, Cards &amp; NetBanking via Razorpay</strong></li>
+              <li>Direct UPI: <strong>{upi}</strong></li>
             </ul>
             <div className="reg-badge">
               <div className="reg-row">
@@ -195,15 +196,25 @@ export function SiteFooter({ content }) {
               </div>
               <div className="reg-row">
                 <Check size={12} className="reg-check" />
-                <span>Service &amp; Lead-Gen Showcase Only</span>
+                <span>2–3 Day Custom Dispatch · Pan-India Delivery</span>
               </div>
             </div>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <span>Buildroonix Engineering Studio · Varanasi, UP · 2026</span>
-          <span className="footer-tagline-right">Build Beyond Limits.</span>
+          <div className="footer-legal-bar" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px", fontSize: "12px", color: "var(--ink-muted)" }}>
+            <span>© 2026 Buildroonix Engineering Studio · Varanasi, UP</span>
+            <span>·</span>
+            <Link href="/privacy" style={{ color: "var(--ink-secondary)" }}>Privacy Policy</Link>
+            <span>·</span>
+            <Link href="/terms" style={{ color: "var(--ink-secondary)" }}>Terms &amp; Conditions</Link>
+            <span>·</span>
+            <Link href="/refund-policy" style={{ color: "var(--ink-secondary)" }}>Refund Policy</Link>
+            <span>·</span>
+            <Link href="/shipping-policy" style={{ color: "var(--ink-secondary)" }}>Shipping Policy</Link>
+          </div>
+          <span className="footer-tagline-right">Specialized Software · Precision 3D Prints · Embedded Hardware</span>
         </div>
       </div>
 

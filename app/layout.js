@@ -29,9 +29,39 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: "BUILDROONIX — Integrated Technology, Software & Engineering Solutions",
+  title: "Buildroonix — Custom 3D Lithophane Lamps, IoT Prototypes & Business Software (India)",
   description:
-    "BUILDROONIX is an integrated technology, software engineering, IoT, hardware engineering, and digital manufacturing company building custom software, enterprise systems, mobile apps, AI solutions, and connected prototypes.",
+    "Buildroonix is an integrated engineering studio in Varanasi, India crafting personalized 3D lithophane lamps, final-year student IoT prototypes, and role-based business software (Library OS, Gym OS).",
+  keywords: [
+    "3D lithophane lamps India",
+    "custom 3D printing Varanasi",
+    "Library Management System software",
+    "Gym Management Software India",
+    "student IoT projects BTech",
+    "ESP32 embedded hardware prototypes",
+    "Buildroonix",
+  ],
+  metadataBase: new URL("https://buildroonix.com"),
+  alternates: {
+    canonical: "https://buildroonix.com",
+  },
+  openGraph: {
+    title: "Buildroonix — Custom 3D Lithophane Lamps, IoT Prototypes & Business Software (India)",
+    description:
+      "Crafting personalized 3D lithophane lamps, final-year student IoT prototypes, and role-based business software (Library OS, Gym OS). Based in Varanasi, delivering pan-India.",
+    url: "https://buildroonix.com",
+    siteName: "BUILDROONIX",
+    images: [
+      {
+        url: "/assets/logo.png",
+        width: 800,
+        height: 600,
+        alt: "Buildroonix Studio Logo",
+      },
+    ],
+    locale: "en_IN",
+    type: "website",
+  },
   icons: {
     icon: "/assets/logo.png",
   },

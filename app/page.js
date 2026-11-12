@@ -125,19 +125,19 @@ export default function HomePage() {
         <StaggerContainer className="hero-authority-strip" staggerDelay={0.07}>
           <StaggerItem className="auth-stat">
             <strong>Library &amp; Gym OS</strong>
-            <span>Role-Based Multi-Tier Platforms</span>
+            <span>Multi-Tier Role Management</span>
           </StaggerItem>
           <StaggerItem className="auth-stat">
-            <strong>3d.buildroonix.com</strong>
-            <span>Lithophanes, Figurines &amp; Custom 3D Prints</span>
+            <strong>2–3 Day Custom Dispatch</strong>
+            <span>3D Lithophane Lamps &amp; Figurines</span>
           </StaggerItem>
           <StaggerItem className="auth-stat">
             <strong>Student Electronics</strong>
-            <span>B.Tech / Diploma Final-Year Hardware &amp; Viva</span>
+            <span>Working Hardware Kits &amp; Viva Support</span>
           </StaggerItem>
           <StaggerItem className="auth-stat">
             <strong>GSTIN &amp; MSME</strong>
-            <span>09HQHPD9487C1ZE · Pan-India Dispatch</span>
+            <span>09HQHPD9487C1ZE · Pan-India Express Delivery</span>
           </StaggerItem>
         </StaggerContainer>
       </section>
@@ -257,7 +257,9 @@ export default function HomePage() {
                       <p className="case-outcome">
                         <strong>Solution &amp; Outcome:</strong> {w.outcome}
                       </p>
-                      <span className="case-link">{w.ctaText || "View Case Study"} →</span>
+                      <span className="case-link">
+                        {w.ctaText ? w.ctaText.replace(/\s*[→↗]+$/, "") : "View Case Study"}{w.ctaLink?.startsWith("http") ? " ↗" : " →"}
+                      </span>
                     </div>
                   </SpotlightCard>
                 </StaggerItem>
