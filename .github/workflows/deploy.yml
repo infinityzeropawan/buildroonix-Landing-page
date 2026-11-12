@@ -23,9 +23,15 @@ jobs:
           port: 22
           script: |
             set -e
-            echo "📦 Pulling latest code..."
+            echo "📦 Setting safe directory..."
+            git config --global --add safe.directory /var/www/buildroonix
+
+            echo "📦 Fetching latest code and cleaning workspace..."
             cd /var/www/buildroonix
-            git pull origin main
+            git reset --hard HEAD
+            git fetch origin main
+            git reset --hard origin/main
+            git clean -fd
 
             echo "📦 Installing dependencies..."
             npm install --silent
@@ -33,8 +39,10 @@ jobs:
             echo "🏗️  Building Next.js production bundle..."
             npm run build
 
-            echo "♻️  Reloading PM2 process..."
-            pm2 reload ecosystem.config.js --update-env || pm2 start ecosystem.config.js --env production
+            echo "♻️  Restarting PM2 process (buildroonix-landing only)..."
+            pm2 delete buildroonix-landing 2>/dev/null || true
+            pm2 start ecosystem.config.js --env production
+            pm2 save
 
             echo "✅ buildroonix.com deployed successfully!"
             pm2 status buildroonix-landing
