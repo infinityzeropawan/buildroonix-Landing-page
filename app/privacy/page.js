@@ -20,7 +20,7 @@ export default function PrivacyPolicyPage() {
           <div className="breadcrumb">
             <Link href="/">Home</Link>
             <span>/</span>
-            <span style={{ color: "#26a9ff" }}>Privacy Policy</span>
+            <span style={{ color: "#7c3aed" }}>Privacy Policy</span>
           </div>
           <span className="section-kicker kicker-light">
             <ShieldCheck size={13} style={{ display: "inline", verticalAlign: "middle", marginRight: "6px" }} />
@@ -97,8 +97,8 @@ export default function PrivacyPolicyPage() {
                 <p><strong>Buildroonix Engineering Studio</strong></p>
                 <p>Attention: Privacy &amp; Data Compliance</p>
                 <p>Location: Varanasi, Uttar Pradesh — 221005, India</p>
-                <p>Email: <a href="mailto:support@buildroonix.com" style={{ color: "#26a9ff" }}>support@buildroonix.com</a></p>
-                <p>Phone / WhatsApp: <a href="tel:+919580181697" style={{ color: "#26a9ff" }}>+91 9580181697</a></p>
+                <p>Email: <a href="mailto:support@buildroonix.com" style={{ color: "#7c3aed" }}>support@buildroonix.com</a></p>
+                <p>Phone / WhatsApp: <a href="tel:+919580181697" style={{ color: "#7c3aed" }}>+91 9580181697</a></p>
               </div>
             </div>
 

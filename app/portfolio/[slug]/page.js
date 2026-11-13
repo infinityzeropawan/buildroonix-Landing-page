@@ -100,13 +100,13 @@ export default async function PortfolioDetailPage({ params }) {
           <div className="subpage-grid-2" style={{ alignItems: "start" }}>
             <StaggerContainer style={{ display: "flex", flexDirection: "column", gap: "18px" }} staggerDelay={0.08}>
               <StaggerItem>
-                <SpotlightCard className="capability-box" accent={project.accent || "#26a9ff"}>
+                <SpotlightCard className="capability-box" accent={project.accent || "#7c3aed"}>
                   <h3>Problem Statement</h3>
                   <p>{project.problemStatement}</p>
                 </SpotlightCard>
               </StaggerItem>
               <StaggerItem>
-                <SpotlightCard className="capability-box" accent="#26a9ff">
+                <SpotlightCard className="capability-box" accent="#7c3aed">
                   <h3>Requirements &amp; Scope</h3>
                   <p>{project.clientRequirements}</p>
                 </SpotlightCard>
@@ -203,7 +203,7 @@ export default async function PortfolioDetailPage({ params }) {
                     key={s.slug}
                     href={`/services/${s.slug}`}
                     className="service-matrix-card"
-                    accent={s.accent || "#26a9ff"}
+                    accent={s.accent || "#7c3aed"}
                   >
                     <h3>{s.title}</h3>
                     <p style={{ fontSize: "13px", color: "var(--ink-secondary)" }}>{s.headline}</p>

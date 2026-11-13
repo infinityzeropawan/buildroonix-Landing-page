@@ -187,7 +187,7 @@ export function HeroConsole({ videoUrl }) {
                   <span className="bp-signal" />
                 </div>
                 <div className="bp-node bp-node-core">
-                  <span className="bp-tag" style={{ color: "#26a9ff" }}>
+                  <span className="bp-tag" style={{ color: "#7c3aed" }}>
                     02 · CORE ENGINE
                   </span>
                   <strong>REST / GraphQL · RBAC · AI APIs</strong>
@@ -215,11 +215,11 @@ export function HeroConsole({ videoUrl }) {
         {/* 4 Layer Diagnostic Cards */}
         <div className="console-layers">
           <div className="console-layer-card">
-            <span style={{ color: "#26a9ff" }}>01 · Software Layer</span>
+            <span style={{ color: "#7c3aed" }}>01 · Software Layer</span>
             <strong>Web, Mobile, Desktop, SaaS, ERP &amp; AI</strong>
           </div>
           <div className="console-layer-card">
-            <span style={{ color: "#26a9ff" }}>02 · Cloud &amp; API Layer</span>
+            <span style={{ color: "#7c3aed" }}>02 · Cloud &amp; API Layer</span>
             <strong>REST, GraphQL, RBAC, Docker &amp; CI/CD</strong>
           </div>
           <div className="console-layer-card">

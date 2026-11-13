@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ExternalLink, CheckCircle2, ShieldCheck, Zap, Users, BookOpen, Dumbbell, Cpu, Box } from "lucide-react";
 
-export function UiMockup({ type = "library-os", accent = "#26a9ff" }) {
+export function UiMockup({ type = "library-os", accent = "#7c3aed" }) {
   const c = accent;
 
   // ── 1. LIBRARY MANAGEMENT SYSTEM (LIBRARY OS) ──────────────────────────────
@@ -13,14 +13,14 @@ export function UiMockup({ type = "library-os", accent = "#26a9ff" }) {
         <div className="mk-topbar">
           <span className="mk-dots"><i /><i /><i /></span>
           <span className="mk-url">library.buildroonix.com/admin/dashboard</span>
-          <span className="mk-badge" style={{ color: "#38bdf8", borderColor: "rgba(56, 189, 248, 0.4)" }}>
+          <span className="mk-badge" style={{ color: "#a78bfa", borderColor: "rgba(167, 139, 250, 0.4)" }}>
             Roles: Manager · Admin · Superadmin
           </span>
         </div>
         <div className="mk-body">
           {/* Role Filter Tabs */}
           <div className="mk-erp-tabs">
-            <span className="active" style={{ background: "rgba(38, 169, 255, 0.15)", color: "#38bdf8", border: "1px solid rgba(38, 169, 255, 0.4)" }}>
+            <span className="active" style={{ background: "rgba(124, 58, 237, 0.15)", color: "#a78bfa", border: "1px solid rgba(124, 58, 237, 0.4)" }}>
               <BookOpen size={13} style={{ display: "inline", marginRight: 5, verticalAlign: "middle" }} />
               Manager View: Book Circulation
             </span>
@@ -31,7 +31,7 @@ export function UiMockup({ type = "library-os", accent = "#26a9ff" }) {
           {/* Metric KPIs */}
           <div className="mk-kpi-row">
             <div className="mk-kpi"><span>Total Catalog</span><strong>14,280 Books</strong></div>
-            <div className="mk-kpi"><span>Currently Issued</span><strong style={{ color: "#38bdf8" }}>1,420 Active</strong></div>
+            <div className="mk-kpi"><span>Currently Issued</span><strong style={{ color: "#a78bfa" }}>1,420 Active</strong></div>
             <div className="mk-kpi"><span>Overdue Fines</span><strong style={{ color: "#f59e0b" }}>₹ 4,850</strong></div>
             <div className="mk-kpi"><span>Barcode / RFID</span><strong style={{ color: "#10b981" }}>Scanner Ready</strong></div>
           </div>
@@ -60,7 +60,7 @@ export function UiMockup({ type = "library-os", accent = "#26a9ff" }) {
               <span>Clean Code &amp; Software Architecture</span>
               <span>Prof. S. Sharma (Faculty)</span>
               <span>28 Nov 2026</span>
-              <span className="mk-tag" style={{ color: "#38bdf8" }}>Renewed Online</span>
+              <span className="mk-tag" style={{ color: "#a78bfa" }}>Renewed Online</span>
             </div>
           </div>
 
@@ -68,7 +68,7 @@ export function UiMockup({ type = "library-os", accent = "#26a9ff" }) {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "14px", paddingTop: "12px", borderTop: "1px solid rgba(255,255,255,0.08)", fontSize: "12px", color: "#94a3b8" }}>
             <span>⚡ Automated Overdue SMS &amp; Email Reminders Enabled</span>
             <div style={{ display: "flex", gap: "8px" }}>
-              <button type="button" style={{ background: "rgba(38,169,255,0.15)", color: "#38bdf8", border: "1px solid rgba(38,169,255,0.3)", borderRadius: "6px", padding: "4px 10px", fontSize: "11px", cursor: "pointer" }}>
+              <button type="button" style={{ background: "rgba(124, 58, 237,0.15)", color: "#a78bfa", border: "1px solid rgba(124, 58, 237,0.3)", borderRadius: "6px", padding: "4px 10px", fontSize: "11px", cursor: "pointer" }}>
                 + Issue via Barcode
               </button>
               <button type="button" style={{ background: "rgba(255,255,255,0.05)", color: "#f1f5f9", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", padding: "4px 10px", fontSize: "11px", cursor: "pointer" }}>
@@ -108,7 +108,7 @@ export function UiMockup({ type = "library-os", accent = "#26a9ff" }) {
             <div className="mk-kpi"><span>Active Members</span><strong>342 Enrolled</strong></div>
             <div className="mk-kpi"><span>Expiring (7 Days)</span><strong style={{ color: "#ef4444" }}>18 Renewals Due</strong></div>
             <div className="mk-kpi"><span>Today&#39;s Check-ins</span><strong style={{ color: "#10b981" }}>124 (QR / Biometric)</strong></div>
-            <div className="mk-kpi"><span>Monthly Revenue</span><strong style={{ color: "#38bdf8" }}>₹ 2,84,000</strong></div>
+            <div className="mk-kpi"><span>Monthly Revenue</span><strong style={{ color: "#a78bfa" }}>₹ 2,84,000</strong></div>
           </div>
 
           {/* Member Operations Table */}
@@ -135,7 +135,7 @@ export function UiMockup({ type = "library-os", accent = "#26a9ff" }) {
               <span>Aman Verma</span>
               <span>Personal Training (Fat Loss)</span>
               <span>Trainer Rajesh</span>
-              <span className="mk-tag" style={{ color: "#38bdf8" }}>Checked In (07:15 AM)</span>
+              <span className="mk-tag" style={{ color: "#a78bfa" }}>Checked In (07:15 AM)</span>
             </div>
           </div>
 
@@ -169,13 +169,13 @@ export function UiMockup({ type = "library-os", accent = "#26a9ff" }) {
         </div>
         <div className="mk-body">
           <div className="mk-tenant-grid" style={{ gridTemplateColumns: "repeat(3, 1fr)", gap: "12px" }}>
-            <div className="mk-tenant-box" style={{ borderColor: "rgba(38, 169, 255, 0.4)", background: "rgba(38, 169, 255, 0.04)" }}>
-              <small style={{ color: "#38bdf8", fontWeight: 700 }}>SAAS ROADMAP 01</small>
+            <div className="mk-tenant-box" style={{ borderColor: "rgba(124, 58, 237, 0.4)", background: "rgba(124, 58, 237, 0.04)" }}>
+              <small style={{ color: "#a78bfa", fontWeight: 700 }}>SAAS ROADMAP 01</small>
               <strong style={{ fontSize: "14px", marginTop: "4px", display: "block" }}>PG &amp; Hostel Management</strong>
               <p style={{ fontSize: "11px", color: "#94a3b8", margin: "6px 0 10px" }}>
                 Bed allocation, monthly rent dues, mess/meal counts, and tenant police verification KYC.
               </p>
-              <span className="mk-tag" style={{ color: "#38bdf8", border: "1px solid rgba(38,169,255,0.3)" }}>● Active Engineering</span>
+              <span className="mk-tag" style={{ color: "#a78bfa", border: "1px solid rgba(124, 58, 237,0.3)" }}>● Active Engineering</span>
             </div>
 
             <div className="mk-tenant-box" style={{ borderColor: "rgba(255, 114, 18, 0.4)", background: "rgba(255, 114, 18, 0.04)" }}>
@@ -199,7 +199,7 @@ export function UiMockup({ type = "library-os", accent = "#26a9ff" }) {
 
           <div style={{ marginTop: "14px", padding: "12px", background: "rgba(255,255,255,0.03)", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.06)", fontSize: "12px", color: "#cbd5e1", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span>🏢 All Buildroonix software includes role-based access (RBAC), multi-tenant data isolation, and automated cloud backups.</span>
-            <span style={{ color: "#38bdf8", fontWeight: 600 }}>Custom Deployment Available</span>
+            <span style={{ color: "#a78bfa", fontWeight: 600 }}>Custom Deployment Available</span>
           </div>
         </div>
       </div>
@@ -230,7 +230,7 @@ export function UiMockup({ type = "library-os", accent = "#26a9ff" }) {
           <div className="mk-kpi-row">
             <div className="mk-kpi"><span>Hardware Circuit</span><strong style={{ color: "#10b981" }}>Tested &amp; Working</strong></div>
             <div className="mk-kpi"><span>Microcontrollers</span><strong>ESP32 · STM32 · Arduino</strong></div>
-            <div className="mk-kpi"><span>3D Custom Body</span><strong style={{ color: "#38bdf8" }}>Included</strong></div>
+            <div className="mk-kpi"><span>3D Custom Body</span><strong style={{ color: "#a78bfa" }}>Included</strong></div>
             <div className="mk-kpi"><span>Project Documentation</span><strong style={{ color: "#f59e0b" }}>Report + PPT + Code</strong></div>
           </div>
 

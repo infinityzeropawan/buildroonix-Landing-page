@@ -43,7 +43,7 @@ export function SiteFooter({ content }) {
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="footer-cta-copy">
-            <span className="section-kicker kicker-light" style={{ color: "#38BDF8" }}>
+            <span className="section-kicker kicker-light" style={{ color: "var(--purple)" }}>
               <Sparkles size={12} /> Integrated Engineering Partner
             </span>
             <h2>

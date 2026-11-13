@@ -9,11 +9,11 @@ import { BUILDROONIX_BRAND, MEGA_MENU_GROUPS } from "@/lib/brand";
 import { useQuoteModal } from "./QuoteContext";
 
 const NAV_ITEMS = [
-  { id: "software", label: "Software Division", href: "/services/software-development" },
+  { id: "software", label: "Software Systems", href: "/services/software-development" },
+  { id: "doors", label: "3 Core Divisions", href: "/#doors" },
   { id: "portfolio", label: "Portfolio", href: "/portfolio" },
   { id: "about", label: "About Us", href: "/about" },
-  { id: "process", label: "Process", href: "/#process" },
-  { id: "contact", label: "Contact", href: "/#contact" },
+  { id: "faq", label: "FAQ", href: "/#faq" },
 ];
 
 export function SiteHeader({ activeSection = "home" }) {

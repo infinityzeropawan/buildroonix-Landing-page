@@ -35,14 +35,14 @@ const SOLUTION_PILLARS = [
     desc: "Modular ERP, CRM, HRMS, Payroll, Inventory, GST Billing, LMS, School/College, Library, Clinic, POS, Booking, and Business Reporting platforms.",
     link: "/services/enterprise-software-development",
     cta: "Enterprise Systems Details →",
-    accent: "#26a9ff",
+    accent: "#7c3aed",
   },
   {
     title: "SaaS & Multi-Tenant Cloud Solutions",
     desc: "Subscription-ready multi-user software platforms with strict tenant isolation, plan entitlements, and scalable cloud deployment.",
     link: "/services/saas-development",
     cta: "SaaS Engineering Details →",
-    accent: "#26a9ff",
+    accent: "#7c3aed",
   },
   {
     title: "AI & Intelligent Application Solutions",
@@ -162,7 +162,7 @@ export default function SoftwareDevelopmentOverviewPage() {
               </Reveal>
             </div>
             <Reveal preset="scale-in">
-              <UiMockup type="enterprise-erp" accent="#26a9ff" />
+              <UiMockup type="enterprise-erp" accent="#7c3aed" />
             </Reveal>
           </div>
         </div>
@@ -185,7 +185,7 @@ export default function SoftwareDevelopmentOverviewPage() {
                 <SpotlightCard
                   href={g.href}
                   className="service-matrix-card"
-                  accent={idx % 3 === 0 ? "#26a9ff" : idx % 3 === 1 ? "#26a9ff" : "#ff7212"}
+                  accent={idx % 3 === 0 ? "#7c3aed" : idx % 3 === 1 ? "#7c3aed" : "#ff7212"}
                 >
                   <h3>{g.title}</h3>
                   <ul>
@@ -327,9 +327,9 @@ export default function SoftwareDevelopmentOverviewPage() {
                     : "demo";
               return (
                 <StaggerItem key={p.slug}>
-                  <SpotlightCard href={`/portfolio/${p.slug}`} className="port-card bento-port-card" accent={p.accent || "#26a9ff"}>
+                  <SpotlightCard href={`/portfolio/${p.slug}`} className="port-card bento-port-card" accent={p.accent || "#7c3aed"}>
                     <div className="port-card-top">
-                      <span className="port-cat" style={{ color: p.accent || "#26a9ff" }}>{p.category}</span>
+                      <span className="port-cat" style={{ color: p.accent || "#7c3aed" }}>{p.category}</span>
                       <span className={`port-type-badge ${badgeCls}`}>{p.projectType}</span>
                     </div>
                     <div className="port-thumb">

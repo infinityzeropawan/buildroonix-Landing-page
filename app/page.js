@@ -1,19 +1,14 @@
 import Link from "next/link";
 import {
   BUILDROONIX_BRAND,
-  CORE_DIVISIONS,
   DEFAULT_SITE_CONTENT,
-  TECH_STACK,
 } from "@/lib/brand";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { QuoteTriggerButton } from "@/components/QuoteTriggerButton";
 import { SoftwareWorkbench } from "@/components/SoftwareWorkbench";
-import { PortfolioSection } from "@/components/PortfolioSection";
-import { LifecycleTimeline } from "@/components/LifecycleTimeline";
 import { HeroConsole } from "@/components/HeroConsole";
 import { FaqAccordion } from "@/components/FaqAccordion";
-
 import {
   BlurHeadline,
   Reveal,
@@ -25,10 +20,6 @@ import {
 
 export default function HomePage() {
   const content = DEFAULT_SITE_CONTENT;
-
-  const vis = content.sectionVisibility;
-  const featured = content.featuredWork?.length ? content.featuredWork : DEFAULT_SITE_CONTENT.featuredWork;
-  const audience = content.audienceBlocks?.length ? content.audienceBlocks : DEFAULT_SITE_CONTENT.audienceBlocks;
   const testimonials = content.testimonials?.length ? content.testimonials : DEFAULT_SITE_CONTENT.testimonials;
   const faqs = content.faqs?.length ? content.faqs : DEFAULT_SITE_CONTENT.faqs;
 
@@ -36,54 +27,45 @@ export default function HomePage() {
     <>
       <SiteHeader activeSection="home" />
 
-      {/* ── HERO SECTION ─────────────────────────────────────────────────── */}
+      {/* ── 1. HERO SECTION ───────────────────────────────────────────────── */}
       <section className="hero-section" id="home">
         <div className="hero-grid">
           <div className="hero-left">
             <Reveal preset="blur-in" immediate delay={0.02} className="hero-eyebrow">
               <span className="eyebrow-dot" />
-              <span>{content.heroEyebrow}</span>
+              <span>Varanasi, UP · MSME &amp; GSTIN Registered Engineering Studio</span>
             </Reveal>
 
             <BlurHeadline
               lines={[
-                content.heroTitleLine1,
-                content.heroTitleHighlight,
-                content.heroTitleLine3 || "Solutions Company.",
+                "Software Systems.",
+                "3D Fabrication.",
+                "Embedded Electronics.",
               ]}
               highlightIndex={1}
               className="hero-h1"
             />
 
             <Reveal preset="fade-up" immediate delay={0.22} as="p" className="hero-body">
-              {content.heroDescription}
+              Buildroonix develops multi-tier operational management software (Library OS, Gym OS), manufactures bespoke 3D lithophane photo lamps &amp; figurines at 3d.buildroonix.com, and engineers turnkey embedded hardware projects for students.
             </Reveal>
 
             <Reveal preset="fade-up" immediate delay={0.3} className="hero-btns">
               <QuoteTriggerButton
-                label={content.heroPrimaryText || "Discuss Your Project"}
+                label="Discuss Your Project"
                 className="btn-primary"
                 showSparkle
               />
-              {content.heroSecondaryLink?.startsWith("http") ? (
-                <a
-                  href={content.heroSecondaryLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-outline-light"
-                >
-                  {content.heroSecondaryText || "Shop 3D Prints & Lamps ↗"}
-                </a>
-              ) : (
-                <Link
-                  href={content.heroSecondaryLink || "/portfolio"}
-                  className="btn-outline-light"
-                >
-                  {content.heroSecondaryText || "Explore Software Products →"}
-                </Link>
-              )}
               <a
-                href={content.socials.whatsapp || BUILDROONIX_BRAND.whatsappUrl}
+                href="https://3d.buildroonix.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline-light"
+              >
+                Shop 3D Storefront ↗
+              </a>
+              <a
+                href={BUILDROONIX_BRAND.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-wa-light"
@@ -93,10 +75,10 @@ export default function HomePage() {
             </Reveal>
 
             <Reveal preset="fade-up" immediate delay={0.38} className="hero-division-pills">
-              <Link href="/portfolio/library-management-system" className="hero-pill-link">
+              <Link href="#software-showcase" className="hero-pill-link">
                 Library OS (Manager · Admin · Superadmin)
               </Link>
-              <Link href="/portfolio/gym-management-software" className="hero-pill-link">
+              <Link href="#software-showcase" className="hero-pill-link">
                 Gym OS (Trainer · Manager · Admin)
               </Link>
               <a
@@ -106,13 +88,13 @@ export default function HomePage() {
                 className="hero-pill-link hero-pill-3d"
                 style={{ borderColor: "rgba(16, 185, 129, 0.4)", color: "#10b981" }}
               >
-                3D Lithophane Lamps &amp; Figurines ↗
+                3D Store: Lithophane Lamps &amp; Figurines ↗
               </a>
-              <Link href="/portfolio/student-iot-embedded-projects" className="hero-pill-link">
+              <Link href="#doors" className="hero-pill-link">
                 Student IoT &amp; Electronics Projects
               </Link>
               <Link href="/portfolio/upcoming-saas-roadmap" className="hero-pill-link">
-                PG &amp; School SaaS Roadmap
+                Upcoming PG &amp; School SaaS Roadmap
               </Link>
             </Reveal>
           </div>
@@ -125,24 +107,24 @@ export default function HomePage() {
         <StaggerContainer className="hero-authority-strip" staggerDelay={0.07}>
           <StaggerItem className="auth-stat">
             <strong>Library &amp; Gym OS</strong>
-            <span>Multi-Tier Role Management</span>
+            <span>Multi-Tier Role Management (Manager, Admin, Trainer)</span>
           </StaggerItem>
           <StaggerItem className="auth-stat">
             <strong>2–3 Day Custom Dispatch</strong>
-            <span>3D Lithophane Lamps &amp; Figurines</span>
+            <span>Personalized 3D Lithophane Lamps &amp; Figurines</span>
           </StaggerItem>
           <StaggerItem className="auth-stat">
             <strong>Student Electronics</strong>
-            <span>Working Hardware Kits &amp; Viva Support</span>
+            <span>100% Tested Working Hardware Kits + Complete Viva Pack</span>
           </StaggerItem>
           <StaggerItem className="auth-stat">
             <strong>GSTIN &amp; MSME</strong>
-            <span>09HQHPD9487C1ZE · Pan-India Express Delivery</span>
+            <span>09HQHPD9487C1ZE · Varanasi, UP · Pan-India Express Delivery</span>
           </StaggerItem>
         </StaggerContainer>
       </section>
 
-      {/* ── OBSIDIAN TECH CAPABILITIES MARQUEE ───────────────────────────── */}
+      {/* ── 2. OBSIDIAN TECH CAPABILITIES MARQUEE ─────────────────────────── */}
       <TechMarquee
         items={[
           "Library Management System (Library OS)",
@@ -153,396 +135,264 @@ export default function HomePage() {
           "ESP32 & STM32 Firmware Engineering",
           "Upcoming PG & School Management Suites",
           "Barcode, RFID & Biometric Gate Integration",
-          "WhatsApp Automated Billing Alerts",
+          "Automated WhatsApp Billing Alerts",
           "Official 3D Storefront: 3d.buildroonix.com",
         ]}
       />
 
-      {/* ── 10 CORE BUSINESS DIVISIONS ───────────────────────────────────── */}
-      {vis.divisions !== false && (
-        <section className="section-obsidian-alt" id="divisions">
-          <div className="section-wrap">
-            <Reveal preset="fade-up" className="section-header-split">
-              <div className="section-header">
-                <span className="section-kicker kicker-light">Buildroonix Divisions · Core Operations</span>
-                <h2 className="section-h2">Proprietary Software. Custom 3D Printing. Embedded Electronics.</h2>
-                <p className="section-sub">
-                  Buildroonix delivers production role-based management software, manufactures personalized 3D lithophane lamps and figurines at 3d.buildroonix.com, and engineers student final-year electronics projects with complete academic viva documentation.
-                </p>
-              </div>
-              <QuoteTriggerButton
-                label="Discuss Your Requirements"
-                showArrow
-                className="btn-outline-light"
-              />
-            </Reveal>
-
-            <StaggerContainer className="divisions-grid" staggerDelay={0.06}>
-              {CORE_DIVISIONS.map((d) => (
-                <StaggerItem key={d.num}>
-                  <SpotlightCard
-                    href={d.link}
-                    className="division-card"
-                    accent={d.color}
-                  >
-                    <div className="div-num">
-                      <span
-                        className="div-dot"
-                        style={{ background: d.color, boxShadow: `0 0 10px ${d.color}` }}
-                      />
-                      DIVISION {d.num}
-                    </div>
-                    <h3>{d.title}</h3>
-                    <p>{d.desc}</p>
-                    <span className="div-link" style={{ color: d.color }}>
-                      Explore Division →
-                    </span>
-                  </SpotlightCard>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </div>
-        </section>
-      )}
-
-      {/* ── PROMINENT SOFTWARE EXPERTISE WORKBENCH ──────────────────────── */}
-      {vis.software !== false && (
-        <section className="section-dark" id="software-expertise">
-          <div className="section-wrap">
-            <Reveal preset="fade-up" className="section-header-split">
-              <div className="section-header">
-                <span className="section-kicker kicker-light">Software Engineering Division</span>
-                <h2 className="section-h2">{content.softwareHeading}</h2>
-                <p className="section-sub">{content.softwareSubhead}</p>
-              </div>
-              <Link href="/services/software-development" className="btn-primary">
-                Full Software Capabilities →
-              </Link>
-            </Reveal>
-            <SoftwareWorkbench />
-          </div>
-        </section>
-      )}
-
-      {/* ── FEATURED WORK / CASE STUDIES ─────────────────────────────────── */}
-      {vis.featured !== false && (
-        <section className="section-obsidian-alt" id="featured-work">
-          <div className="section-wrap">
-            <Reveal preset="fade-up" className="section-header-split">
-              <div className="section-header">
-                <span className="section-kicker kicker-light">{content.featuredKicker}</span>
-                <h2 className="section-h2">{content.featuredHeading}</h2>
-                <p className="section-sub">{content.featuredSubhead}</p>
-              </div>
-              <Link href="/portfolio" className="btn-outline-light">
-                Explore Full Portfolio →
-              </Link>
-            </Reveal>
-
-            <StaggerContainer className="featured-grid" staggerDelay={0.09}>
-              {featured.map((w, idx) => (
-                <StaggerItem key={idx}>
-                  <SpotlightCard href={w.ctaLink || "/portfolio"} className="case-card" accent="#26a9ff">
-                    <div className="case-card-img">
-                      {w.mediaType === "video" ? (
-                        <video src={w.imageUrl} autoPlay muted loop playsInline />
-                      ) : (
-                        <img src={w.imageUrl} alt={w.title} loading="lazy" />
-                      )}
-                    </div>
-                    <div className="case-card-body">
-                      <span className="case-tag">{w.tag}</span>
-                      <h3>{w.title}</h3>
-                      <p className="case-story">{w.story}</p>
-                      <p className="case-outcome">
-                        <strong>Solution &amp; Outcome:</strong> {w.outcome}
-                      </p>
-                      <span className="case-link">
-                        {w.ctaText ? w.ctaText.replace(/\s*[→↗]+$/, "") : "View Case Study"}{w.ctaLink?.startsWith("http") ? " ↗" : " →"}
-                      </span>
-                    </div>
-                  </SpotlightCard>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </div>
-        </section>
-      )}
-
-      {/* ── PORTFOLIO PREVIEW (9 CATEGORIES BENTO GRID) ──────────────────── */}
-      {vis.portfolio !== false && (
-        <section className="section-dark" id="portfolio-preview">
-          <div className="section-wrap">
-            <Reveal preset="fade-up" className="section-header-split">
-              <div className="section-header">
-                <span className="section-kicker kicker-light">Software &amp; Systems Portfolio</span>
-                <h2 className="section-h2">Client Systems, Demonstrations &amp; Prototypes.</h2>
-                <p className="section-sub">
-                  Filter by engineering domain. Every entry clearly marks whether it is a live Client Project, System
-                  Demonstration, or Internal Prototype.
-                </p>
-              </div>
-              <Link href="/portfolio" className="btn-outline-light">
-                All Case Studies &amp; Architectures →
-              </Link>
-            </Reveal>
-            <PortfolioSection limit={6} />
-          </div>
-        </section>
-      )}
-
-      {/* ── 9-STEP DEVELOPMENT LIFECYCLE ─────────────────────────────────── */}
-      {vis.process !== false && (
-        <section className="section-obsidian-alt" id="process">
-          <div className="section-wrap">
-            <Reveal preset="fade-up" className="section-header">
-              <span className="section-kicker kicker-light">Software Development Lifecycle</span>
-              <h2 className="section-h2">Nine structured engineering phases from discovery to long-term support.</h2>
-              <p className="section-sub">
-                Every application follows disciplined requirement analysis, architecture design, QA testing, and
-                production operations.
-              </p>
-            </Reveal>
-            <LifecycleTimeline />
-          </div>
-        </section>
-      )}
-
-      {/* ── TECHNOLOGY STACK ─────────────────────────────────────────────── */}
-      {vis.techstack !== false && (
-        <section className="section-dark" id="tech-stack">
-          <div className="section-wrap">
-            <Reveal preset="fade-up" className="section-header">
-              <span className="section-kicker kicker-light">Language-Agnostic · Client Requirement Driven</span>
-              <h2 className="section-h2">All major languages &amp; stacks — chosen for your project needs.</h2>
-              <p className="section-sub">
-                We don&apos;t force clients into a single stack. Whether your project requires Java, Python, .NET, PHP,
-                Node.js, Go, React, Flutter, or Embedded C/C++, our engineering team adapts to your requirements and
-                existing enterprise ecosystem.
-              </p>
-            </Reveal>
-            <StaggerContainer className="stack-grid" staggerDelay={0.07}>
-              {TECH_STACK.map((g) => (
-                <StaggerItem key={g.category}>
-                  <SpotlightCard className="stack-card" accent={g.accent}>
-                    <div className="stack-card-head">
-                      <span
-                        className="div-dot"
-                        style={{ background: g.accent, boxShadow: `0 0 10px ${g.accent}` }}
-                      />
-                      <span>{g.category}</span>
-                    </div>
-                    <div className="stack-tags">
-                      {g.items.map((item) => (
-                        <span key={item} className="stack-tag">
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </SpotlightCard>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </div>
-        </section>
-      )}
-
-      {/* ── ENTERPRISE GOVERNANCE & ENGAGEMENT MODELS ────────────────────── */}
-      <section className="section-obsidian-alt" id="enterprise-standards">
+      {/* ── 3. THREE CORE DOORS / BENTO SHOWCASE ──────────────────────────── */}
+      <section className="section-obsidian-alt" id="doors">
         <div className="section-wrap">
           <Reveal preset="fade-up" className="section-header-split">
             <div className="section-header">
-              <span className="section-kicker kicker-light">Enterprise Governance &amp; Engagement Models</span>
-              <h2 className="section-h2">Structured delivery built for organizational scale.</h2>
+              <span className="section-kicker kicker-light">Core Engineering &amp; Fabrication Hub</span>
+              <h2 className="section-h2">Three Specialized Divisions. One Dedicated Studio.</h2>
               <p className="section-sub">
-                Clear milestone accountability, security-first RBAC architecture, formal QA sign-off, and full source
-                code ownership across every engagement.
+                We eliminated generic agency bloat. Buildroonix directly engineers software products, crafts personalized 3D lithophane lamps and figurines, and builds turnkey electronics projects for engineering students.
               </p>
             </div>
             <QuoteTriggerButton
-              label="Schedule Architecture Call"
+              label="Discuss Your Requirements"
               showArrow
               className="btn-outline-light"
             />
           </Reveal>
 
+          <StaggerContainer className="audience-grid" staggerDelay={0.09}>
+            {/* Door 1: Software Systems */}
+            <StaggerItem>
+              <SpotlightCard className="audience-card" accent="#7c3aed">
+                <div className="audience-card-img" style={{ position: "relative" }}>
+                  <img src="/assets/software_preview.png" alt="Buildroonix Software Division" loading="lazy" />
+                  <span style={{ position: "absolute", bottom: "10px", right: "10px", background: "rgba(28,25,23,0.85)", color: "#a78bfa", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontFamily: "var(--f-mono)" }}>
+                    LIVE PRODUCTION SUITES
+                  </span>
+                </div>
+                <div className="audience-card-body">
+                  <span className="audience-tag" style={{ color: "#7c3aed" }}>DIVISION 01 · PROPRIETARY SOFTWARE</span>
+                  <h3>Library OS &amp; Gym OS</h3>
+                  <p>
+                    Engineered with strict role-based access control (RBAC). <strong>Library OS</strong> automates book cataloging, barcode/RFID circulation, and overdue fine ledgers across Manager, Admin, and Superadmin roles. <strong>Gym OS</strong> equips Trainers, Managers, and Admins with member workout plans, QR gate check-ins, and automated WhatsApp dues.
+                  </p>
+                  <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: "8px", paddingTop: "12px" }}>
+                    <div style={{ fontSize: "11px", color: "var(--ink-secondary)", display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                      <span className="tag-chip">✓ Multi-Role RBAC</span>
+                      <span className="tag-chip">✓ WhatsApp Alerts</span>
+                      <span className="tag-chip">✓ PG/School SaaS Coming</span>
+                    </div>
+                    <Link href="#software-showcase" className="audience-cta" style={{ color: "#7c3aed" }}>
+                      Inspect Software Workbench ↓
+                    </Link>
+                  </div>
+                </div>
+              </SpotlightCard>
+            </StaggerItem>
+
+            {/* Door 2: 3D Printing & Lithophanes */}
+            <StaggerItem>
+              <SpotlightCard className="audience-card" accent="#059669">
+                <div className="audience-card-img" style={{ position: "relative" }}>
+                  <img src="/assets/3d/heart-lithophane-sample.webp" alt="3D Lithophane Lamps and Figurines" loading="lazy" />
+                  <span style={{ position: "absolute", bottom: "10px", right: "10px", background: "rgba(28,25,23,0.85)", color: "#10b981", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontFamily: "var(--f-mono)" }}>
+                    3D.BUILDROONIX.COM
+                  </span>
+                </div>
+                <div className="audience-card-body">
+                  <span className="audience-tag" style={{ color: "#059669" }}>DIVISION 02 · 3D FABRICATION STORE</span>
+                  <h3>Lithophane Lamps &amp; Figurines</h3>
+                  <p>
+                    Our dedicated 3D storefront at <strong>3d.buildroonix.com</strong> transforms your photos into glowing 3D lithophane night lamps (heart, curved, rectangular, and hexagonal frames) and manufactures high-detail anime figurines, vehicle models, and custom functional prints.
+                  </p>
+                  <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: "8px", paddingTop: "12px" }}>
+                    <div style={{ fontSize: "11px", color: "var(--ink-secondary)", display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                      <span className="tag-chip">✓ 2–3 Day Dispatch</span>
+                      <span className="tag-chip">✓ Instant Photo Upload</span>
+                      <span className="tag-chip">✓ Pan-India Shipping</span>
+                    </div>
+                    <a
+                      href="https://3d.buildroonix.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="audience-cta"
+                      style={{ color: "#059669", fontWeight: 700 }}
+                    >
+                      Shop 3D Store: 3d.buildroonix.com ↗
+                    </a>
+                  </div>
+                </div>
+              </SpotlightCard>
+            </StaggerItem>
+
+            {/* Door 3: Student Embedded & IoT Projects */}
+            <StaggerItem>
+              <SpotlightCard className="audience-card" accent="#d97706">
+                <div className="audience-card-img" style={{ position: "relative" }}>
+                  <img src="/assets/student_project.png" alt="Student IoT and Embedded Electronics Projects" loading="lazy" />
+                  <span style={{ position: "absolute", bottom: "10px", right: "10px", background: "rgba(28,25,23,0.85)", color: "#f59e0b", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontFamily: "var(--f-mono)" }}>
+                    100% VIVA READY
+                  </span>
+                </div>
+                <div className="audience-card-body">
+                  <span className="audience-tag" style={{ color: "#d97706" }}>DIVISION 03 · STUDENT ELECTRONICS</span>
+                  <h3>Student IoT &amp; Embedded Kits</h3>
+                  <p>
+                    Turnkey final-year engineering projects for B.Tech, Polytechnic, and Diploma students. We engineer fully assembled, <strong>100% working hardware circuits</strong> (ESP32/STM32/Arduino) inside custom 3D enclosures, bundled with a complete report, PPT presentation, and viva defense guide.
+                  </p>
+                  <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: "8px", paddingTop: "12px" }}>
+                    <div style={{ fontSize: "11px", color: "var(--ink-secondary)", display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                      <span className="tag-chip">✓ Tested Hardware Circuit</span>
+                      <span className="tag-chip">✓ 3D Custom Body</span>
+                      <span className="tag-chip">✓ Report &amp; Viva Q&amp;A</span>
+                    </div>
+                    <Link href="/portfolio/student-iot-embedded-projects" className="audience-cta" style={{ color: "#d97706" }}>
+                      Explore Student Project Packages →
+                    </Link>
+                  </div>
+                </div>
+              </SpotlightCard>
+            </StaggerItem>
+          </StaggerContainer>
+        </div>
+      </section>
+
+      {/* ── 4. INTERACTIVE SOFTWARE & PRODUCT WORKBENCH ───────────────────── */}
+      <section className="section-dark" id="software-showcase">
+        <div className="section-wrap">
+          <Reveal preset="fade-up" className="section-header-split">
+            <div className="section-header">
+              <span className="section-kicker kicker-light">Interactive Product Workbench</span>
+              <h2 className="section-h2">Inspect Our Operational Software &amp; Systems.</h2>
+              <p className="section-sub">
+                Explore interactive role views and dashboard previews for Library OS, Gym OS, 3D Storefront, Student IoT hardware kits, and upcoming SaaS.
+              </p>
+            </div>
+            <Link href="/services/software-development" className="btn-primary">
+              Full Software Capabilities →
+            </Link>
+          </Reveal>
+          <SoftwareWorkbench />
+        </div>
+      </section>
+
+      {/* ── 5. BUYER & STUDENT GUARANTEES ─────────────────────────────────── */}
+      <section className="section-obsidian-alt" id="guarantees">
+        <div className="section-wrap">
+          <Reveal preset="fade-up" className="section-header">
+            <span className="section-kicker kicker-light">Operational Trust &amp; Standards</span>
+            <h2 className="section-h2">Strict Accountability. Clear Guarantees.</h2>
+            <p className="section-sub">
+              Every product, circuit, and software deployment from Buildroonix comes with verifiable quality standards and direct engineering support.
+            </p>
+          </Reveal>
+
           <StaggerContainer className="governance-grid" staggerDelay={0.08}>
             <StaggerItem>
-              <SpotlightCard className="gov-card" accent="#26a9ff">
-                <span className="gov-code">MODEL 01</span>
-                <h3>Fixed-Scope Turnkey Delivery</h3>
+              <SpotlightCard className="gov-card" accent="#059669">
+                <span className="gov-code" style={{ color: "#10b981" }}>GUARANTEE 01</span>
+                <h3>100% Tested Working Hardware</h3>
                 <p>
-                  Ideal for defined portals, corporate platforms, ERP modules, and hardware-connected MVPs with clear
-                  milestone sign-offs.
+                  Student project circuits and embedded prototypes are physically assembled and tested in our lab before dispatch. Includes test verification video.
                 </p>
               </SpotlightCard>
             </StaggerItem>
             <StaggerItem>
-              <SpotlightCard className="gov-card" accent="#26a9ff">
-                <span className="gov-code">MODEL 02</span>
-                <h3>Dedicated Engineering Partner</h3>
+              <SpotlightCard className="gov-card" accent="#d97706">
+                <span className="gov-code" style={{ color: "#f59e0b" }}>GUARANTEE 02</span>
+                <h3>2–3 Day Custom 3D Dispatch</h3>
                 <p>
-                  Continuous multi-sprint software development, feature roadmaps, DevOps operations, and priority
-                  maintenance SLAs.
+                  Lithophane photo lamps and figurines are 3D printed with premium PLA+/tough resin, carefully shock-packed, and shipped via insured pan-India express couriers.
                 </p>
               </SpotlightCard>
             </StaggerItem>
             <StaggerItem>
-              <SpotlightCard className="gov-card" accent="#ff7212">
-                <span className="gov-code">MODEL 03</span>
-                <h3>Modernization &amp; System Audit</h3>
+              <SpotlightCard className="gov-card" accent="#7c3aed">
+                <span className="gov-code" style={{ color: "#a78bfa" }}>GUARANTEE 03</span>
+                <h3>Strict Role-Based Security (RBAC)</h3>
                 <p>
-                  Upgrade legacy software, migrate fragile databases, harden APIs/RBAC, and eliminate operational
-                  bottlenecks safely.
+                  Our software enforces ironclad role separation (Manager, Admin, Trainer, Superadmin) with audit logs, automated cloud backups, and zero unauthorized data access.
                 </p>
               </SpotlightCard>
             </StaggerItem>
             <StaggerItem>
-              <SpotlightCard className="gov-card" accent="#10B981">
-                <span className="gov-code">MODEL 04</span>
-                <h3>Connected Hardware-to-Cloud R&amp;D</h3>
+              <SpotlightCard className="gov-card" accent="#059669">
+                <span className="gov-code" style={{ color: "#10b981" }}>GUARANTEE 04</span>
+                <h3>MSME &amp; GSTIN Registered Invoicing</h3>
                 <p>
-                  Unified teams executing PCB layout, ESP32 firmware, CAD enclosures, cloud APIs, and control
-                  dashboards simultaneously.
+                  Verified Indian enterprise with GSTIN 09HQHPD9487C1ZE in Varanasi, UP. Official GST tax invoices provided for institutions, businesses, and online buyers.
                 </p>
               </SpotlightCard>
             </StaggerItem>
           </StaggerContainer>
 
           <Reveal preset="scale-in" className="standards-bar">
-            <span>✓ Role-Based Access Control (RBAC)</span>
-            <span>✓ ACID / Atomic Data Integrity</span>
-            <span>✓ SSL &amp; NGINX Hardened Infrastructure</span>
-            <span>✓ Full Repository &amp; IP Ownership</span>
-            <span>✓ MSME &amp; GSTIN Compliant Invoicing</span>
+            <span>✓ Verified Working Hardware Guarantee</span>
+            <span>✓ 2–3 Day Pan-India 3D Dispatch</span>
+            <span>✓ Multi-Role RBAC Software Security</span>
+            <span>✓ Razorpay UPI, Cards &amp; NetBanking</span>
+            <span>✓ Direct WhatsApp Support (+91 9580181697)</span>
           </Reveal>
         </div>
       </section>
 
-      {/* ── CONNECTED ENGINEERING ECOSYSTEM ──────────────────────────────── */}
-      {vis.audience !== false && (
-        <section className="section-dark" id="ecosystem">
-          <div className="section-wrap">
-            <Reveal preset="fade-up" className="section-header">
-              <span className="section-kicker kicker-light">{content.audienceKicker}</span>
-              <h2 className="section-h2">{(content.audienceHeading || "").replace(/\n/g, " ")}</h2>
-            </Reveal>
-
-            <StaggerContainer className="audience-grid" staggerDelay={0.09}>
-              {audience.map((b, i) => (
-                <StaggerItem key={b.id || i}>
-                  <SpotlightCard className="audience-card" id={b.id || undefined} accent="#38BDF8">
-                    <div className="audience-card-img">
-                      <img src={b.imageUrl} alt={b.title} loading="lazy" />
-                    </div>
-                    <div className="audience-card-body">
-                      <span className="audience-tag">{b.tag}</span>
-                      <h3>{b.title}</h3>
-                      <p>{b.desc}</p>
-                      <Link href={b.ctaLink || "/services/software-development"} className="audience-cta">
-                        {b.ctaText}
-                      </Link>
-                    </div>
-                  </SpotlightCard>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </div>
-        </section>
-      )}
-
-
-
-      {/* ── TESTIMONIALS ─────────────────────────────────────────────────── */}
-      {vis.testimonials !== false && (
-        <section className="section-obsidian-alt" id="testimonials">
-          <div className="section-wrap">
-            <Reveal preset="fade-up" className="section-header">
-              <span className="section-kicker kicker-light">{content.testimonialsKicker}</span>
-              <h2 className="section-h2">{(content.testimonialsHeading || "").replace(/\n/g, " ")}</h2>
-            </Reveal>
-
-            <StaggerContainer className="testimonials-grid" staggerDelay={0.08}>
-              {testimonials.map((t, i) => (
-                <StaggerItem key={i}>
-                  <SpotlightCard className="testimonial-card" accent="#26a9ff">
-                    <div className="testimonial-head-row">
-                      <div className="testimonial-stars">
-                        {"★".repeat(Math.min(5, Math.max(1, Number(t.stars) || 5)))}
-                      </div>
-                      <span className="testimonial-mark" aria-hidden="true">
-                        &ldquo;
-                      </span>
-                    </div>
-                    <p className="testimonial-quote">&ldquo;{t.quote}&rdquo;</p>
-                    <div className="testimonial-author">
-                      <div className="testimonial-avatar">
-                        {t.avatar ? (
-                          <img src={t.avatar} alt={t.name} />
-                        ) : (
-                          <span>{(t.name || "B").charAt(0)}</span>
-                        )}
-                      </div>
-                      <div>
-                        <div className="testimonial-name">{t.name}</div>
-                        <div className="testimonial-role">{t.role}</div>
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </div>
-        </section>
-      )}
-
-      {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-      {vis.faqs !== false && (
-        <section className="section-dark" id="faq">
-          <div className="section-wrap">
-            <Reveal preset="fade-up" className="section-header">
-              <span className="section-kicker kicker-light">{content.faqKicker}</span>
-              <h2 className="section-h2">{content.faqHeading}</h2>
-              <p className="section-sub">{content.faqSubhead}</p>
-            </Reveal>
-            <FaqAccordion items={faqs} />
-          </div>
-        </section>
-      )}
-
-      {/* ── VISION / PHILOSOPHY ──────────────────────────────────────────── */}
-      {vis.vision !== false && (
-        <section className="section-obsidian-alt" id="vision">
-          <Reveal preset="fade-up" className="vision-inner">
-            <div>
-              <span className="section-kicker kicker-light">Engineering Philosophy</span>
-              <h2 className="vision-h2">
-                Requirements first.
-                <br />
-                Connected execution.
-              </h2>
-            </div>
-            <div>
-              <p className="vision-body">{content.manifestoText}</p>
-              <div className="vision-pillars">
-                <div className="pillar">
-                  <span className="pillar-icon">⬡</span>
-                  <span>Clean Software Architecture</span>
-                </div>
-                <div className="pillar">
-                  <span className="pillar-icon">◈</span>
-                  <span>Hardware-to-Cloud Integration</span>
-                </div>
-                <div className="pillar">
-                  <span className="pillar-icon">◉</span>
-                  <span>Ongoing Technical Support</span>
-                </div>
-              </div>
-            </div>
+      {/* ── 6. AUTHENTIC REVIEWS / TESTIMONIALS ────────────────────────────── */}
+      <section className="section-dark" id="testimonials">
+        <div className="section-wrap">
+          <Reveal preset="fade-up" className="section-header">
+            <span className="section-kicker kicker-light">Customer &amp; Student Feedback</span>
+            <h2 className="section-h2">Trusted by Gyms, Libraries, Students &amp; 3D Customers.</h2>
+            <p className="section-sub">
+              Real experiences from clients managing operations with our software, students presenting final-year IoT projects, and customers gifting 3D lithophane lamps.
+            </p>
           </Reveal>
-        </section>
-      )}
 
+          <StaggerContainer className="testimonials-grid" staggerDelay={0.08}>
+            {testimonials.map((t, i) => (
+              <StaggerItem key={i}>
+                <SpotlightCard className="testimonial-card" accent="#7c3aed">
+                  <div className="testimonial-head-row">
+                    <div className="testimonial-stars" style={{ color: "#d97706" }}>
+                      {"★".repeat(Math.min(5, Math.max(1, Number(t.stars) || 5)))}
+                    </div>
+                    <span className="testimonial-mark" aria-hidden="true">
+                      &ldquo;
+                    </span>
+                  </div>
+                  <p className="testimonial-quote">&ldquo;{t.quote}&rdquo;</p>
+                  <div className="testimonial-author">
+                    <div className="testimonial-avatar" style={{ background: "rgba(124, 58, 237, 0.15)", color: "#a78bfa" }}>
+                      {t.avatar ? (
+                        <img src={t.avatar} alt={t.name} />
+                      ) : (
+                        <span>{(t.name || "B").charAt(0)}</span>
+                      )}
+                    </div>
+                    <div>
+                      <div className="testimonial-name">{t.name}</div>
+                      <div className="testimonial-role">{t.role}</div>
+                    </div>
+                  </div>
+                </SpotlightCard>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </div>
+      </section>
+
+      {/* ── 7. PRACTICAL FAQS ─────────────────────────────────────────────── */}
+      <section className="section-obsidian-alt" id="faq">
+        <div className="section-wrap">
+          <Reveal preset="fade-up" className="section-header">
+            <span className="section-kicker kicker-light">Frequently Asked Questions</span>
+            <h2 className="section-h2">Clear Answers to Common Questions.</h2>
+            <p className="section-sub">
+              Learn about our software demos, 3D printing ordering process, student project viva support, and verified Indian business registration.
+            </p>
+          </Reveal>
+          <FaqAccordion items={faqs} />
+        </div>
+      </section>
+
+      {/* ── 8. FOOTER ─────────────────────────────────────────────────────── */}
       <SiteFooter content={content} />
     </>
   );

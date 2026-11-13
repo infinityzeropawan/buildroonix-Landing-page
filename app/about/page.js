@@ -42,11 +42,11 @@ export default function AboutPage() {
           <div className="breadcrumb">
             <Link href="/">Home</Link>
             <span>/</span>
-            <span style={{ color: "#26a9ff" }}>About Buildroonix</span>
+            <span style={{ color: "#7c3aed" }}>About Buildroonix</span>
           </div>
           <Reveal preset="blur-in" immediate delay={0.04}>
             <span className="section-kicker kicker-light">
-              <span className="live-dot" style={{ background: "#26a9ff" }} />
+              <span className="live-dot" style={{ background: "#7c3aed" }} />
               INTEGRATED ENGINEERING STUDIO · INDIA
             </span>
             <h1>Purpose-Built Software. Precision 3D Fabrication. Embedded Electronics.</h1>
@@ -88,11 +88,11 @@ export default function AboutPage() {
 
           <StaggerContainer className="divisions-grid" staggerDelay={0.08} style={{ marginTop: "32px" }}>
             <StaggerItem>
-              <div className="spotlight-card" style={{ "--spot-accent": "#26a9ff", height: "100%" }}>
+              <div className="spotlight-card" style={{ "--spot-accent": "#7c3aed", height: "100%" }}>
                 <div className="spotlight-glow" />
                 <div className="spotlight-content">
                   <div className="div-num">
-                    <span className="div-dot" style={{ background: "#26a9ff", boxShadow: "0 0 10px #26a9ff" }} />
+                    <span className="div-dot" style={{ background: "#7c3aed", boxShadow: "0 0 10px #7c3aed" }} />
                     PILLAR 01
                   </div>
                   <h3>Proprietary Software Systems</h3>
@@ -102,7 +102,7 @@ export default function AboutPage() {
                     attendance, and WhatsApp payment notifications with zero vendor lock-in.
                   </p>
                   <div style={{ marginTop: "16px" }}>
-                    <Link href="/portfolio/library-management-system" className="btn-link-cyan" style={{ fontSize: "12px", color: "#38bdf8" }}>
+                    <Link href="/portfolio/library-management-system" className="btn-link-cyan" style={{ fontSize: "12px", color: "#a78bfa" }}>
                       Explore Library OS →
                     </Link>
                   </div>
@@ -265,7 +265,7 @@ export default function AboutPage() {
               <div className="lrc-icon"><ShieldCheck size={18} /></div>
               <div className="lrc-body">
                 <span className="lrc-label">GST Tax Identification (GSTIN)</span>
-                <h4 style={{ color: "#26a9ff" }}>{BUILDROONIX_BRAND.gstin}</h4>
+                <h4 style={{ color: "#7c3aed" }}>{BUILDROONIX_BRAND.gstin}</h4>
                 <p>Legitimate B2B tax invoicing with input credit support for Indian corporate clients.</p>
               </div>
             </StaggerItem>
@@ -296,7 +296,7 @@ export default function AboutPage() {
         <div className="section-wrap">
           <Reveal preset="fade-up" className="about-final-cta-card">
             <div className="afc-cta-copy">
-              <span className="section-kicker kicker-light" style={{ color: "#26a9ff" }}>
+              <span className="section-kicker kicker-light" style={{ color: "#7c3aed" }}>
                 <Sparkles size={13} /> Project Discussion &amp; Inquiries
               </span>
               <h2>Ready to discuss your software system or custom 3D project?</h2>

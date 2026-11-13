@@ -110,10 +110,10 @@ export function PortfolioSection({ showTypeFilter = false, limit = 0 }) {
                   exit={{ opacity: 0, scale: 0.93, y: 12 }}
                   transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
                   className={`port-card bento-port-card ${isLarge ? "bento-large" : ""}`}
-                  style={{ "--card-accent": p.accent || "#26a9ff" }}
+                  style={{ "--card-accent": p.accent || "#7c3aed" }}
                 >
                   <div className="port-card-top">
-                    <span className="port-cat" style={{ color: p.accent || "#26a9ff" }}>
+                    <span className="port-cat" style={{ color: p.accent || "#7c3aed" }}>
                       {p.category}
                     </span>
                     <span className={`port-type-badge ${badgeCls}`}>{p.projectType}</span>

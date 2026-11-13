@@ -207,7 +207,7 @@ export function SpotlightCard({
   className = "",
   href,
   style,
-  accent = "#26a9ff",
+  accent = "#7c3aed",
   id,
   ...rest
 }) {

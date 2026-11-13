@@ -66,8 +66,8 @@ export function LifecycleTimeline() {
           />
           <defs>
             <linearGradient id="lifecycleBeam" x1="0" y1="0" x2="1000" y2="0" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#26a9ff" />
-              <stop offset="50%" stopColor="#26a9ff" />
+              <stop offset="0%" stopColor="#7c3aed" />
+              <stop offset="50%" stopColor="#7c3aed" />
               <stop offset="100%" stopColor="#10b981" />
             </linearGradient>
           </defs>

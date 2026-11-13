@@ -19,7 +19,7 @@ export default function ShippingPolicyPage() {
           <div className="breadcrumb">
             <Link href="/">Home</Link>
             <span>/</span>
-            <span style={{ color: "#26a9ff" }}>Shipping Policy</span>
+            <span style={{ color: "#7c3aed" }}>Shipping Policy</span>
           </div>
           <span className="section-kicker kicker-light">
             <Truck size={13} style={{ display: "inline", verticalAlign: "middle", marginRight: "6px" }} />
@@ -55,15 +55,15 @@ export default function ShippingPolicyPage() {
               </p>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px", marginTop: "16px" }}>
                 <div style={{ background: "rgba(10, 15, 26, 0.7)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "16px" }}>
-                  <h4 style={{ color: "#26a9ff", fontSize: "15px", marginBottom: "6px" }}>Metro &amp; Tier-1 Cities</h4>
+                  <h4 style={{ color: "#7c3aed", fontSize: "15px", marginBottom: "6px" }}>Metro &amp; Tier-1 Cities</h4>
                   <p style={{ fontSize: "13px", color: "var(--ink-secondary)" }}>2 to 4 business days after parcel dispatch (Delhi NCR, Mumbai, Bengaluru, Hyderabad, Kolkata, Chennai).</p>
                 </div>
                 <div style={{ background: "rgba(10, 15, 26, 0.7)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "16px" }}>
-                  <h4 style={{ color: "#26a9ff", fontSize: "15px", marginBottom: "6px" }}>Tier-2 &amp; Regional Towns</h4>
+                  <h4 style={{ color: "#7c3aed", fontSize: "15px", marginBottom: "6px" }}>Tier-2 &amp; Regional Towns</h4>
                   <p style={{ fontSize: "13px", color: "var(--ink-secondary)" }}>3 to 5 business days after parcel dispatch across Uttar Pradesh, Bihar, Maharashtra, Rajasthan, MP, and southern states.</p>
                 </div>
                 <div style={{ background: "rgba(10, 15, 26, 0.7)", border: "1px solid var(--border-subtle)", borderRadius: "10px", padding: "16px" }}>
-                  <h4 style={{ color: "#26a9ff", fontSize: "15px", marginBottom: "6px" }}>Remote &amp; Island Regions</h4>
+                  <h4 style={{ color: "#7c3aed", fontSize: "15px", marginBottom: "6px" }}>Remote &amp; Island Regions</h4>
                   <p style={{ fontSize: "13px", color: "var(--ink-secondary)" }}>5 to 8 business days via Speed Post (NE states, J&amp;K, A&amp;N islands).</p>
                 </div>
               </div>
@@ -99,8 +99,8 @@ export default function ShippingPolicyPage() {
               <p>Need urgent delivery or special event deadline coordination? Contact our dispatch desk:</p>
               <div style={{ background: "rgba(10, 15, 26, 0.7)", border: "1px solid var(--border-subtle)", borderRadius: "12px", padding: "18px 24px", marginTop: "12px" }}>
                 <p><strong>Buildroonix Dispatch Desk</strong></p>
-                <p>WhatsApp / Call: <a href="tel:+919580181697" style={{ color: "#26a9ff" }}>+91 9580181697</a></p>
-                <p>Email: <a href="mailto:support@buildroonix.com" style={{ color: "#26a9ff" }}>support@buildroonix.com</a></p>
+                <p>WhatsApp / Call: <a href="tel:+919580181697" style={{ color: "#7c3aed" }}>+91 9580181697</a></p>
+                <p>Email: <a href="mailto:support@buildroonix.com" style={{ color: "#7c3aed" }}>support@buildroonix.com</a></p>
               </div>
             </div>
 

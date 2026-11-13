@@ -169,7 +169,7 @@ export function SoftwareWorkbench() {
                       <img
                         src={current.studioImage || "/assets/showcase_software_dev.jpg"}
                         alt={`${current.title} · Buildroonix Production Environment`}
-                        style={{ width: "100%", height: "100%", objectFit: "contain", background: "#060911" }}
+                        style={{ width: "100%", height: "100%", objectFit: "contain", background: "#1c1917" }}
                       />
                       <div className="video-hud-badge">
                         <span className="hud-pulse" />

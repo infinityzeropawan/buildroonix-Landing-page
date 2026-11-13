@@ -110,7 +110,7 @@ export default async function ServiceDetailPage({ params }) {
           <StaggerContainer className="subpage-grid-2" staggerDelay={0.08}>
             {svc.capabilities.map((c) => (
               <StaggerItem key={c.title}>
-                <SpotlightCard className="capability-box" id={c.id || undefined} accent={svc.accent || "#26a9ff"}>
+                <SpotlightCard className="capability-box" id={c.id || undefined} accent={svc.accent || "#7c3aed"}>
                   <h3>{c.title}</h3>
                   <p>{c.desc}</p>
                 </SpotlightCard>
@@ -191,9 +191,9 @@ export default async function ServiceDetailPage({ params }) {
                       : "demo";
                 return (
                   <StaggerItem key={p.slug}>
-                    <SpotlightCard href={`/portfolio/${p.slug}`} className="port-card" accent={p.accent || "#26a9ff"}>
+                    <SpotlightCard href={`/portfolio/${p.slug}`} className="port-card" accent={p.accent || "#7c3aed"}>
                       <div className="port-card-top">
-                        <span className="port-cat" style={{ color: p.accent || "#26a9ff" }}>{p.category}</span>
+                        <span className="port-cat" style={{ color: p.accent || "#7c3aed" }}>{p.category}</span>
                         <span className={`port-type-badge ${badgeCls}`}>{p.projectType}</span>
                       </div>
                       <div className="port-thumb">

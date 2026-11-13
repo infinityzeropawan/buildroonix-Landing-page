@@ -19,7 +19,7 @@ export default function RefundPolicyPage() {
           <div className="breadcrumb">
             <Link href="/">Home</Link>
             <span>/</span>
-            <span style={{ color: "#26a9ff" }}>Refund Policy</span>
+            <span style={{ color: "#7c3aed" }}>Refund Policy</span>
           </div>
           <span className="section-kicker kicker-light">
             <RefreshCw size={13} style={{ display: "inline", verticalAlign: "middle", marginRight: "6px" }} />
@@ -77,8 +77,8 @@ export default function RefundPolicyPage() {
               <p>To request assistance with an order, please reach out with your order number:</p>
               <div style={{ background: "rgba(10, 15, 26, 0.7)", border: "1px solid var(--border-subtle)", borderRadius: "12px", padding: "18px 24px", marginTop: "12px" }}>
                 <p><strong>Buildroonix Customer Support</strong></p>
-                <p>WhatsApp / Call: <a href="tel:+919580181697" style={{ color: "#26a9ff" }}>+91 9580181697</a></p>
-                <p>Email: <a href="mailto:support@buildroonix.com" style={{ color: "#26a9ff" }}>support@buildroonix.com</a></p>
+                <p>WhatsApp / Call: <a href="tel:+919580181697" style={{ color: "#7c3aed" }}>+91 9580181697</a></p>
+                <p>Email: <a href="mailto:support@buildroonix.com" style={{ color: "#7c3aed" }}>support@buildroonix.com</a></p>
                 <p>Support Hours: Mon – Sat: 9:00 AM – 8:00 PM IST</p>
               </div>
             </div>

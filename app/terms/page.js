@@ -19,7 +19,7 @@ export default function TermsPage() {
           <div className="breadcrumb">
             <Link href="/">Home</Link>
             <span>/</span>
-            <span style={{ color: "#26a9ff" }}>Terms of Service</span>
+            <span style={{ color: "#7c3aed" }}>Terms of Service</span>
           </div>
           <span className="section-kicker kicker-light">
             <Scale size={13} style={{ display: "inline", verticalAlign: "middle", marginRight: "6px" }} />
